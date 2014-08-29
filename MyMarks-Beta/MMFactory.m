@@ -1,0 +1,58 @@
+//
+//  MMFactory.m
+//  Notenapplikation
+//
+//  Created by Bastian Morath on 29/08/14.
+//  Copyright (c) 2014 Bastian Morath. All rights reserved.
+//
+
+#import "MMFactory.h"
+
+@implementation MMFactory
+
++(float)plusPoints{
+    float plusPoints =0;
+    for (Subject *eachSubject in [[DataStore defaultStore]getSubjects])
+    {
+        if(eachSubject.average !=0)
+        {
+            if (round(eachSubject.average * 2) / 2<4) //Wenn der gerundete Durchscnitt kleiner als 4 ist, wird die if-Schlaufe durchlaufen
+            {
+                plusPoints -= 2* (4-round(eachSubject.average * 2) / 2);// Subtrahiert zweimal den Wert unter 4
+            } else
+            {
+                plusPoints += (round(eachSubject.average * 2) / 2)-4;   // Addiert einmal den Wert über 4
+            }
+        }
+    }
+    return plusPoints;
+}
+
++(UIBarButtonItem *)appIconItem{
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    UIImage* appImage = [UIImage imageNamed:@"App Icon.png"];
+    [imageView setImage:appImage];
+    
+    UIBarButtonItem *showIcon =[[UIBarButtonItem alloc] initWithCustomView:imageView];
+    
+    return showIcon;
+}
+
++(UIBarButtonItem *)editIconItemForClass:(id)class{
+    UIImage* image = [UIImage imageNamed:@"EditIcon.png"];
+    CGRect frameimg = CGRectMake(0, 0, 30, 30);
+    UIButton *addButton = [[UIButton alloc] initWithFrame:frameimg];
+    [addButton setBackgroundImage:image forState:UIControlStateNormal];
+    [addButton addTarget:class action:@selector(showActionSheet)
+        forControlEvents:UIControlEventTouchUpInside];
+    [addButton setShowsTouchWhenHighlighted:YES];
+    [addButton.layer setBorderWidth:0.7];
+    [addButton.layer setCornerRadius:5.0];
+    [addButton.layer setBorderColor:[[UIColor whiteColor] CGColor]];
+    
+    UIBarButtonItem *editBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:addButton];
+    
+    return editBarButtonItem;
+
+}
+@end

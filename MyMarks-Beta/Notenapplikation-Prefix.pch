@@ -1,0 +1,21 @@
+//
+//  Prefix header
+//
+//  Hier importierte Header-Files werden in allen Klassen des Projektes automatisch importiert
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+    #import "DataStore.h"
+    #import "MMFactory.h"
+
+
+#endif
