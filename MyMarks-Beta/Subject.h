@@ -2,7 +2,7 @@
 //  Subject.h
 //  Notenapplikation
 //
-//  Created by Bastian Morath on 29/08/14.
+//  Created by Bastian Morath on 31/08/14.
 //  Copyright (c) 2014 Bastian Morath. All rights reserved.
 //
 
@@ -14,10 +14,8 @@
 @interface Subject : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * position;
 @property (nonatomic, retain) NSSet *exam;
-
--(float)average;
-
 @end
 
 @interface Subject (CoreDataGeneratedAccessors)
