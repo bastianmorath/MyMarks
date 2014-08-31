@@ -166,13 +166,21 @@ static DataStore *defaultStore;
 /* ------------------  Spezifische Funktionen ----------------------------------- */
 
 
--(void)createSubjectWithName:(NSString *)name{
+-(void)createSubjectWithName:(NSString *)name AndWeighting:(float)weighting{
     Subject *subject = [self addObjectForName:@"Subject"];
     subject.name= name;
+    if (weighting) {
+        subject.weighting = [NSNumber numberWithFloat:weighting];
+    } else {
+        subject.weighting = @1;
+    }
+    //Die Prüfung wird an letzter Position eingefügt
+    subject.position = [NSNumber numberWithInt:[[self getSubjects]count]-1];
     [self storeData];
 }
 
 -(void)addExamWithData:(NSDictionary *)data ToSubject:(Subject *)subject{
+    
     Exam *exam = [self addObjectForName:@"Exam"];
     exam.mark = [data objectForKey:@"mark"];
     exam.weighting = [data objectForKey:@"weighting"];
@@ -185,7 +193,9 @@ static DataStore *defaultStore;
 }
 
 -(NSArray *)getSubjects{
-    return [self performFetchForEntity:@"Subject" WithPredicate:nil AndSortDescriptor:nil];
+    NSSortDescriptor *sDescriptor = [[NSSortDescriptor alloc]initWithKey:@"position" ascending:NO];
+    NSArray *descriptors = @[sDescriptor];
+    return [self performFetchForEntity:@"Subject" WithPredicate:nil AndSortDescriptor:descriptors];
 
 }
 

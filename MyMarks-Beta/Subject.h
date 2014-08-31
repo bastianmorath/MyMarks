@@ -15,7 +15,10 @@
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * position;
+@property (nonatomic, retain) NSNumber * weighting;
 @property (nonatomic, retain) NSSet *exam;
+
+-(float)average;
 @end
 
 @interface Subject (CoreDataGeneratedAccessors)

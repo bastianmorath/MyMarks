@@ -18,13 +18,14 @@
         {
             if (round(eachSubject.average * 2) / 2<4) //Wenn der gerundete Durchscnitt kleiner als 4 ist, wird die if-Schlaufe durchlaufen
             {
-                plusPoints -= 2* (4-round(eachSubject.average * 2) / 2);// Subtrahiert zweimal den Wert unter 4
+                plusPoints -= eachSubject.weighting.floatValue * 2* (4-round(eachSubject.average * 2) / 2);// Subtrahiert zweimal den Wert unter 4
             } else
             {
-                plusPoints += (round(eachSubject.average * 2) / 2)-4;   // Addiert einmal den Wert über 4
+                plusPoints += eachSubject.weighting.floatValue * (round(eachSubject.average * 2) / 2)-4;   // Addiert einmal den Wert über 4
             }
         }
     }
+    
     return plusPoints;
 }
 
@@ -54,5 +55,29 @@
     
     return editBarButtonItem;
 
+}
+
++(NSString *)NSStringFromDate:(NSDate*)date{
+    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_CH"];
+    NSString *dateString = [NSDateFormatter dateFormatFromTemplate:@"EdMMM" options:0 locale:usLocale];
+    
+    NSDateFormatter *df = [[NSDateFormatter alloc]init];
+    df.dateFormat = dateString;
+    
+    
+    
+    return [NSString stringWithFormat: @"%@", [df stringFromDate:date]] ;
+}
+
++(NSDate *)NSDateFromString:(NSString*)string{
+    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_CH"];
+    NSString *dateString = [NSDateFormatter dateFormatFromTemplate:@"EdMMM" options:0 locale:usLocale];
+    
+    NSDateFormatter *df = [[NSDateFormatter alloc]init];
+    df.dateFormat = dateString;
+    
+    
+    
+    return [df dateFromString:string];
 }
 @end

@@ -42,7 +42,7 @@
 
 /* ------------------  Spezifische Funktionen ----------------------------------- */
 
--(void)createSubjectWithName:(NSString *)name;
+-(void)createSubjectWithName:(NSString *)name AndWeighting:(float)weighting;
 
 -(void)addExamWithData:(NSDictionary *)data ToSubject:(Subject *)subject;
 

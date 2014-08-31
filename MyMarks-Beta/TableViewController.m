@@ -203,8 +203,7 @@
     {
         return NO;
     }
-    //MUSS NOCH GEMACHT WERDEN: PROBLEM IST DER NSSET
-    return NO;
+    return YES;
 }
 
 //Diese Methode wird aufgerufen, wenn eine Zelle verschoben wird
@@ -214,22 +213,40 @@
     NSUInteger destinationIndex = [destinationIndexPath row];
     
     //Der Table View wird nach 0.3 Sekunden neu geladen, damit es dynamischer aussieht
-    [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(breakBeforeReload) userInfo:nil repeats:NO];
+    //[NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(breakBeforeReload) userInfo:nil repeats:NO];
     
     //Die Verschiebung der Zellen wird auch im Datenspeicher  geändert
-   //[self.getSubjectArray exchangeObjectAtIndex:sourceIndex withObjectAtIndex:destinationIndex];
+    
+    [self changePosition:sourceIndex WithPosition:destinationIndex];
+    
+    [self.tableView reloadData];
 }
 
+-(void)changePosition:(int)sourceIndex WithPosition:(int)destinationIndex{
+    for (Subject *sourceSubject in [self getSubjectArray]) {
+        if ([sourceSubject.position intValue] == sourceIndex) {
+            for (Subject *destinationSubject in [self getSubjectArray]) {
+                if ([destinationSubject.position intValue] == destinationIndex) {
+                    sourceSubject.position = [NSNumber numberWithInt:destinationIndex];
+                    destinationSubject.position = [NSNumber numberWithInt:sourceIndex];
+                }
+            }
+        }
+    }
+}
 
 //Diese Methode ist dafür zuständig, dass die zu verschiebende Row nicht über den Facharray hinaus verschoben wird, sondern höchstens daran angehängt wird
 -(NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
+    
     if (proposedDestinationIndexPath.row >=[self.getSubjectArray count])
     {
+        
         NSIndexPath *lastCellIndexPath = [NSIndexPath indexPathForRow:[self.getSubjectArray count]-1 inSection:0];
             return lastCellIndexPath;
     } else
     {
+        
         return proposedDestinationIndexPath;
     }
 }
@@ -277,7 +294,11 @@
 }
 
 -(void)openPreferences{
-    
+    NSLog(@"Preferences");
+   
+
+
+    [self performSegueWithIdentifier:@"openPreferences" sender:nil];
 }
 #pragma mark - Navigation
 
@@ -410,7 +431,10 @@
                                                  delegate:self
                                         cancelButtonTitle:@"Abbrechen"
                                         otherButtonTitles:@"Fertig", nil];
-    [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
+    [alert setAlertViewStyle: UIAlertViewStyleLoginAndPasswordInput];
+    [[alert textFieldAtIndex:1] setSecureTextEntry:NO];
+    [[alert textFieldAtIndex:0] setPlaceholder:@"Name"];
+    [[alert textFieldAtIndex:1] setPlaceholder:@"Gewichtung"];
     [alert show];
 }
 
@@ -428,7 +452,7 @@
                 //Ein neues Fach wird erstellt und im DataHandler hinzugefügt. Der Text des AlertViews wird unter dem Fachnamen des Faches gespeichert.
                 NSString *name= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
                 
-                [[DataStore defaultStore]createSubjectWithName:name];
+                [[DataStore defaultStore]createSubjectWithName:name AndWeighting:[[alertView textFieldAtIndex:1].text floatValue]];
                 
                 [self.tableView reloadData];
             }
@@ -464,7 +488,7 @@
         [self exportMarks];
     }
     
-    if(buttonIndex == 4)
+    if(buttonIndex == 3)
     {
         [self openPreferences];
     }

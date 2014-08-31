@@ -31,7 +31,7 @@
     {
         self.MarkTextField.text = [NSString stringWithFormat:@"%.2f", self.exam.mark.floatValue];
         self.WeightingTextField.text = [NSString stringWithFormat:@"%.2f", self.exam.weighting.floatValue];
-        self.DateTextField.text = (NSString *)self.exam.date;
+        self.DateTextField.text = [MMFactory NSStringFromDate:self.exam.date];
         self.NotesTextField.text = [NSString stringWithFormat:@"%@", self.exam.notes];
         self.doneBarButton.enabled = YES;
     }
@@ -54,6 +54,10 @@
     self.DateTextField.layer.borderWidth = 1.0;
     self.DateTextField.layer.cornerRadius = 0.0f;
     
+    //Aktueller Tag als Default-Date einsetzen
+    self.DateTextField.text = [MMFactory NSStringFromDate:[NSDate date]];
+    
+    
     self.WeightingTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
     self.WeightingTextField.layer.borderColor = [[UIColor whiteColor]CGColor];
     self.WeightingTextField.layer.borderWidth = 1.0;
@@ -75,8 +79,6 @@
     [self.datePicker setHidden:YES];
      self.doneBarButton.enabled = NO;
     
-    //Scrollen im TabelView verhindern
-    [[self tableView]setBounces:NO];
 }
 
 
@@ -290,14 +292,24 @@
     {
         weighting = [NSNumber numberWithDouble:[self.WeightingTextField.text doubleValue]];
     }
-    NSLog(@"Date: %@", (NSDate *)self.datePicker.date);
-    NSDictionary *dict = @{@"mark": mark,
-                           @"weighting":weighting,
-                           @"date" : self.datePicker.date,
-                           @"notes":self.NotesTextField.text
-                           };
     
-    [[DataStore defaultStore] addExamWithData:dict ToSubject:self.subject];
+    if ([self.subject.exam containsObject:self.exam]) { //Exam wurde bearbeitet
+        self.exam.mark = mark;
+        self.exam.weighting = weighting;
+        self.exam.date = [MMFactory NSDateFromString:self.DateTextField.text];
+        self.exam.notes = self.NotesTextField.text;
+    } else {
+        //Neue Exam wurde erstellt
+        NSDictionary *dict = @{@"mark": mark,
+                               @"weighting":weighting,
+                               @"date" : [MMFactory NSDateFromString:self.DateTextField.text],
+                               @"notes":self.NotesTextField.text
+                               };
+        
+        [[DataStore defaultStore] addExamWithData:dict ToSubject:self.subject];
+
+    }
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

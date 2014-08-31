@@ -43,6 +43,7 @@
 {
     //Background setzen
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
+    
 }
 
 
@@ -93,7 +94,6 @@
 {
     //Section: 0
     if (indexPath.section ==0) {
-
         static NSString *CellIdentifier = @"averageCell";
         UITableViewCell *averageCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         
@@ -103,8 +103,7 @@
         averageCell.textLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:27.0];
      
         
-        //Verhindert, dass man mit der Cell interagieren kann (anklicken, verschieben, etc.)
-        [averageCell setUserInteractionEnabled:NO];
+    
         
         
         if ([[self.subject.exam allObjects] count]!=0 )
@@ -176,15 +175,7 @@
 {
     cell.textLabel.text = [NSString stringWithFormat:@"%@", exam.mark ];
     
-    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_CH"];
-    NSString *date = [NSDateFormatter dateFormatFromTemplate:@"EdMMM" options:0 locale:usLocale];
-    
-    NSDateFormatter *df = [[NSDateFormatter alloc]init];
-    df.dateFormat = date;
-
-
-    
-    cell.detailTextLabel.text = [NSString stringWithFormat: @"%@", [df stringFromDate:exam.date]] ;
+    cell.detailTextLabel.text = [MMFactory NSStringFromDate:exam.date];
 ;
 }
 

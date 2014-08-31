@@ -13,5 +13,6 @@
 +(float)plusPoints;
 +(UIBarButtonItem *)appIconItem;
 +(UIBarButtonItem *)editIconItemForClass:(id)class;
-
++(NSString *)NSStringFromDate:(NSDate*)date;
++(NSDate *)NSDateFromString:(NSString*)string;
 @end
