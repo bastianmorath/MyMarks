@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A329f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="158-KI-aPO">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
     </dependencies>
     <scenes>
@@ -44,7 +45,9 @@
                     <navigationItem key="navigationItem" title="Zeugnis" id="pU4-aW-uar"/>
                     <connections>
                         <segue destination="xAp-D7-3tr" kind="push" identifier="detailsegue" id="QhI-5Z-Ct0"/>
-                        <segue destination="UzC-4R-wuv" kind="modal" identifier="openPreferences" id="xpZ-Kk-Z5X"/>
+                        <segue destination="UzC-4R-wuv" kind="popover" identifier="openPreferences" popoverAnchorView="XLU-Oq-f94" id="xpZ-Kk-Z5X">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BCv-7L-xQM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -95,7 +98,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="I4r-Zd-CYv" kind="push" identifier="calculationTypePreferences" id="gsq-Ob-7hc"/>
+                                            <segue destination="I4r-Zd-CYv" kind="popover" identifier="calculationTypePreferences" popoverAnchorView="257-9L-Bw0" id="gsq-Ob-7hc">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                            </segue>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -121,6 +126,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="WJi-nD-zdw" kind="push" identifier="chooseSemester" id="BwR-O9-R1L"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -157,19 +165,41 @@
             </objects>
             <point key="canvasLocation" x="-250" y="874"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Title-->
         <scene sceneID="NJa-mn-kRK">
             <objects>
-                <tableViewController id="js3-uI-fhp" sceneMemberID="viewController">
+                <tableViewController id="js3-uI-fhp" customClass="MMChooseCalculationType" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qme-DL-Kjb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="UF7-qZ-7f5">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="egg-jd-us1" style="IBUITableViewCellStyleDefault" id="UF7-qZ-7f5">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UF7-qZ-7f5" id="CUl-6r-VyM">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Pluspunkte" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="egg-jd-us1">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="tN5-Qn-ftm" style="IBUITableViewCellStyleDefault" id="Yk8-K6-bNH">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yk8-K6-bNH" id="z8k-Yj-KXF">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Durchschnitt" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tN5-Qn-ftm">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -178,7 +208,7 @@
                             <outlet property="delegate" destination="js3-uI-fhp" id="tB9-hd-NHy"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="sDG-V2-8fP"/>
+                    <navigationItem key="navigationItem" title="Title" id="adc-O3-XG2"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ONm-5s-BqY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

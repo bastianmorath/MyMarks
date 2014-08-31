@@ -18,10 +18,10 @@
         {
             if (round(eachSubject.average * 2) / 2<4) //Wenn der gerundete Durchscnitt kleiner als 4 ist, wird die if-Schlaufe durchlaufen
             {
-                plusPoints -= eachSubject.weighting.floatValue * 2* (4-round(eachSubject.average * 2) / 2);// Subtrahiert zweimal den Wert unter 4
+                plusPoints -=  2* (4-round(eachSubject.average * 2) / 2);// Subtrahiert zweimal den Wert unter 4
             } else
             {
-                plusPoints += eachSubject.weighting.floatValue * (round(eachSubject.average * 2) / 2)-4;   // Addiert einmal den Wert über 4
+                plusPoints +=  (round(eachSubject.average * 2) / 2)-4;   // Addiert einmal den Wert über 4
             }
         }
     }
