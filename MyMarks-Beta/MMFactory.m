@@ -44,12 +44,9 @@
     CGRect frameimg = CGRectMake(0, 0, 30, 30);
     UIButton *addButton = [[UIButton alloc] initWithFrame:frameimg];
     [addButton setBackgroundImage:image forState:UIControlStateNormal];
-    [addButton addTarget:class action:@selector(showActionSheet)
+    [addButton addTarget:class action:@selector(editPressed:)
         forControlEvents:UIControlEventTouchUpInside];
     [addButton setShowsTouchWhenHighlighted:YES];
-    [addButton.layer setBorderWidth:0.7];
-    [addButton.layer setCornerRadius:5.0];
-    [addButton.layer setBorderColor:[[UIColor whiteColor] CGColor]];
     
     UIBarButtonItem *editBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:addButton];
     

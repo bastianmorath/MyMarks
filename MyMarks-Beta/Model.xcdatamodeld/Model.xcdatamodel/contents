@@ -10,10 +10,10 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="weighting" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <relationship name="exam" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exam" syncable="YES"/>
+        <relationship name="exam" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Exam" syncable="YES"/>
     </entity>
     <elements>
         <element name="Exam" positionX="-54" positionY="-9" width="128" height="103"/>
-        <element name="Subject" positionX="-63" positionY="-243" width="128" height="105"/>
+        <element name="Subject" positionX="-63" positionY="-243" width="128" height="103"/>
     </elements>
 </model>

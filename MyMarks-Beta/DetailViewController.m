@@ -34,8 +34,14 @@
 
 {
      [super viewWillAppear:animated];
-     [self.tableView reloadData];
+    //Editbutton erstellen, der angezeigt wird
+    [self.navigationItem setRightBarButtonItem:[MMFactory editIconItemForClass:self] animated:YES];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+
      [self setEditButton];
+    
+    [self.tableView reloadData];
+
 }
 
 
@@ -43,7 +49,6 @@
 {
     //Background setzen
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
-    
 }
 
 
@@ -52,15 +57,9 @@
 
 -(void)setEditButton
 {
-    if (self.subject.average==0)
+        if (self.subject.average==0)
     { // Wenn der Durchschnitt des Faches gleich 0 ist (Keine Prüfungen wurden hinzugefügt), ist der Edit-Button nicht anklickbar
-        
-        //Editbutton erstellen, der angezeigt wird
-        UIBarButtonItem *editButton =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editPressed:)];
-        [self.navigationItem setRightBarButtonItem:editButton animated:YES];
         self.navigationItem.rightBarButtonItem.enabled = NO;
-        
-        [self.tableView setEditing:NO animated:YES];
     } else
     {
         self.navigationItem.rightBarButtonItem.enabled = YES;
@@ -249,14 +248,14 @@
             if (indexPath.section!=0 & indexPath.row <= [[self.subject.exam allObjects] count] )
             {
                 //Entfernen des zu löschendem Elements aus dem Datenspeicher
-                ///////[[self.subject.exam allObjects] removeObjectAtIndex:indexPath.row];
-                
+                NSLog(@"Exams :%@", [[self.subject.exam allObjects]objectAtIndex:indexPath.row]);
+                [[DataStore defaultStore] deleteObject:[[self.subject.exam allObjects]objectAtIndex:indexPath.row]];
+                [self.tableView reloadData];
+
                 //Löschen der Zeile aus dem TableView
-                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
                 
                 [self setEditButton];
-                [self.tableView reloadData];
-              ////////  self.subject.average = self.getAvarage;
             }
         }
     }
@@ -314,10 +313,8 @@
     [self.tableView setEditing:NO animated:YES];
     
     //Editbutton erstellen, der während dem Nicht-Editieren angezeigt wird
-    UIBarButtonItem *editButton =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editPressed:)];
+    self.navigationItem.rightBarButtonItem= [MMFactory editIconItemForClass:self];
     
-    //Donebutton wird zu einem Editbutton animiert geändert
-    [self.navigationItem setRightBarButtonItem:editButton animated:YES];
 }
 
 

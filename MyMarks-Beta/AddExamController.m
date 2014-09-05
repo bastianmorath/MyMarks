@@ -25,18 +25,12 @@
 }
 
 
--(void)viewWillAppear:(BOOL)animated{
-    //Wenn  im DetailViewController auf eine bereits vorhandene Prüfung gedrückt wird, um sie zu editieren, werden hier die TextFields entsprechend ausgefüllt
-    if (self.exam)
-    {
-        self.MarkTextField.text = [NSString stringWithFormat:@"%.2f", self.exam.mark.floatValue];
-        self.WeightingTextField.text = [NSString stringWithFormat:@"%.2f", self.exam.weighting.floatValue];
-        self.DateTextField.text = [MMFactory NSStringFromDate:self.exam.date];
-        self.NotesTextField.text = [NSString stringWithFormat:@"%@", self.exam.notes];
-        self.doneBarButton.enabled = YES;
-    }
+-(void)viewWillDisappear:(BOOL)animated{
+    [self.MarkTextField resignFirstResponder];
+    [self.WeightingTextField resignFirstResponder];
+    [self.DateTextField resignFirstResponder];
+    [self.NotesTextField resignFirstResponder];
 }
-
 
 - (void)viewDidLoad
 {
@@ -79,6 +73,15 @@
     [self.datePicker setHidden:YES];
      self.doneBarButton.enabled = NO;
     
+    //Wenn  im DetailViewController auf eine bereits vorhandene Prüfung gedrückt wird, um sie zu editieren, werden hier die TextFields entsprechend ausgefüllt
+    if (self.exam)
+    {
+        self.MarkTextField.text = [NSString stringWithFormat:@"%.2f", self.exam.mark.floatValue];
+        self.WeightingTextField.text = [NSString stringWithFormat:@"%.2f", self.exam.weighting.floatValue];
+        self.DateTextField.text = [MMFactory NSStringFromDate:self.exam.date];
+        self.NotesTextField.text = [NSString stringWithFormat:@"%@", self.exam.notes];
+        self.doneBarButton.enabled = YES;
+    }
 }
 
 
@@ -201,28 +204,26 @@
     double redColor =   41  + (indexPath.row * 116/9);
     double greenColor = 135 + (indexPath.row * 94/9);
     double blueColor =  241 - (indexPath.row * 110/9);
-    NSLog(@"Red: %f, Green: %f, Blue: %f", redColor, greenColor, blueColor);
     cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
+    
     if (indexPath.row ==1)
     {
         color1 = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
-        NSLog(@"Color1: %@", color1);
     }
+    
     if (indexPath.row ==2)
     {
         color2 = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
-        NSLog(@"Color2: %@", color2);
-
     }
+    
     if (indexPath.row ==3)
     {
         color3 = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
-        NSLog(@"Color3: %@", color3);
     }
+    
     if (indexPath.row ==4)
     {
         color4 = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
-        NSLog(@"Color4: %@", color4);
     }
     
     self.MarkTextField.backgroundColor = color1;
