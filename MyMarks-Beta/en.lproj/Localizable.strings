@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  Notenapplikation
+
+  Created by Bastian Morath on 05/09/14.
+  Copyright (c) 2014 Bastian Morath. All rights reserved.
+*/
+
+"Pluspoints: %0.1f" = "Pluspoints: %0.1f";
+"Minuspoints: %0.1f" = "Minuspoints: %0.1f";

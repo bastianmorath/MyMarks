@@ -16,6 +16,8 @@
     #import <CoreData/CoreData.h>
     #import "DataStore.h"
     #import "MMFactory.h"
+    #import "Enumerations.h"
+    #import "ATBarButtonItem.h"
 
 
 #endif

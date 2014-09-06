@@ -17,11 +17,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+  
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //Rechtes BarbUttonItem setzen
+    [self.navigationItem setRightBarButtonItem:[[ATBarButtonItem alloc]initWithText:@"Done" target:self Position:PTRight] animated:YES];
+    
+    //Background setzen
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,9 +43,52 @@
     return 1;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 40;
+}
 
+//Diese Methode setzt die Titel der Sections auf weisse Schrift
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
 
-- (IBAction)donePressed:(id)sender {
+    
+    UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(20,0,100,44)];
+    tempLabel.backgroundColor=[UIColor clearColor];
+    
+    tempLabel.textColor = [UIColor whiteColor]; //here you can change the text color of header.
+    tempLabel.font = [UIFont fontWithName:@"Helvetica Light" size:15];
+    
+    switch (section) {
+        case 0:
+            tempLabel.text=@" Pluspunkte";
+            break;
+            
+        case 1:
+            tempLabel.text=@" Semester";
+            break;
+            
+        case 2:
+            tempLabel.text=@" iCloud";
+            break;
+        default:
+            break;
+    }
+
+    
+    return tempLabel;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+        static NSString *CellIdentifier = @"cell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    
+    return cell;
+}
+-(void)rightBarButtonItemPressed{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

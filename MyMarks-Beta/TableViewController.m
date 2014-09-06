@@ -36,12 +36,12 @@
     [super viewWillAppear: animated];
     
     [self.tableView reloadData];
-    
+    NSLog(@"pluspoints: %0.1f", [MMFactory plusPoints]);
     //Plus-/Minuspunkte anzeigen
     if ([MMFactory plusPoints]>=0) {
-        self.navigationController.navigationBar.topItem.title=[NSString stringWithFormat:@"Pluspunkte: %0.1f", [self plusPoints]];
+        self.navigationItem.titleView = [MMFactory getNavigationViewForString:[NSString stringWithFormat:NSLocalizedString(@"Pluspoints: %0.1f", nil), [MMFactory plusPoints]]];
     } else {
-        self.navigationController.navigationBar.topItem.title=[NSString stringWithFormat:@"Minuspunkte: %0.1f", -[self plusPoints]];
+        self.navigationItem.titleView = [MMFactory getNavigationViewForString:[NSString stringWithFormat:NSLocalizedString(@"Minuspoints: %0.1f", nil), -[MMFactory plusPoints]]];
     }
 }
 
@@ -55,8 +55,9 @@
     self.navigationController.navigationBar.tintColor =[UIColor whiteColor];
     
     //Rechter Button erstellen
-    self.navigationItem.rightBarButtonItem= [MMFactory editIconItemForClass:self];;
-    
+    //self.navigationItem.rightBarButtonItem= [MMFactory editIconItemForClass:self];
+    self.navigationItem.rightBarButtonItem= [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionSheet)];
+  
     //Linkes Logo setzen
     self.navigationItem.leftBarButtonItem=[MMFactory appIconItem];
 
@@ -64,11 +65,13 @@
     [[self tableView]setBounces:NO];
     
     //"Zurück-Button"-Titel des Navigation-Controllers ändern
-    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Zurück" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"" style: UIBarButtonItemStyleBordered target: nil action: nil];
     [[self navigationItem] setBackBarButtonItem: newBackButton];
     
     //Background auf eine Grundfarbe setzen, damit zum Beispiel beim Zeilen-Verschieben kein weisser Hintergrund zu sehen ist
     self.view.backgroundColor = [UIColor colorWithRed:61/255.0f green:132/255.0f blue:238/255.0f alpha:1];
+    
+    
 }
 
 
@@ -151,8 +154,10 @@
         
         //Die Labels der Cells werden konfiguriert und der Hintergrund transparent gemacht
         cell.textLabel.text = subject.name;
-        
+
+        [cell.detailTextLabel setFrame:CGRectMake(280, 15, 24, 20.5)];
         cell.detailTextLabel.text = subject.average>0 ? [NSString stringWithFormat:@"%.2f", subject.average] : [NSString stringWithFormat:@"0.0"];
+        
         
     } else //Wenn kein Fach eingetragen wurde
     {
@@ -290,7 +295,7 @@
     [self.tableView setEditing:NO animated:YES];
     
     //Pencil-Button wird wieder angezeigt
-    self.navigationItem.rightBarButtonItem= [MMFactory editIconItemForClass:self];
+    self.navigationItem.rightBarButtonItem= [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionSheet)];
 }
 
 -(void)openPreferences{

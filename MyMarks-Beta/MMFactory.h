@@ -15,4 +15,5 @@
 +(UIBarButtonItem *)editIconItemForClass:(id)class;
 +(NSString *)NSStringFromDate:(NSDate*)date;
 +(NSDate *)NSDateFromString:(NSString*)string;
++(UIView *)getNavigationViewForString:(NSString *)string;
 @end

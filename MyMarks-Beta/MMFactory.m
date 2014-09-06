@@ -50,12 +50,9 @@
     CGRect frameimg = CGRectMake(0, 0, 30, 30);
     UIButton *addButton = [[UIButton alloc] initWithFrame:frameimg];
     [addButton setBackgroundImage:image forState:UIControlStateNormal];
-    [addButton addTarget:class action:@selector(showActionSheet)
+    [addButton addTarget:class action:@selector(editPressed:)
         forControlEvents:UIControlEventTouchUpInside];
     [addButton setShowsTouchWhenHighlighted:YES];
-    [addButton.layer setBorderWidth:0.7];
-    [addButton.layer setCornerRadius:5.0];
-    [addButton.layer setBorderColor:[[UIColor whiteColor] CGColor]];
     
     UIBarButtonItem *editBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:addButton];
     
@@ -85,5 +82,23 @@
     
     
     return [df dateFromString:string];
+}
++(UIView*)getNavigationViewForString:(NSString *)string{
+    UIView *customTitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 160, 30)];
+    customTitleView.backgroundColor = [UIColor clearColor];
+    
+    UILabel *label= [[UILabel alloc]init];
+    label.text=string;
+    label.font=    [UIFont fontWithName:@"Helvetica Light" size:17];
+    label.textColor=[UIColor whiteColor];
+    [label setNumberOfLines:1];
+    CGSize maximumLabelSize = CGSizeMake(9999,label.frame.size.height);
+    CGSize labelSize = [label.text sizeWithFont:[label font]
+                              constrainedToSize:maximumLabelSize
+                                  lineBreakMode:[label lineBreakMode]];
+    [customTitleView setFrame:CGRectMake(-(labelSize.width/2), 0, labelSize.width, labelSize.height)];
+    [label setFrame:CGRectMake(0, 0, labelSize.width, labelSize.height)];
+    [customTitleView addSubview:label];
+    return customTitleView;
 }
 @end

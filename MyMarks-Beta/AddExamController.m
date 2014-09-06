@@ -25,16 +25,11 @@
 }
 
 
--(void)viewWillAppear:(BOOL)animated{
-    //Wenn  im DetailViewController auf eine bereits vorhandene Prüfung gedrückt wird, um sie zu editieren, werden hier die TextFields entsprechend ausgefüllt
-    if (self.exam)
-    {
-        self.MarkTextField.text = [NSString stringWithFormat:@"%.2f", self.exam.mark.floatValue];
-        self.WeightingTextField.text = [NSString stringWithFormat:@"%.2f", self.exam.weighting.floatValue];
-        self.DateTextField.text = [MMFactory NSStringFromDate:self.exam.date];
-        self.NotesTextField.text = [NSString stringWithFormat:@"%@", self.exam.notes];
-        self.doneBarButton.enabled = YES;
-    }
+-(void)viewWillDisappear:(BOOL)animated{
+    [self.MarkTextField resignFirstResponder];
+    [self.WeightingTextField resignFirstResponder];
+    [self.DateTextField resignFirstResponder];
+    [self.NotesTextField resignFirstResponder];
 }
 
 
@@ -42,7 +37,7 @@
 {
     [super viewDidLoad];
 
-    
+    NSLog(@"dgsfg");
     //Für alle TextFields jeweils: transparenter Background, weisser Rand und Keyboard translucent machen
     self.MarkTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
     self.MarkTextField.layer.borderColor = [[UIColor whiteColor]CGColor];
@@ -79,6 +74,22 @@
     [self.datePicker setHidden:YES];
      self.doneBarButton.enabled = NO;
     
+    //Linkes BarButtonItem setzen
+    [self.navigationItem setLeftBarButtonItem:[[ATBarButtonItem alloc]initWithText:@"Cancel" target:self Position:PTLeft] animated:YES];
+
+    //Rechtes BarButtonItem setzen
+    [self.navigationItem setRightBarButtonItem:[[ATBarButtonItem alloc]initWithText:@"Done" target:self Position:PTRight] animated:YES];
+
+    
+    //Wenn  im DetailViewController auf eine bereits vorhandene Prüfung gedrückt wird, um sie zu editieren, werden hier die TextFields entsprechend ausgefüllt
+    if (self.exam)
+    {
+        self.MarkTextField.text = [NSString stringWithFormat:@"%.2f", self.exam.mark.floatValue];
+        self.WeightingTextField.text = [NSString stringWithFormat:@"%.2f", self.exam.weighting.floatValue];
+        self.DateTextField.text = [MMFactory NSStringFromDate:self.exam.date];
+        self.NotesTextField.text = [NSString stringWithFormat:@"%@", self.exam.notes];
+        self.doneBarButton.enabled = YES;
+    }
 }
 
 
@@ -130,7 +141,6 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    NSLog(@"DATEPICKER should begin editing");
     //Wenn noch kein Datum eingetragen ist, wird das Datum vom aktuellen Tag eingetragen
     if (textField==self.DateTextField && [self.DateTextField.text length]==0)
     {
@@ -196,33 +206,30 @@
 {
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
-    
     //Einen Farbverlauf von Blau nach Grün wird erstellt
     double redColor =   41  + (indexPath.row * 116/9);
     double greenColor = 135 + (indexPath.row * 94/9);
     double blueColor =  241 - (indexPath.row * 110/9);
-    NSLog(@"Red: %f, Green: %f, Blue: %f", redColor, greenColor, blueColor);
     cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
+    
     if (indexPath.row ==1)
     {
         color1 = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
-        NSLog(@"Color1: %@", color1);
     }
+    
     if (indexPath.row ==2)
     {
         color2 = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
-        NSLog(@"Color2: %@", color2);
-
     }
+    
     if (indexPath.row ==3)
     {
         color3 = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
-        NSLog(@"Color3: %@", color3);
     }
+    
     if (indexPath.row ==4)
     {
         color4 = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
-        NSLog(@"Color4: %@", color4);
     }
     
     self.MarkTextField.backgroundColor = color1;
@@ -234,10 +241,6 @@
 }
 
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
-}
 
 
 //Gibt die Anzahl Rows in Abhängigkeit von der Displaygrösse zurück
@@ -280,7 +283,8 @@
 
 #pragma mark - Buttons
 
-- (IBAction)donePressed:(id)sender
+//Done pressed
+- (void)rightBarButtonItemPressed
 {
     
     NSNumber *mark = [NSNumber numberWithDouble:[self.MarkTextField.text doubleValue]];
@@ -313,8 +317,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-- (IBAction)cancelPressed:(id)sender
+//Cancel Pressed
+- (void)leftBarButtonItemPressed
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
