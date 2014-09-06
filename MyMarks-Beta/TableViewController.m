@@ -36,13 +36,8 @@
     [super viewWillAppear: animated];
     
     [self.tableView reloadData];
-    NSLog(@"pluspoints: %0.1f", [MMFactory plusPoints]);
-    //Plus-/Minuspunkte anzeigen
-    if ([MMFactory plusPoints]>=0) {
-        self.navigationItem.titleView = [MMFactory getNavigationViewForString:[NSString stringWithFormat:NSLocalizedString(@"Pluspoints: %0.1f", nil), [MMFactory plusPoints]]];
-    } else {
-        self.navigationItem.titleView = [MMFactory getNavigationViewForString:[NSString stringWithFormat:NSLocalizedString(@"Minuspoints: %0.1f", nil), -[MMFactory plusPoints]]];
-    }
+
+    [self.navigationViewButton updateText];
 }
 
 
@@ -71,13 +66,22 @@
     //Background auf eine Grundfarbe setzen, damit zum Beispiel beim Zeilen-Verschieben kein weisser Hintergrund zu sehen ist
     self.view.backgroundColor = [UIColor colorWithRed:61/255.0f green:132/255.0f blue:238/255.0f alpha:1];
     
-    
+    //Navigation Button initlialisieren
+    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"calcType"] isEqualToNumber:@0]) {
+        self.navigationViewButton = [[MMNavigationViewButton alloc]initWithType:BTAverage AndTarget:self];
+    } else {
+        self.navigationViewButton = [[MMNavigationViewButton alloc]initWithType:BTPluspoints AndTarget:self];
+
+    }
+    self.navigationItem.titleView = self.navigationViewButton;
 }
 
 
 #pragma mark - GetterMethoden
 
 //Diese Methode gibt den Array mit den Fächer zurück
+
+
 -(NSArray *)getSubjectArray
 {
     DataStore *dataStore = [DataStore defaultStore];
@@ -194,6 +198,7 @@
         //Entfernen des zu löschendem Elements aus dem Datenspeicher
         [[DataStore defaultStore] deleteObject:[[self getSubjectArray] objectAtIndex:indexPath.row]];
         ;
+        [self.navigationViewButton updateText];
        
         [self.tableView reloadData];
     }
@@ -300,8 +305,11 @@
     NSLog(@"Preferences");
    
 
-
     [self performSegueWithIdentifier:@"openPreferences" sender:nil];
+}
+- (void)navigationButtonPressed{
+    [self.navigationViewButton updateText];
+    NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 #pragma mark - Navigation
 

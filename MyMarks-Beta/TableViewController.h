@@ -14,12 +14,15 @@
 #import <MessageUI/MessageUI.h>
 #import "DetailViewController.h"
 #import "Subject.h"
+#import "MMNavigationViewButton.h"
 
 
 @interface TableViewController : UITableViewController <UITableViewDelegate, UIAlertViewDelegate, UIApplicationDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate>
 
 
-@property (assign, nonatomic) double plusPoints;
+
+@property (strong, nonatomic) MMNavigationViewButton *navigationViewButton;
+
 
 
 -(NSArray *)getSubjectArray;

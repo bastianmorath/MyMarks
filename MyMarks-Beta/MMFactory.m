@@ -29,6 +29,18 @@
     return plusPoints;
 }
 
++(float)average{
+    float numberOfSubjects =0;
+    float tempCount = 0;
+    for (Subject *eachSubject in [[DataStore defaultStore]getSubjects]){
+        if (eachSubject.average!=0) {
+            numberOfSubjects++;
+            tempCount += eachSubject.average;
+        }
+    }
+    return tempCount / numberOfSubjects;
+}
+
 +(UIBarButtonItem *)appIconItem{
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     UIImage* appImage = [UIImage imageNamed:@"App Icon.png"];

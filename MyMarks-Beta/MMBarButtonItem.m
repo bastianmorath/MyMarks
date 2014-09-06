@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Bastian Morath. All rights reserved.
 //
 
-#import "ATBarButtonItem.h"
+#import "MMBarButtonItem.h"
 
-@implementation ATBarButtonItem
+@implementation MMBarButtonItem
 -(instancetype)initWithText:(NSString*)text target:(id)class Position:(enum ATPosition)position{
     if (self) {
         button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];

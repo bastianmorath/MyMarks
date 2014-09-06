@@ -302,7 +302,7 @@
     [self.tableView setEditing:YES animated:YES];
     
     //Donebutton erstellen, der während dem Editieren angezeigt wird
-    UIBarButtonItem *doneButton =[[ATBarButtonItem alloc]initWithText:@"Done" target:self Position:PTRight];
+    UIBarButtonItem *doneButton =[[MMBarButtonItem alloc]initWithText:@"Done" target:self Position:PTRight];
     
     //Editbutton wird zu einem DoneButton animiert geändert
     [self.navigationItem setRightBarButtonItem:doneButton animated:YES];

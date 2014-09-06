@@ -10,20 +10,11 @@
 
 @interface Enumerations : NSObject
 
-/*CellType*/
-typedef enum cellType {
-    CTTimestamp,
-    CTName,
-    CTTimestampAndName,
-    CTLetter
-};
 
 /*ButtonType*/
 typedef enum buttonType {
-    BTText,
-    BTIcon,
-    BTIconAndText,
-    BTImage
+    BTAverage,
+    BTPluspoints
 };
 
 /*ButtonType*/
@@ -41,10 +32,7 @@ typedef enum iconType {
     ITClockIcon
 };
 
-typedef enum cellPosition{
-    CPLeft,
-    CPRight
-};
+
 
 typedef enum ATPosition{
     PTLeft,

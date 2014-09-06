@@ -20,7 +20,7 @@
   
     
     //Rechtes BarbUttonItem setzen
-    [self.navigationItem setRightBarButtonItem:[[ATBarButtonItem alloc]initWithText:@"Done" target:self Position:PTRight] animated:YES];
+    [self.navigationItem setRightBarButtonItem:[[MMBarButtonItem alloc]initWithText:@"Done" target:self Position:PTRight] animated:YES];
     
     //Background setzen
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];

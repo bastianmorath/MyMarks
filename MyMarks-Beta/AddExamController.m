@@ -75,10 +75,10 @@
      self.doneBarButton.enabled = NO;
     
     //Linkes BarButtonItem setzen
-    [self.navigationItem setLeftBarButtonItem:[[ATBarButtonItem alloc]initWithText:@"Cancel" target:self Position:PTLeft] animated:YES];
+    [self.navigationItem setLeftBarButtonItem:[[MMBarButtonItem alloc]initWithText:@"Cancel" target:self Position:PTLeft] animated:YES];
 
     //Rechtes BarButtonItem setzen
-    [self.navigationItem setRightBarButtonItem:[[ATBarButtonItem alloc]initWithText:@"Done" target:self Position:PTRight] animated:YES];
+    [self.navigationItem setRightBarButtonItem:[[MMBarButtonItem alloc]initWithText:@"Done" target:self Position:PTRight] animated:YES];
 
     
     //Wenn  im DetailViewController auf eine bereits vorhandene Prüfung gedrückt wird, um sie zu editieren, werden hier die TextFields entsprechend ausgefüllt

@@ -10,7 +10,7 @@
 // Die Actions sind: leftBarButtonItemPressed  und rightBarButtonPressed , diese müssen in den Controller vorhanden sein
 #import <UIKit/UIKit.h>
 
-@interface ATBarButtonItem : UIBarButtonItem{
+@interface MMBarButtonItem : UIBarButtonItem{
     UIImageView *imageView;
     UILabel *textLabel;
     id target;

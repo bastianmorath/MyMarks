@@ -11,6 +11,7 @@
 @interface MMFactory : NSObject
 
 +(float)plusPoints;
++(float)average;
 +(UIBarButtonItem *)appIconItem;
 +(UIBarButtonItem *)editIconItemForClass:(id)class;
 +(NSString *)NSStringFromDate:(NSDate*)date;

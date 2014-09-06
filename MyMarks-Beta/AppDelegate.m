@@ -20,6 +20,12 @@
     dispatch_once(&once, ^ {
         [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"calculationType"];
         
+        //calcType bestimmt, ob der User den Durchschnitt oder die PLuspunkte anzeigen will,
+        // Object für Key Average: 0
+        // Object für Key Pluspoints: 1
+        //Average by Default
+        [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"calcType"];
+
     }
      );
 
