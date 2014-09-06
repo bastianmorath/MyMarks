@@ -32,11 +32,12 @@
     [self.NotesTextField resignFirstResponder];
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    
+    NSLog(@"dgsfg");
     //Für alle TextFields jeweils: transparenter Background, weisser Rand und Keyboard translucent machen
     self.MarkTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
     self.MarkTextField.layer.borderColor = [[UIColor whiteColor]CGColor];
@@ -72,6 +73,13 @@
     //DatePicker wird versteckt und der Done-Button wird deaktiviert
     [self.datePicker setHidden:YES];
      self.doneBarButton.enabled = NO;
+    
+    //Linkes BarButtonItem setzen
+    [self.navigationItem setLeftBarButtonItem:[[ATBarButtonItem alloc]initWithText:@"Cancel" target:self Position:PTLeft] animated:YES];
+
+    //Rechtes BarButtonItem setzen
+    [self.navigationItem setRightBarButtonItem:[[ATBarButtonItem alloc]initWithText:@"Done" target:self Position:PTRight] animated:YES];
+
     
     //Wenn  im DetailViewController auf eine bereits vorhandene Prüfung gedrückt wird, um sie zu editieren, werden hier die TextFields entsprechend ausgefüllt
     if (self.exam)
@@ -133,7 +141,6 @@
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    NSLog(@"DATEPICKER should begin editing");
     //Wenn noch kein Datum eingetragen ist, wird das Datum vom aktuellen Tag eingetragen
     if (textField==self.DateTextField && [self.DateTextField.text length]==0)
     {
@@ -199,7 +206,6 @@
 {
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
 
-    
     //Einen Farbverlauf von Blau nach Grün wird erstellt
     double redColor =   41  + (indexPath.row * 116/9);
     double greenColor = 135 + (indexPath.row * 94/9);
@@ -235,10 +241,6 @@
 }
 
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
-}
 
 
 //Gibt die Anzahl Rows in Abhängigkeit von der Displaygrösse zurück
@@ -281,7 +283,8 @@
 
 #pragma mark - Buttons
 
-- (IBAction)donePressed:(id)sender
+//Done pressed
+- (void)rightBarButtonItemPressed
 {
     
     NSNumber *mark = [NSNumber numberWithDouble:[self.MarkTextField.text doubleValue]];
@@ -314,8 +317,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-- (IBAction)cancelPressed:(id)sender
+//Cancel Pressed
+- (void)leftBarButtonItemPressed
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }

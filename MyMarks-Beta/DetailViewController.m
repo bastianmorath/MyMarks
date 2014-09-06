@@ -33,15 +33,13 @@
 -(void)viewWillAppear:(BOOL)animated
 
 {
-     [super viewWillAppear:animated];
-    //Editbutton erstellen, der angezeigt wird
-    [self.navigationItem setRightBarButtonItem:[MMFactory editIconItemForClass:self] animated:YES];
-    self.navigationItem.rightBarButtonItem.enabled = NO;
-
-     [self setEditButton];
+    [super viewWillAppear:animated];
+    
+    
+    [self setEditButton];
     
     [self.tableView reloadData];
-
+    
 }
 
 
@@ -49,6 +47,11 @@
 {
     //Background setzen
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
+    //Editbutton erstellen, der angezeigt wird
+    [self.navigationItem setRightBarButtonItem:[MMFactory editIconItemForClass:self] animated:YES];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    self.navigationItem.titleView = [MMFactory getNavigationViewForString:self.subject.name];
 }
 
 
@@ -57,7 +60,7 @@
 
 -(void)setEditButton
 {
-        if (self.subject.average==0)
+    if (self.subject.average==0)
     { // Wenn der Durchschnitt des Faches gleich 0 ist (Keine Prüfungen wurden hinzugefügt), ist der Edit-Button nicht anklickbar
         self.navigationItem.rightBarButtonItem.enabled = NO;
     } else
@@ -89,6 +92,24 @@
 }
 
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section==0)
+    {
+        return 90;
+    } else
+    {
+        return 46;
+    }
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 46;
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //Section: 0
@@ -98,73 +119,69 @@
         
         //Hintergrund und Schriftfarbe der Cell wird bestimmt
         averageCell.backgroundColor = [UIColor colorWithRed:30/255.0f green:115/255.0f blue:238/255.0f alpha:1];
-        averageCell.textLabel.textColor = [UIColor whiteColor];
-        averageCell.textLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:27.0];
-     
+        UILabel *label = (UILabel *)[averageCell viewWithTag:1];
         
-    
+        
         
         
         if ([[self.subject.exam allObjects] count]!=0 )
         {
             //Im Label wird der Durchschnitt angezeigt
-            averageCell.textLabel.text = [NSString stringWithFormat:@"                %.2f", self.subject.average];
+            label.text = [NSString stringWithFormat:@"%.2f", self.subject.average];
         }else
             //Wenn keine Prüfung hinzugefügt wurde, wird der Durchscnitt 0.0 angezeigt
         {
-            averageCell.textLabel.text = [NSString stringWithFormat:@"                0.0"];
+            averageCell.textLabel.text = [NSString stringWithFormat:@"0.0"];
         }
-
+        
         return averageCell;
         
         
         //Section:1
     } else {
-        static NSString *CellIdentifier = @"cell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         
-        //Hintergrundverlauf der Zellen wird bestimmt. Verlauf von Blau nach Grün
-        double redColor =   35  + (indexPath.row * 136/([[self.subject.exam allObjects]count]+1));
-        double greenColor = 129 + (indexPath.row * 114/([[self.subject.exam allObjects] count]+1));
-        double blueColor =  238 - (indexPath.row * 130/([[self.subject.exam allObjects] count]+1));
-        cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
-        
-        
-        //Farbe wird bestimmt, welche beim Drücken einer Zelle angezeigt wird
-        UIView *selectetView = [[UIView alloc]init];
-        selectetView.backgroundColor = [UIColor colorWithRed:30/255.0f green:115/255.0f blue:238/255.0f alpha:1];
-        cell.selectedBackgroundView = selectetView;
-        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         
         //Die if-Schlaufe wird auf die Cells ausgeführt, wo mindestens eine Prüfung erstellt wurde UND wo die Row  nicht dem indexpath.row entspricht (Das wäre gerade die Cell, welche für das Hinzufügen einer neuen Prüfung zuständig ist)
+        
+        
+        
         if ([[self.subject.exam allObjects]count]!=0 && [[self.subject.exam allObjects] count]!=indexPath.row )
         {
+            static NSString *CellIdentifier = @"cell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            
+            //Hintergrundverlauf der Zellen wird bestimmt. Verlauf von Blau nach Grün
+            double redColor =   35  + (indexPath.row * 136/([[self.subject.exam allObjects]count]+1));
+            double greenColor = 129 + (indexPath.row * 114/([[self.subject.exam allObjects] count]+1));
+            double blueColor =  238 - (indexPath.row * 130/([[self.subject.exam allObjects] count]+1));
+            cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
+            
+            
+            //Farbe wird bestimmt, welche beim Drücken einer Zelle angezeigt wird
+            UIView *selectetView = [[UIView alloc]init];
+            selectetView.backgroundColor = [UIColor colorWithRed:30/255.0f green:115/255.0f blue:238/255.0f alpha:1];
+            cell.selectedBackgroundView = selectetView;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             Exam *exam = [[self.subject.exam allObjects] objectAtIndex:indexPath.row];
             
-            //Es wird dort ein Text angezeigt , wo eine Prüfung eingetragen ist
-            if (indexPath.row < [[self.subject.exam allObjects] count])
-            {
-                [self configureTextForCell:cell withExam:exam];
-            }
-            
-            else
-            {
-                cell.accessoryType = UITableViewCellAccessoryNone;
-                cell.textLabel.textAlignment = NSTextAlignmentCenter;
-                cell.textLabel.text = @"         Neue Prüfung hinzufügen";
-                cell.detailTextLabel.text = @"";
-            }
-            
-            
+            [self configureTextForCell:cell withExam:exam];
             //Wenn noch keine Prüfung hinzugefügt wurde
+            return cell;
+            
         } else
         {
-                cell.accessoryType = UITableViewCellAccessoryNone;
-                cell.textLabel.text = @"         Neue Prüfung hinzufügen";
-                cell.detailTextLabel.text = @"";
-                cell.backgroundColor =[UIColor colorWithRed:130/255.0f green:200/255.0f blue:150/255.0f alpha:1];
+            static NSString *CellIdentifier = @"newExamCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            
+            UILabel *label = (UILabel *)[cell viewWithTag:1];
+
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            label.text = @"Neue Prüfung hinzufügen";
+            cell.backgroundColor =[UIColor colorWithRed:130/255.0f green:200/255.0f blue:150/255.0f alpha:1];
+            return cell;
+            
         }
-        return cell;
+        
     }
 }
 
@@ -175,26 +192,10 @@
     cell.textLabel.text = [NSString stringWithFormat:@"%@", exam.mark ];
     
     cell.detailTextLabel.text = [MMFactory NSStringFromDate:exam.date];
-;
 }
 
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section==0)
-    {
-        return 85;
-    } else
-    {
-        return 47;
-    }
-}
 
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 40;
-}
 
 
 //Diese Methode setzt die Titel der Sections auf weisse Schrift
@@ -207,7 +208,7 @@
     tempLabel.backgroundColor=[UIColor clearColor];
     
     tempLabel.textColor = [UIColor whiteColor]; //here you can change the text color of header.
-    tempLabel.font = [UIFont fontWithName:@"Helvetica Neue ultra light" size:17];
+    tempLabel.font = [UIFont fontWithName:@"Helvetica Light" size:17];
     tempLabel.frame = CGRectMake(10.0, 0.0, 300.0, 44.0);
     if (section ==0)
     {
@@ -244,16 +245,16 @@
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         if ([[self.subject.exam allObjects]count]!=0) {
-
+            
             if (indexPath.section!=0 & indexPath.row <= [[self.subject.exam allObjects] count] )
             {
                 //Entfernen des zu löschendem Elements aus dem Datenspeicher
                 NSLog(@"Exams :%@", [[self.subject.exam allObjects]objectAtIndex:indexPath.row]);
                 [[DataStore defaultStore] deleteObject:[[self.subject.exam allObjects]objectAtIndex:indexPath.row]];
                 [self.tableView reloadData];
-
+                
                 //Löschen der Zeile aus dem TableView
-//                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                //                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
                 
                 [self setEditButton];
             }
@@ -267,7 +268,7 @@
 }
 
 
-  //Die Reihenfolge der Fächer kann im Edit-Mode geändert werden
+//Die Reihenfolge der Fächer kann im Edit-Mode geändert werden
 - (void) tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
        toIndexPath:(NSIndexPath *)destinationIndexPath
 {
@@ -276,7 +277,7 @@
     
     if (sourceIndex != destinationIndex)
     {
-       /////// [self.getSubject.examArray exchangeObjectAtIndex:sourceIndex withObjectAtIndex:destinationIndex];
+        /////// [self.getSubject.examArray exchangeObjectAtIndex:sourceIndex withObjectAtIndex:destinationIndex];
     }
 }
 
@@ -301,20 +302,19 @@
     [self.tableView setEditing:YES animated:YES];
     
     //Donebutton erstellen, der während dem Editieren angezeigt wird
-    UIBarButtonItem *doneButton =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(donePressed:)];
+    UIBarButtonItem *doneButton =[[ATBarButtonItem alloc]initWithText:@"Done" target:self Position:PTRight];
     
     //Editbutton wird zu einem DoneButton animiert geändert
     [self.navigationItem setRightBarButtonItem:doneButton animated:YES];
 }
 
--(IBAction)donePressed:(id)sender
+-(void)rightBarButtonItemPressed
 {
     //Der Edit-Modus des Table Views wird beendet
     [self.tableView setEditing:NO animated:YES];
     
     //Editbutton erstellen, der während dem Nicht-Editieren angezeigt wird
     self.navigationItem.rightBarButtonItem= [MMFactory editIconItemForClass:self];
-    
 }
 
 
@@ -332,7 +332,7 @@
         
         //Der indexPath wird aus der Methode tableView:didSelectRowAtIndexPath als Sender übergeben
         NSIndexPath *indexPath = sender;
-      
+        
         controller.subject=self.subject;
         
         if (indexPath.row != [[self.subject.exam allObjects] count]) //user fügt eine neue Prüfung hinzu
