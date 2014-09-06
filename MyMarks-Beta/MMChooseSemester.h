@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMChooseSemester : UITableViewController
+@interface MMChooseSemester : UITableViewController <UITableViewDelegate,UIApplicationDelegate, UIAlertViewDelegate, UIActionSheetDelegate>
+{
+
+    NSMutableArray *semesterArray;
+
+}
+
+- (void)editPressed;
+- (void)donePressed;
 
 @end

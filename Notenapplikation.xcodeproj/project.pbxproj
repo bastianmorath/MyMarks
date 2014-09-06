@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A25B395C19B3B6DF00861F7A /* MMChooseCalculationType.m in Sources */ = {isa = PBXBuildFile; fileRef = A25B395719B3B6DF00861F7A /* MMChooseCalculationType.m */; };
+		A25B395D19B3B6DF00861F7A /* MMChooseSemester.m in Sources */ = {isa = PBXBuildFile; fileRef = A25B395919B3B6DF00861F7A /* MMChooseSemester.m */; };
+		A25B395E19B3B6DF00861F7A /* MMPreferencesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A25B395B19B3B6DF00861F7A /* MMPreferencesTableViewController.m */; };
 		B617A706180F40D000189688 /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A6FE180F40D000189688 /* AppIcon29x29.png */; };
 		B617A707180F40D000189688 /* AppIcon29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A6FF180F40D000189688 /* AppIcon29x29@2x.png */; };
 		B617A708180F40D000189688 /* AppIcon40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A700180F40D000189688 /* AppIcon40x40.png */; };
@@ -19,7 +22,6 @@
 		B617A715180F420D00189688 /* Launchimage_iPhone5.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A714180F420D00189688 /* Launchimage_iPhone5.png */; };
 		B617A717180F423E00189688 /* App Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A716180F423E00189688 /* App Icon.png */; };
 		B617A719180FE42B00189688 /* IPhone5_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A718180FE42B00189688 /* IPhone5_Background.png */; };
-		B636892F19B10D30004E9AB9 /* PreferencesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B636892E19B10D30004E9AB9 /* PreferencesVC.m */; };
 		B63E900E17A48D65003EC11D /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B63E900D17A48D65003EC11D /* DetailViewController.m */; };
 		B653E820180ADC79004C1D39 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B653E81F180ADC79004C1D39 /* libz.dylib */; };
 		B665A54A17A7550900CC5A74 /* AddExamController.m in Sources */ = {isa = PBXBuildFile; fileRef = B665A54917A7550900CC5A74 /* AddExamController.m */; };
@@ -50,6 +52,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A25B395619B3B6DF00861F7A /* MMChooseCalculationType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMChooseCalculationType.h; sourceTree = "<group>"; };
+		A25B395719B3B6DF00861F7A /* MMChooseCalculationType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMChooseCalculationType.m; sourceTree = "<group>"; };
+		A25B395819B3B6DF00861F7A /* MMChooseSemester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMChooseSemester.h; sourceTree = "<group>"; };
+		A25B395919B3B6DF00861F7A /* MMChooseSemester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMChooseSemester.m; sourceTree = "<group>"; };
+		A25B395A19B3B6DF00861F7A /* MMPreferencesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPreferencesTableViewController.h; sourceTree = "<group>"; };
+		A25B395B19B3B6DF00861F7A /* MMPreferencesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPreferencesTableViewController.m; sourceTree = "<group>"; };
 		B617A6FE180F40D000189688 /* AppIcon29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon29x29.png; sourceTree = "<group>"; };
 		B617A6FF180F40D000189688 /* AppIcon29x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon29x29@2x.png"; sourceTree = "<group>"; };
 		B617A700180F40D000189688 /* AppIcon40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon40x40.png; sourceTree = "<group>"; };
@@ -62,8 +70,6 @@
 		B617A714180F420D00189688 /* Launchimage_iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Launchimage_iPhone5.png; sourceTree = "<group>"; };
 		B617A716180F423E00189688 /* App Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App Icon.png"; sourceTree = "<group>"; };
 		B617A718180FE42B00189688 /* IPhone5_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IPhone5_Background.png; sourceTree = "<group>"; };
-		B636892D19B10D30004E9AB9 /* PreferencesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesVC.h; sourceTree = "<group>"; };
-		B636892E19B10D30004E9AB9 /* PreferencesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesVC.m; sourceTree = "<group>"; };
 		B63E900C17A48D65003EC11D /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		B63E900D17A48D65003EC11D /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		B653E81F180ADC79004C1D39 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -158,8 +164,12 @@
 				B63E900D17A48D65003EC11D /* DetailViewController.m */,
 				B665A54817A7550900CC5A74 /* AddExamController.h */,
 				B665A54917A7550900CC5A74 /* AddExamController.m */,
-				B636892D19B10D30004E9AB9 /* PreferencesVC.h */,
-				B636892E19B10D30004E9AB9 /* PreferencesVC.m */,
+				A25B395619B3B6DF00861F7A /* MMChooseCalculationType.h */,
+				A25B395719B3B6DF00861F7A /* MMChooseCalculationType.m */,
+				A25B395819B3B6DF00861F7A /* MMChooseSemester.h */,
+				A25B395919B3B6DF00861F7A /* MMChooseSemester.m */,
+				A25B395A19B3B6DF00861F7A /* MMPreferencesTableViewController.h */,
+				A25B395B19B3B6DF00861F7A /* MMPreferencesTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -361,6 +371,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A25B395D19B3B6DF00861F7A /* MMChooseSemester.m in Sources */,
+				A25B395C19B3B6DF00861F7A /* MMChooseCalculationType.m in Sources */,
 				B6D6BDB417A31CBB00B3B09F /* AppDelegate.m in Sources */,
 				B6D6BDDA17A31D1000B3B09F /* TableViewController.m in Sources */,
 				B665A54A17A7550900CC5A74 /* AddExamController.m in Sources */,
@@ -368,9 +380,9 @@
 				B681889819B0AFA200F0532C /* Model.xcdatamodeld in Sources */,
 				B68188A219B0C08C00F0532C /* Exam.m in Sources */,
 				B68188B519B0CC3300F0532C /* MMFactory.m in Sources */,
-				B636892F19B10D30004E9AB9 /* PreferencesVC.m in Sources */,
 				B6D6BDB017A31CBB00B3B09F /* main.m in Sources */,
 				B68188B119B0C83C00F0532C /* Subject.m in Sources */,
+				A25B395E19B3B6DF00861F7A /* MMPreferencesTableViewController.m in Sources */,
 				B63E900E17A48D65003EC11D /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
