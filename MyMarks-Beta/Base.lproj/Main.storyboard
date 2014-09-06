@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Table View Controller - Zeugnis-->
         <scene sceneID="6BL-Re-sFo">
             <objects>
                 <tableViewController id="DNz-d5-vWp" customClass="TableViewController" sceneMemberID="viewController">

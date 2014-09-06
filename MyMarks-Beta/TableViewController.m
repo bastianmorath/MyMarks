@@ -200,9 +200,7 @@
         ;
         [self.navigationViewButton updateText];
        
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-
-        [self viewWillAppear:YES];
+        [self.tableView reloadData];
     }
 }
 
@@ -465,7 +463,6 @@
                 //Ein neues Fach wird erstellt und im DataHandler hinzugefügt. Der Text des AlertViews wird unter dem Fachnamen des Faches gespeichert.
                 NSString *name= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
               //   NSLog([NSString stringWithFormat:@"%f", [[alertView textFieldAtIndex:1].text floatValue]]);
-                [[DataStore defaultStore]createSubjectWithName:name AndWeighting:[[alertView textFieldAtIndex:1].text floatValue]];
                 
                
                 [self.tableView reloadData];

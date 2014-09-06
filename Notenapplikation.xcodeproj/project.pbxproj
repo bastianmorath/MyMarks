@@ -184,12 +184,12 @@
 				B63E900D17A48D65003EC11D /* DetailViewController.m */,
 				B665A54817A7550900CC5A74 /* AddExamController.h */,
 				B665A54917A7550900CC5A74 /* AddExamController.m */,
-				B66E5DA519B39D9F00705C2B /* MMPreferencesTableViewController.h */,
-				B66E5DA619B39D9F00705C2B /* MMPreferencesTableViewController.m */,
-				B66E5DAB19B3A82B00705C2B /* MMChooseCalculationType.h */,
-				B66E5DAC19B3A82B00705C2B /* MMChooseCalculationType.m */,
-				B66E5DAE19B3A83800705C2B /* MMChooseSemester.h */,
-				B66E5DAF19B3A83800705C2B /* MMChooseSemester.m */,
+				A25B395619B3B6DF00861F7A /* MMChooseCalculationType.h */,
+				A25B395719B3B6DF00861F7A /* MMChooseCalculationType.m */,
+				A25B395819B3B6DF00861F7A /* MMChooseSemester.h */,
+				A25B395919B3B6DF00861F7A /* MMChooseSemester.m */,
+				A25B395A19B3B6DF00861F7A /* MMPreferencesTableViewController.h */,
+				A25B395B19B3B6DF00861F7A /* MMPreferencesTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -394,7 +394,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B66E5DAD19B3A82B00705C2B /* MMChooseCalculationType.m in Sources */,
+				A25B395D19B3B6DF00861F7A /* MMChooseSemester.m in Sources */,
+				A25B395C19B3B6DF00861F7A /* MMChooseCalculationType.m in Sources */,
 				B6D6BDB417A31CBB00B3B09F /* AppDelegate.m in Sources */,
 				B6D6BDDA17A31D1000B3B09F /* TableViewController.m in Sources */,
 				B665A54A17A7550900CC5A74 /* AddExamController.m in Sources */,
@@ -409,6 +410,8 @@
 				B66E5DA719B39D9F00705C2B /* MMPreferencesTableViewController.m in Sources */,
 				B66E5DB019B3A83800705C2B /* MMChooseSemester.m in Sources */,
 				B6D6BDB017A31CBB00B3B09F /* main.m in Sources */,
+				B68188B119B0C83C00F0532C /* Subject.m in Sources */,
+				A25B395E19B3B6DF00861F7A /* MMPreferencesTableViewController.m in Sources */,
 				B63E900E17A48D65003EC11D /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
