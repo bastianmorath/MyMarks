@@ -200,7 +200,9 @@
         ;
         [self.navigationViewButton updateText];
        
-        [self.tableView reloadData];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+
+        [self viewWillAppear:YES];
     }
 }
 
@@ -445,7 +447,7 @@
     [alert setAlertViewStyle: UIAlertViewStyleLoginAndPasswordInput];
     [[alert textFieldAtIndex:1] setSecureTextEntry:NO];
     [[alert textFieldAtIndex:0] setPlaceholder:@"Name"];
-    [[alert textFieldAtIndex:1] setPlaceholder:@"Gewichtung"];
+    [[alert textFieldAtIndex:1] setPlaceholder:@"Gewichtung: 0/1"];
     [alert show];
 }
 
@@ -462,9 +464,10 @@
             {
                 //Ein neues Fach wird erstellt und im DataHandler hinzugefügt. Der Text des AlertViews wird unter dem Fachnamen des Faches gespeichert.
                 NSString *name= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
-                
+              //   NSLog([NSString stringWithFormat:@"%f", [[alertView textFieldAtIndex:1].text floatValue]]);
                 [[DataStore defaultStore]createSubjectWithName:name AndWeighting:[[alertView textFieldAtIndex:1].text floatValue]];
                 
+               
                 [self.tableView reloadData];
             }
         }

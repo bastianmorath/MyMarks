@@ -14,14 +14,20 @@
     float plusPoints =0;
     for (Subject *eachSubject in [[DataStore defaultStore]getSubjects])
     {
-        if(eachSubject.average !=0)
+        NSLog([NSString stringWithFormat:@"%@", eachSubject.weighting ]);
+        
+        if ([eachSubject.weighting intValue] == 1)
         {
-            if (round(eachSubject.average * 2) / 2<4) //Wenn der gerundete Durchscnitt kleiner als 4 ist, wird die if-Schlaufe durchlaufen
+            NSLog(@"in pluspoints");
+            if(eachSubject.average !=0)
             {
-                plusPoints -=  2* (4-round(eachSubject.average * 2) / 2);// Subtrahiert zweimal den Wert unter 4
-            } else
-            {
-                plusPoints +=  (round(eachSubject.average * 2) / 2)-4;   // Addiert einmal den Wert über 4
+                if (round(eachSubject.average * 2) / 2<4) //Wenn der gerundete Durchscnitt kleiner als 4 ist, wird die if-Schlaufe durchlaufen
+                {
+                    plusPoints -=  2* (4-round(eachSubject.average * 2) / 2);// Subtrahiert zweimal den Wert unter 4
+                } else
+                {
+                    plusPoints +=  (round(eachSubject.average * 2) / 2)-4;   // Addiert einmal den Wert über 4
+                }
             }
         }
     }
