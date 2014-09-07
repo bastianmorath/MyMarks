@@ -21,4 +21,3 @@
 @property (nonatomic, retain) NSString * notes;     // Dieser String speichert die Notizen zu eienr Prüfung
 
 @end
-

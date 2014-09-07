@@ -17,43 +17,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    //Navigation-Title auf weisse Schrift setzen
-    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-
+    //Background setzen
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
 
     //Rechter Button erstellen
-    self.navigationItem.rightBarButtonItem= [MMFactory editIconItemForClass:self];;
-    
+    self.navigationItem.rightBarButtonItem= [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showAlertView)];
+
+    self.navigationItem.leftBarButtonItem = [MMFactory backBarButtonItemForClass:self];
+
     //Scrollen im TabelView verhindern
     [[self tableView]setBounces:NO];
     
-    //"Zurück-Button"-Titel des Navigation-Controllers ändern
-    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Zurück" style: UIBarButtonItemStyleBordered target: self action: @selector(backPressed)];
-    //[[self navigationItem] setBackBarButtonItem: newBackButton];
-    self.navigationItem.leftBarButtonItem = newBackButton;
-    
-    semesterArray = [[NSMutableArray alloc]init];
-    [semesterArray addObject:@"Semester 1"];
-    [semesterArray addObject:@"Semester 2"];
-    
-    
-    
+    semesterArray = [[NSArray alloc]init];
+    [self updateSemesterArray];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [self.tableView reloadData];
 
-    
+-(void)updateSemesterArray{
+    semesterArray = [[DataStore defaultStore]getSemesters];
 }
 
--(void)backPressed
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-
+-(void)backPressed{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,18 +66,38 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     // Configure the cell...
     
-    cell.textLabel.text = [semesterArray objectAtIndex:indexPath.row];
+    Semester *semester =[semesterArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = semester.name;
+
+    //Wenn nur ein Semester hinzugefügt wurde, dann klicke es automatisch an
+    if ([semesterArray count]==1) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        if (    [[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"]isEqualToString:semester.name]) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+
+    }
     
     
+
     return cell;
 }
 
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    NSString *semesterName = cell.textLabel.text;
 
+    [[NSUserDefaults standardUserDefaults] setObject:semesterName forKey:@"semester"];
+     [self.tableView reloadData];    
+}
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
 
 
@@ -103,88 +108,27 @@
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         //Entfernen des zu löschendem Elements aus dem Datenspeicher
-        [semesterArray removeObjectAtIndex:indexPath.row];
-        
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self viewWillAppear:YES];
+       
+        [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
+        [self updateSemesterArray];
+        [self.tableView reloadData];
     }
 }
 
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
- 
-}
-*/
 
 
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if (indexPath.row >=[semesterArray count])
-    {
-        return NO;
-    }
-    return YES;
-}
-
-//Verhindern, dass durch Swipen über die Zeile Zellen gelöscht werden können
-- (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row >= [semesterArray count])
-    {
-        return UITableViewCellEditingStyleNone;
-    }
-    if (self.tableView.isEditing )
-    {
-        return UITableViewCellEditingStyleDelete;
-    } else
-    {
-        return UITableViewCellEditingStyleNone;
-    }
+    return NO;
 }
 
 
 
-- (void)editPressed
-{
-    [self.tableView setEditing:YES animated:YES];
-    //Plus-Button verschwindet, wenn man am Editieren ist
-    self.navigationItem.rightBarButtonItem.enabled=YES;
-    
-    //Donebutton erstellen, der während dem Editieren angezeigt wird
-    UIBarButtonItem *doneButton =[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(donePressed)];
-    //Editbutton wird zu einem DoneButton animiert geändert
-    [self.navigationItem setRightBarButtonItem:doneButton animated:YES];
-}
-
-
--(void)donePressed
-{
-    //Edit-Modus wird beendet
-    [self.tableView setEditing:NO animated:YES];
-    
-    //Pencil-Button wird wieder angezeigt
-    self.navigationItem.rightBarButtonItem= [MMFactory editIconItemForClass:self];
-}
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma mark - AlertView
 
 //Hinzufügen einer Prüfung
--(void)addSubject
+-(void)showAlertView
 {
     UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Semester hinzufügen"
                                                   message:nil
@@ -210,38 +154,14 @@
                 //Ein neues Fach wird erstellt und im DataHandler hinzugefügt. Der Text des AlertViews wird unter dem Fachnamen des Faches gespeichert.
                 NSString *name= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
                 
-                [semesterArray addObject:name];
-                
+                [[DataStore defaultStore] createSemestertWithName:name];
+                [self updateSemesterArray];
                 [self.tableView reloadData];
             }
         }
     }
 }
 
-
-#pragma  mark - Action Sheet
-
--(void)showActionSheet
-{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Abbrechen" destructiveButtonTitle:nil otherButtonTitles:@"Neues Semester hinzufügen",@"Semester editieren", nil];
-    [actionSheet showInView:self.view];
-    
-}
-
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if(buttonIndex == 0)
-    {
-        [self addSubject];
-    }
-    
-    if(buttonIndex == 1)
-    {
-        [self editPressed];
-    }
-    
-    }
 
 
 @end

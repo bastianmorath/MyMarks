@@ -14,10 +14,10 @@
 //  Die restlichen Methoden wurden gemeinsam implementiert
 
 
-#import "DetailViewController.h"
+#import "MMExamsVC.h"
 
 
-@implementation DetailViewController
+@implementation MMExamsVC
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -45,16 +45,21 @@
 
 -(void)viewDidLoad
 {
+    [super viewDidLoad];
     //Background setzen
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
     //Editbutton erstellen, der angezeigt wird
     [self.navigationItem setRightBarButtonItem:[MMFactory editIconItemForClass:self] animated:YES];
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
+    self.navigationItem.leftBarButtonItem = [MMFactory backBarButtonItemForClass:self];
     self.navigationItem.titleView = [MMFactory getNavigationViewForString:self.subject.name];
 }
 
 
+-(NSArray *)exams{
+    return [self.subject.exam allObjects];
+}
 
 #pragma mark- SetterMethoden
 
@@ -87,7 +92,7 @@
         return 1;
     } else
     {
-        return [[self.subject.exam allObjects] count]+1;
+        return [self.exams count]+1;
     }
 }
 
@@ -124,14 +129,14 @@
         
         
         
-        if ([[self.subject.exam allObjects] count]!=0 )
+        if ([self.exams count]!=0 )
         {
             //Im Label wird der Durchschnitt angezeigt
             label.text = [NSString stringWithFormat:@"%.2f", self.subject.average];
         }else
             //Wenn keine Prüfung hinzugefügt wurde, wird der Durchscnitt 0.0 angezeigt
         {
-            averageCell.textLabel.text = [NSString stringWithFormat:@"0.0"];
+            label.text = [NSString stringWithFormat:@"0.0"];
         }
         
         return averageCell;
@@ -145,15 +150,15 @@
         
         
         
-        if ([[self.subject.exam allObjects]count]!=0 && [[self.subject.exam allObjects] count]!=indexPath.row )
+        if ([self.exams count]!=0 && [self.exams count]!=indexPath.row )
         {
             static NSString *CellIdentifier = @"cell";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
             
             //Hintergrundverlauf der Zellen wird bestimmt. Verlauf von Blau nach Grün
-            double redColor =   35  + (indexPath.row * 136/([[self.subject.exam allObjects]count]+1));
-            double greenColor = 129 + (indexPath.row * 114/([[self.subject.exam allObjects] count]+1));
-            double blueColor =  238 - (indexPath.row * 130/([[self.subject.exam allObjects] count]+1));
+            double redColor =   35  + (indexPath.row * 136/([self.exams count]+1));
+            double greenColor = 129 + (indexPath.row * 114/([self.exams count]+1));
+            double blueColor =  238 - (indexPath.row * 130/([self.exams count]+1));
             cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
             
             
@@ -162,7 +167,7 @@
             selectetView.backgroundColor = [UIColor colorWithRed:30/255.0f green:115/255.0f blue:238/255.0f alpha:1];
             cell.selectedBackgroundView = selectetView;
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-            Exam *exam = [[self.subject.exam allObjects] objectAtIndex:indexPath.row];
+            Exam *exam = [self.exams objectAtIndex:indexPath.row];
             
             [self configureTextForCell:cell withExam:exam];
             //Wenn noch keine Prüfung hinzugefügt wurde
@@ -244,17 +249,17 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        if ([[self.subject.exam allObjects]count]!=0) {
+        if ([self.exams count]!=0) {
             
-            if (indexPath.section!=0 & indexPath.row <= [[self.subject.exam allObjects] count] )
+            if (indexPath.section!=0 & indexPath.row <= [self.exams count] )
             {
                 //Entfernen des zu löschendem Elements aus dem Datenspeicher
-                NSLog(@"Exams :%@", [[self.subject.exam allObjects]objectAtIndex:indexPath.row]);
-                [[DataStore defaultStore] deleteObject:[[self.subject.exam allObjects]objectAtIndex:indexPath.row]];
+                NSLog(@"Vorher exams :%@", self.subject.exam);
+
+                [[DataStore defaultStore] deleteObject:[self.exams objectAtIndex:indexPath.row]];
+                NSLog(@"Nachher exams :%@", self.subject.exam);
                 [self.tableView reloadData];
-                
-                //Löschen der Zeile aus dem TableView
-                //                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+
                 
                 [self setEditButton];
             }
@@ -285,7 +290,7 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //Durchschnitt-Cell, erste Cell (wenn noch keine Prüfung erstellt wurde) und die letzte Cell sollen nicht editierbar sein
-    if (indexPath.section==0 ||  indexPath.row >= [[self.subject.exam allObjects] count] || [[self.subject.exam allObjects] count]==0 )
+    if (indexPath.section==0 ||  indexPath.row >= [self.exams count] || [self.exams count]==0 )
     {
         return NO;
     }
@@ -317,7 +322,9 @@
     self.navigationItem.rightBarButtonItem= [MMFactory editIconItemForClass:self];
 }
 
-
+-(void)backPressed{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 #pragma mark- Navigation
 
@@ -328,16 +335,16 @@
     if ([segue.identifier isEqualToString:@"addExamSegue"])
     {
         UINavigationController *tableViewController = segue.destinationViewController;
-        AddExamController *controller =(AddExamController *)tableViewController.topViewController;
+        MMAddExamVC *controller =(MMAddExamVC *)tableViewController.topViewController;
         
         //Der indexPath wird aus der Methode tableView:didSelectRowAtIndexPath als Sender übergeben
         NSIndexPath *indexPath = sender;
         
         controller.subject=self.subject;
         
-        if (indexPath.row != [[self.subject.exam allObjects] count]) //user fügt eine neue Prüfung hinzu
+        if (indexPath.row != [self.exams count]) //user fügt eine neue Prüfung hinzu
         {
-            controller.exam = [[self.subject.exam allObjects]objectAtIndex:indexPath.row];
+            controller.exam = [self.exams objectAtIndex:indexPath.row];
         }
     }
 }

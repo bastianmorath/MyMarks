@@ -16,11 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.leftBarButtonItem = [MMFactory backBarButtonItemForClass:self];
+
 }
 
--(void)viewWillDisappear:(BOOL)animated{
-    
-}
+
 
 -(NSNumber *)checkedIndexPath{
     NSNumber  *checkedIndex= [[NSUserDefaults standardUserDefaults] objectForKey:@"calculationType"];
@@ -29,8 +30,7 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
+}  
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -44,9 +44,12 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"celForRow");
       UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
- 
+    if ([@(indexPath.row) isEqualToNumber:[[NSUserDefaults standardUserDefaults]objectForKey:@"calculationType"]]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     switch (indexPath.row) {
         case 0:
             cell = self.pluspointsCell;
@@ -60,18 +63,23 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+    int secondRow = indexPath.row ==1 ? 0 : 1;
+    NSIndexPath *secondIndexPath = [NSIndexPath indexPathForRow:secondRow inSection:0];
+    UITableViewCell *secondCell = [tableView cellForRowAtIndexPath:secondIndexPath];
+
+    NSLog(@"Checked IndexPath : %@, %i", [self checkedIndexPath], indexPath.row);
+
     
-    if([[self checkedIndexPath] isEqual:indexPath])
-    {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    }
-    else
-    {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
+    selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    secondCell.accessoryType = UITableViewCellAccessoryNone;
+    
     [[NSUserDefaults standardUserDefaults] setObject:@(indexPath.row) forKey:@"calculationType"];
 }
 
+
+-(void)backPressed{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

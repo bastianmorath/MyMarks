@@ -14,7 +14,14 @@
 }
 @property (nonatomic) enum buttonType type;
 
+//Updatet den View, wird aufgerufen, wenn neue Prüfungen oder Fächer hinzugefügt werden
+-(void)update;
+//Wechselt zwischen Average und Pluspoints
+-(void)changeType;
+
+//Updatet den angezeigten Text
 -(void)updateText;
+
 -(instancetype)initWithType:(enum buttonType)type AndTarget:(id)class;
 
 @end

@@ -50,4 +50,9 @@
         imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, 30, 30)];
     }
 }
+
+    
+    
+
+
 @end

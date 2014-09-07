@@ -12,20 +12,20 @@
 
 
 #import <MessageUI/MessageUI.h>
-#import "DetailViewController.h"
+#import "MMExamsVC.h"
 #import "Subject.h"
 #import "MMNavigationViewButton.h"
 
 
-@interface TableViewController : UITableViewController <UITableViewDelegate, UIAlertViewDelegate, UIApplicationDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate>
+@interface MMSubjectsVC : UITableViewController <UITableViewDelegate, UIAlertViewDelegate, UIApplicationDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate>
 
 
 
-@property (strong, nonatomic) MMNavigationViewButton *navigationViewButton;
+@property (nonatomic, strong) MMNavigationViewButton *navigationViewButton;
+@property (nonatomic, strong) Semester *semester;
 
-
-
--(NSArray *)getSubjectArray;
+@property (nonatomic, strong) NSArray *subjectArray;
+-(void)updateSubjectArray;
 
 - (void)editPressed;
 - (void)donePressed;

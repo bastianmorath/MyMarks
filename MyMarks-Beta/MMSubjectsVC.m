@@ -15,10 +15,10 @@
 //  Die restlichen Methoden wurden gemeinsam implementiert
 
 
-#import "TableViewController.h"
+#import "MMSubjectsVC.h"
 
 
-@implementation TableViewController
+@implementation MMSubjectsVC
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -34,15 +34,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
-    
-    [self.tableView reloadData];
+    [self updateSubjectArray];
+    [self.navigationViewButton update];
 
-    [self.navigationViewButton updateText];
+    [self.tableView reloadData];
 }
 
 
 -(void)viewDidLoad
 {
+    [super viewDidLoad];
     //Navigation-Title auf weisse Schrift setzen
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     
@@ -60,7 +61,7 @@
     [[self tableView]setBounces:NO];
     
     //"Zurück-Button"-Titel des Navigation-Controllers ändern
-    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backArrow.png"] style:UIBarButtonItemStylePlain target:self action:@selector(backPressed)];
     [[self navigationItem] setBackBarButtonItem: newBackButton];
     
     //Background auf eine Grundfarbe setzen, damit zum Beispiel beim Zeilen-Verschieben kein weisser Hintergrund zu sehen ist
@@ -74,6 +75,16 @@
 
     }
     self.navigationItem.titleView = self.navigationViewButton;
+    
+    //Semester setzen
+    NSString *semesterName = [[NSUserDefaults standardUserDefaults]objectForKey:@"semester"];
+    for (Semester *semester in [[DataStore defaultStore]getSemesters]) {
+        if ([semester.name isEqualToString:semesterName]) {
+            self.semester = semester;
+        }
+    }
+    
+    NSLog(@"Semester :%@", self.semester);
 }
 
 
@@ -82,10 +93,9 @@
 //Diese Methode gibt den Array mit den Fächer zurück
 
 
--(NSArray *)getSubjectArray
+-(void)updateSubjectArray;
 {
-    DataStore *dataStore = [DataStore defaultStore];
-    return [dataStore getSubjects];
+    self.subjectArray =  [[DataStore defaultStore] getSubjects];
 }
 
 
@@ -105,12 +115,12 @@
 {
     int numberOfRows=0;
     //Es hat immer so viele Cells wie der SubjectArray Elemente hat, aber mindestens 10, damit der ganze Bildschirm ausgefüllt ist
-    if ([self.getSubjectArray count]<10)
+    if ([self.subjectArray count]<10)
     {
         numberOfRows = 10;
     } else
     {
-        numberOfRows = [self.getSubjectArray count];
+        numberOfRows = [self.subjectArray count];
     }
     return numberOfRows;
 }
@@ -136,7 +146,7 @@
 
     
         //Je nach dem, ob weniger/gleich oder mehr als 10 Fächer eingetragen wurden(bei über 10 verlassen die untersten Zellen den Screen), wird der Farbverlauf der Zellen anderst konfiguriert
-    if ([self.getSubjectArray count]<=10)
+    if ([self.subjectArray count]<=10)
     {
         double redColor =   41  + (indexPath.row * 116/9);
         double greenColor = 135 + (indexPath.row * 94/9);
@@ -145,17 +155,17 @@
         cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
     } else
     {
-        double redColor =   35  + (indexPath.row * 116/([self.getSubjectArray count]-1));
-        double greenColor = 129 + (indexPath.row * 94/([self.getSubjectArray count]-1));
-        double blueColor =  238 - (indexPath.row * 110/([self.getSubjectArray count]-1));
+        double redColor =   35  + (indexPath.row * 116/([self.subjectArray count]-1));
+        double greenColor = 129 + (indexPath.row * 94/([self.subjectArray count]-1));
+        double blueColor =  238 - (indexPath.row * 110/([self.subjectArray count]-1));
         cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
     }
 
     //Die Cells, in welche ein Fach eingetragen werden soll, werden mit Fachnamen und Durchschnitt kofiguriert
-    if ([self.getSubjectArray count]>indexPath.row)
+    if ([self.subjectArray count]>indexPath.row)
     {
-        Subject *subject = [[self getSubjectArray]  objectAtIndex:indexPath.row];
-        
+        Subject *subject = [self.subjectArray objectAtIndex:indexPath.row];
+
         //Die Labels der Cells werden konfiguriert und der Hintergrund transparent gemacht
         cell.textLabel.text = subject.name;
 
@@ -179,7 +189,7 @@
 //Diese Methode wird aufgerufen, wenn eine Cell gedrückt wird
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.getSubjectArray count]-1>=indexPath.row)
+    if ([self.subjectArray count]-1>=indexPath.row)
     {
         //Segue wird gestartet
     [self performSegueWithIdentifier:@"detailsegue" sender:indexPath];
@@ -196,18 +206,31 @@
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         //Entfernen des zu löschendem Elements aus dem Datenspeicher
-        [[DataStore defaultStore] deleteObject:[[self getSubjectArray] objectAtIndex:indexPath.row]];
+        [[DataStore defaultStore] deleteObject:[self.subjectArray objectAtIndex:indexPath.row]];
         ;
+        //Position müssen neu gesetzt werden
+        [self updateSubjectArray];
+
+        [self updatePositions];
         [self.navigationViewButton updateText];
        
         [self.tableView reloadData];
     }
 }
 
+-(void)updatePositions{
+    int counter=0;
+    
+    for (Subject *subject in self.subjectArray) {
+        subject.position= @(counter);
+        counter++;
+    }
+    
+}
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row >=[[self getSubjectArray] count])
+    if (indexPath.row >=[self.subjectArray count])
     {
         return NO;
     }
@@ -220,37 +243,49 @@
     NSUInteger sourceIndex = [sourceIndexPath row];
     NSUInteger destinationIndex = [destinationIndexPath row];
     
-    //Der Table View wird nach 0.3 Sekunden neu geladen, damit es dynamischer aussieht
-    //[NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(breakBeforeReload) userInfo:nil repeats:NO];
     
     //Die Verschiebung der Zellen wird auch im Datenspeicher  geändert
     
     [self changePosition:sourceIndex WithPosition:destinationIndex];
     
-    [self.tableView reloadData];
+    //Der Table View wird nach 0.3 Sekunden neu geladen, damit es dynamischer aussieht
+    [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(breakBeforeReload) userInfo:nil repeats:NO];
+    
+    
+    
 }
 
 -(void)changePosition:(int)sourceIndex WithPosition:(int)destinationIndex{
-    for (Subject *sourceSubject in [self getSubjectArray]) {
+    for (Subject *sourceSubject in self.subjectArray) {
         if ([sourceSubject.position intValue] == sourceIndex) {
-            for (Subject *destinationSubject in [self getSubjectArray]) {
+            for (Subject *destinationSubject in self.subjectArray) {
                 if ([destinationSubject.position intValue] == destinationIndex) {
+                    //Change positions
                     sourceSubject.position = [NSNumber numberWithInt:destinationIndex];
                     destinationSubject.position = [NSNumber numberWithInt:sourceIndex];
+                    
+                    //SubjectArray updaten
+                    [self updateSubjectArray];
+                    return;
                 }
             }
         }
     }
+    
+    //SubjectArrays updaten
 }
 
+-(void)breakBeforeReload{
+    [self.tableView reloadData];
+}
 //Diese Methode ist dafür zuständig, dass die zu verschiebende Row nicht über den Facharray hinaus verschoben wird, sondern höchstens daran angehängt wird
 -(NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
     
-    if (proposedDestinationIndexPath.row >=[self.getSubjectArray count])
+    if (proposedDestinationIndexPath.row >=[self.subjectArray count])
     {
         
-        NSIndexPath *lastCellIndexPath = [NSIndexPath indexPathForRow:[self.getSubjectArray count]-1 inSection:0];
+        NSIndexPath *lastCellIndexPath = [NSIndexPath indexPathForRow:[self.subjectArray count]-1 inSection:0];
             return lastCellIndexPath;
     } else
     {
@@ -262,7 +297,7 @@
 //Verhindern, dass durch Swipen über die Zeile Zellen gelöscht werden können
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row >= [self.getSubjectArray count])
+    if (indexPath.row >= [self.subjectArray count])
     {
         return UITableViewCellEditingStyleNone;
     }
@@ -299,18 +334,18 @@
     
     //Pencil-Button wird wieder angezeigt
     self.navigationItem.rightBarButtonItem= [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionSheet)];
+
 }
 
 -(void)openPreferences{
-    NSLog(@"Preferences");
-   
-
     [self performSegueWithIdentifier:@"openPreferences" sender:nil];
 }
+
 - (void)navigationButtonPressed{
-    [self.navigationViewButton updateText];
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+    [self.navigationViewButton changeType];
 }
+
+
 #pragma mark - Navigation
 
 //Vor dem Aufruf eines neuen Controllers werden Vorbereitungen gemacht
@@ -319,13 +354,13 @@
     //Wenn auf eine Cell gedrückt wird, wird der Segue mit dem Identifier "detailSegue" aufgerufen
     if ([segue.identifier isEqualToString:@"detailsegue"])
     {
-        DetailViewController *dvc = [segue destinationViewController];
+        MMExamsVC *dvc = [segue destinationViewController];
     
         //Der indexPath wird aus der Methode tableView:didSelectRowAtIndexPath als Sender übergeben
         NSIndexPath *indexPath = sender;
         
         //Der String des Faches wird als Titel in der NavigationBar angezeigt
-        Subject *subject = [[self getSubjectArray] objectAtIndex:indexPath.row];
+        Subject *subject = [self.subjectArray objectAtIndex:indexPath.row];
         dvc.title = [NSString stringWithFormat:@"%@",subject.name];
         
         //Das angeklickte Fach wird im DetailViewController unter "Subject" gespeichert
@@ -351,9 +386,9 @@
     [writeString appendString:@"MyMarks \n \n"];
     
     //Note, gewichtung, Datum und Notizen einer Prüfung werden dem NSMutableString angehängt
-    for (int i=0; i<[self.getSubjectArray count]; i++)
+    for (int i=0; i<[self.subjectArray count]; i++)
     {
-        Subject *subject = [self.getSubjectArray objectAtIndex:i];
+        Subject *subject = [self.subjectArray objectAtIndex:i];
         [writeString appendString:[NSString stringWithFormat:@"\n\n%@\n ",subject.name]];
         
         for (Exam *eachExam in [subject.exam allObjects])
@@ -462,9 +497,10 @@
             {
                 //Ein neues Fach wird erstellt und im DataHandler hinzugefügt. Der Text des AlertViews wird unter dem Fachnamen des Faches gespeichert.
                 NSString *name= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
-              //   NSLog([NSString stringWithFormat:@"%f", [[alertView textFieldAtIndex:1].text floatValue]]);
                 
-               
+                [[DataStore defaultStore]createSubjectWithName:name AndWeighting:[[alertView textFieldAtIndex:1].text floatValue]AndSemester:self.semester];
+                
+                [self updateSubjectArray];
                 [self.tableView reloadData];
             }
         }

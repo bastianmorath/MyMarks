@@ -6,9 +6,9 @@
 
 //  Dieses Implementation-File der AppDelegate-Klasse wurde von Florian erstellt
 
-#import "AppDelegate.h"
+#import "MMAppDelegate.h"
 
-@implementation AppDelegate
+@implementation MMAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -24,9 +24,9 @@
         // Object für Key Average: 0
         // Object für Key Pluspoints: 1
         //Average by Default
-        [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"calcType"];
-
-    }
+        //[[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"calcType"];
+        
+        }
      );
 
     

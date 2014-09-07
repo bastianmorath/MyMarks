@@ -16,7 +16,7 @@
     #import <CoreData/CoreData.h>
     #import "DataStore.h"
     #import "MMFactory.h"
-    #import "Enumerations.h"
+    #import "MMEnumerations.h"
     #import "MMBarButtonItem.h"
 
 

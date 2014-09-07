@@ -11,14 +11,15 @@
 
 
 #import "Exam.h"
-#import "AddExamController.h"
+#import "MMAddExamVC.h"
 #import "Subject.h"
 
-@interface DetailViewController : UITableViewController
+@interface MMExamsVC : UITableViewController
 
 
 @property (strong, nonatomic) Subject *subject;
 
+-(NSArray *)exams;
 
 -(IBAction)editPressed:(id)sender;
 -(IBAction)donePressed:(id)sender;

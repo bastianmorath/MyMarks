@@ -12,7 +12,7 @@
 #import "Exam.h"
 
 
-@interface AddExamController : UITableViewController <UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIScrollViewDelegate>
+@interface MMAddExamVC : UITableViewController <UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIScrollViewDelegate>
 {
     UIColor *color1;
     UIColor *color2;

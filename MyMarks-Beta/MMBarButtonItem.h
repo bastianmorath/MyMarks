@@ -20,4 +20,5 @@
 @property (nonatomic) enum ATPosition position;
 
 -(instancetype)initWithText:(NSString*)text target:(id)class Position:(enum ATPosition)position;
+
 @end

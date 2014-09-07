@@ -152,7 +152,7 @@ static DataStore *defaultStore;
     if ( ![coreDataContext save:&error])
     {
         NSLog(@"Error: %@", [error localizedFailureReason]);
-        return FALSE;
+        return NO;
     }
     return YES;
 }
@@ -160,13 +160,12 @@ static DataStore *defaultStore;
 {
     [coreDataContext deleteObject:object];
     [self storeData];
-    
 }
 
 /* ------------------  Spezifische Funktionen ----------------------------------- */
 
 
--(void)createSubjectWithName:(NSString *)name AndWeighting:(float)weighting{
+-(void)createSubjectWithName:(NSString *)name AndWeighting:(float)weighting AndSemester:(Semester *)semester{
     Subject *subject = [self addObjectForName:@"Subject"];
     subject.name= name;
     if (weighting) {
@@ -176,9 +175,19 @@ static DataStore *defaultStore;
     }
     //Die Prüfung wird an letzter Position eingefügt
     subject.position = [NSNumber numberWithInt:[[self getSubjects]count]-1];
+    
+    //Die prüfung wird dem Semester hinzugefügt
+    [semester addSubjectObject:subject];
     [self storeData];
 }
 
+-(Semester *)createSemestertWithName:(NSString *)name{
+    Semester *semester = [self addObjectForName:@"Semester"];
+    semester.name = name;
+    [self storeData];
+    
+    return semester;
+}
 -(void)addExamWithData:(NSDictionary *)data ToSubject:(Subject *)subject{
     
     Exam *exam = [self addObjectForName:@"Exam"];
@@ -193,10 +202,16 @@ static DataStore *defaultStore;
 }
 
 -(NSArray *)getSubjects{
-    NSSortDescriptor *sDescriptor = [[NSSortDescriptor alloc]initWithKey:@"position" ascending:NO];
+    NSSortDescriptor *sDescriptor = [[NSSortDescriptor alloc]initWithKey:@"position" ascending:YES];
     NSArray *descriptors = @[sDescriptor];
     return [self performFetchForEntity:@"Subject" WithPredicate:nil AndSortDescriptor:descriptors];
 
+}
+
+-(NSArray *)getSemesters{
+    NSSortDescriptor *sDescriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
+    NSArray *descriptors = @[sDescriptor];
+    return [self performFetchForEntity:@"Semester" WithPredicate:nil AndSortDescriptor:descriptors];
 }
 
 

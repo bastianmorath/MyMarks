@@ -17,4 +17,5 @@
 +(NSString *)NSStringFromDate:(NSDate*)date;
 +(NSDate *)NSDateFromString:(NSString*)string;
 +(UIView *)getNavigationViewForString:(NSString *)string;
++(UIBarButtonItem *)backBarButtonItemForClass:(id)class;
 @end

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Bastian Morath. All rights reserved.
 //
 
-#import "Enumerations.h"
+#import "MMEnumerations.h"
 
-@implementation Enumerations
+@implementation MMEnumerations
 
 @end

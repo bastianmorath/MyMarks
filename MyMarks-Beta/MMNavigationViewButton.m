@@ -29,15 +29,24 @@
 }
 
 
--(void)updateText{
+-(void)update{
+    [self updateText];
+}
+
+
+-(void)changeType{
     self.type = self.type == 0 ? 1 :0;
-
+    
     [[NSUserDefaults standardUserDefaults] setObject:@(self.type)  forKey:@"calcType"];
+    
+    [self updateText];
+}
 
+-(void)updateText{
     switch (self.type) {
         case 0:
         {
-            label.text = [NSString stringWithFormat:@"Average: %0.1f", [MMFactory average]];
+            label.text = [NSString stringWithFormat:@"Average: %0.2f", [MMFactory average]];
             
         }
             break;
@@ -55,6 +64,7 @@
         default:
             break;
     }
-
+    
 }
+
 @end

@@ -6,9 +6,9 @@
 //  Dieses Implementation-File der AddExamController-Klasse wurde von Bastian erstellt
 
 
-#import "AddExamController.h"
+#import "MMAddExamVC.h"
 
-@implementation AddExamController
+@implementation MMAddExamVC
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -26,6 +26,7 @@
 
 
 -(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
     [self.MarkTextField resignFirstResponder];
     [self.WeightingTextField resignFirstResponder];
     [self.DateTextField resignFirstResponder];
@@ -37,7 +38,6 @@
 {
     [super viewDidLoad];
 
-    NSLog(@"dgsfg");
     //Für alle TextFields jeweils: transparenter Background, weisser Rand und Keyboard translucent machen
     self.MarkTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
     self.MarkTextField.layer.borderColor = [[UIColor whiteColor]CGColor];

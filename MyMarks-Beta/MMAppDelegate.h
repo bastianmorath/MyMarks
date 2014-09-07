@@ -12,7 +12,7 @@
 #import "Subject.h"
 
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface MMAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

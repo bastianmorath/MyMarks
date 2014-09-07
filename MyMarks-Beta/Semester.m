@@ -1,19 +1,18 @@
 //
-//  Exam.m
+//  Semester.m
 //  Notenapplikation
 //
 //  Created by Bastian Morath on 07/09/14.
 //  Copyright (c) 2014 Bastian Morath. All rights reserved.
 //
 
-#import "Exam.h"
+#import "Semester.h"
+#import "Subject.h"
 
 
-@implementation Exam
+@implementation Semester
 
-@dynamic date;
-@dynamic mark;
-@dynamic notes;
-@dynamic weighting;
+@dynamic name;
+@dynamic subject;
 
 @end

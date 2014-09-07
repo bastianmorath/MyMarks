@@ -10,12 +10,10 @@
 
 @interface MMChooseSemester : UITableViewController <UITableViewDelegate,UIApplicationDelegate, UIAlertViewDelegate, UIActionSheetDelegate>
 {
-
-    NSMutableArray *semesterArray;
-
+    NSArray *semesterArray;
 }
 
-- (void)editPressed;
-- (void)donePressed;
+-(void)updateSemesterArray;
+
 
 @end

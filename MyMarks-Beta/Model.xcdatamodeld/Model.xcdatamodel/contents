@@ -6,6 +6,10 @@
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="weighting" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
     </entity>
+    <entity name="Semester" representedClassName="Semester" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="subject" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Subject" syncable="YES"/>
+    </entity>
     <entity name="Subject" representedClassName="Subject" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -15,5 +19,6 @@
     <elements>
         <element name="Exam" positionX="-54" positionY="-9" width="128" height="103"/>
         <element name="Subject" positionX="-63" positionY="-243" width="128" height="103"/>
+        <element name="Semester" positionX="-54" positionY="-99" width="128" height="75"/>
     </elements>
 </model>

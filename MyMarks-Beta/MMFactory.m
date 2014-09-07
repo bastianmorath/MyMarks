@@ -14,11 +14,9 @@
     float plusPoints =0;
     for (Subject *eachSubject in [[DataStore defaultStore]getSubjects])
     {
-        NSLog([NSString stringWithFormat:@"%@", eachSubject.weighting ]);
         
         if ([eachSubject.weighting intValue] == 1)
         {
-            NSLog(@"in pluspoints");
             if(eachSubject.average !=0)
             {
                 if (round(eachSubject.average * 2) / 2<4) //Wenn der gerundete Durchscnitt kleiner als 4 ist, wird die if-Schlaufe durchlaufen
@@ -36,15 +34,19 @@
 }
 
 +(float)average{
-    float numberOfSubjects =0;
-    float tempCount = 0;
-    for (Subject *eachSubject in [[DataStore defaultStore]getSubjects]){
-        if (eachSubject.average!=0) {
-            numberOfSubjects++;
-            tempCount += eachSubject.average;
+    if ([[[DataStore defaultStore]getSubjects]count]!=0) {
+        float numberOfSubjects =0;
+        float tempCount = 0;
+        for (Subject *eachSubject in [[DataStore defaultStore]getSubjects]){
+            if (eachSubject.average!=0) {
+                numberOfSubjects++;
+                tempCount += eachSubject.average;
+            }
         }
+        return tempCount / numberOfSubjects;
+    } else {
+        return 0.0;
     }
-    return tempCount / numberOfSubjects;
 }
 
 +(UIBarButtonItem *)appIconItem{
@@ -112,5 +114,20 @@
     [label setFrame:CGRectMake(0, 0, labelSize.width, labelSize.height)];
     [customTitleView addSubview:label];
     return customTitleView;
+}
+
++(UIBarButtonItem *)backBarButtonItemForClass:(id)class{
+    UIImage* image = [UIImage imageNamed:@"backArrow.png"];
+    CGRect frameimg = CGRectMake(-3, 9, 18, 18);
+    UIButton *arrowButton = [[UIButton alloc] initWithFrame:frameimg];
+    [arrowButton setBackgroundImage:image forState:UIControlStateNormal];
+    [arrowButton addTarget:class action:@selector(backPressed)
+        forControlEvents:UIControlEventTouchUpInside];
+    [arrowButton setShowsTouchWhenHighlighted:YES];
+    
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
+    [view addSubview:arrowButton];
+    UIBarButtonItem *backBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:view];
+    return backBarButtonItem;
 }
 @end

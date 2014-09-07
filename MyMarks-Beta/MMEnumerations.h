@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Enumerations : NSObject
+@interface MMEnumerations : NSObject
 
 
 /*ButtonType*/
@@ -16,23 +16,6 @@ typedef enum buttonType {
     BTAverage,
     BTPluspoints
 };
-
-/*ButtonType*/
-typedef enum iconType {
-    ITCalendarIcon,
-    ITDeleteIcon,
-    ITEditIcon,
-    ITFilesIcon,
-    ITLibraryIcon,
-    ITListIcon,
-    ITMessagesIcon,
-    ITRateIcon,
-    ITSettingsIcon,
-    ITShareIcon,
-    ITClockIcon
-};
-
-
 
 typedef enum ATPosition{
     PTLeft,
