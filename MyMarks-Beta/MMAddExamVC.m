@@ -41,12 +41,12 @@
     //Für alle TextFields jeweils: transparenter Background, weisser Rand und Keyboard translucent machen
     self.MarkTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
     self.MarkTextField.layer.borderColor = [[UIColor whiteColor]CGColor];
-    self.MarkTextField.layer.borderWidth = 1.0;
+    self.MarkTextField.layer.borderWidth = 0.8;
     self.MarkTextField.layer.cornerRadius = 0.0f;
     
     self.DateTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
     self.DateTextField.layer.borderColor = [[UIColor whiteColor]CGColor];
-    self.DateTextField.layer.borderWidth = 1.0;
+    self.DateTextField.layer.borderWidth = 0.8;
     self.DateTextField.layer.cornerRadius = 0.0f;
     
     //Aktueller Tag als Default-Date einsetzen
@@ -55,13 +55,13 @@
     
     self.WeightingTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
     self.WeightingTextField.layer.borderColor = [[UIColor whiteColor]CGColor];
-    self.WeightingTextField.layer.borderWidth = 1.0;
+    self.WeightingTextField.layer.borderWidth = 0.8;
     self.WeightingTextField.layer.cornerRadius = 0.0f;
     
     //Notizen-Field wird initialisiert mit einem Border und runden Ecken
     self.NotesTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
-    self.NotesTextField.layer.borderWidth = 1.0f;
-    self.NotesTextField.layer.cornerRadius = 0;
+    self.NotesTextField.layer.borderWidth = 0.8;
+    self.NotesTextField.layer.cornerRadius = 0.0f;
     self.NotesTextField.layer.borderColor =[[UIColor whiteColor] CGColor];
     
     //Navigation-Title auf weisse Schrift setzen
@@ -75,10 +75,12 @@
      self.doneBarButton.enabled = NO;
     
     //Linkes BarButtonItem setzen
-    [self.navigationItem setLeftBarButtonItem:[[MMBarButtonItem alloc]initWithText:@"Cancel" target:self Position:PTLeft] animated:YES];
+    [self.navigationItem setLeftBarButtonItem:[[MMBarButtonItem alloc]initWithText:NSLocalizedString(@"Cancel", nil)  target:self Position:PTLeft] animated:YES];
 
     //Rechtes BarButtonItem setzen
-    [self.navigationItem setRightBarButtonItem:[[MMBarButtonItem alloc]initWithText:@"Done" target:self Position:PTRight] animated:YES];
+    [self.navigationItem setRightBarButtonItem:[[MMBarButtonItem alloc]initWithText:NSLocalizedString(@"Done", nil) target:self Position:PTRight] animated:YES];
+    
+    self.navigationItem.titleView = [MMFactory getNavigationViewForString:NSLocalizedString(@"Add exam", nil)];
 
     
     //Wenn  im DetailViewController auf eine bereits vorhandene Prüfung gedrückt wird, um sie zu editieren, werden hier die TextFields entsprechend ausgefüllt

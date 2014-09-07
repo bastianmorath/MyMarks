@@ -46,7 +46,7 @@
     switch (self.type) {
         case 0:
         {
-            label.text = [NSString stringWithFormat:@"Average: %0.2f", [MMFactory average]];
+            label.text = [NSString stringWithFormat:NSLocalizedString(@"Average: %0.2f", nil), [MMFactory average]];
             
         }
             break;

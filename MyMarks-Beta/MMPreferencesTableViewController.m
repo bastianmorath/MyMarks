@@ -30,7 +30,7 @@
     self.navigationController.navigationBar.tintColor =[UIColor whiteColor];
 
     //Titel setzen
-    self.navigationItem.titleView = [MMFactory getNavigationViewForString:@"Einstellungen"];
+    self.navigationItem.titleView = [MMFactory getNavigationViewForString:NSLocalizedString(@"Preferences", nil)];
 
     //Rechtes BarbuttonItem setzen
     [self.navigationItem setRightBarButtonItem:[[MMBarButtonItem alloc]initWithText:@"Done" target:self Position:PTRight] animated:YES];

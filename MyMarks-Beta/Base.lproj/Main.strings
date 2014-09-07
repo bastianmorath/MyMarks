@@ -1,0 +1,33 @@
+
+
+/////******ENGLISH*******//
+
+
+
+/* Class = "IBUILabel"; text = "0.0"; ObjectID = "CLC-sr-rKR"; */
+"CLC-sr-rKR.text" = "0.0";
+
+
+/* Class = "IBUILabel"; text = "0.0"; ObjectID = "LsH-6r-8uj"; */
+"LsH-6r-8uj.text" = "0.0";
+
+/* Class = "IBUILabel"; text = "0.00"; ObjectID = "OtZ-pR-bvv"; */
+"OtZ-pR-bvv.text" = "0.00";
+
+/* Class = "IBUITextField"; text = "1.0"; ObjectID = "gbO-K4-N0n"; */
+"gbO-K4-N0n.text" = "1.0";
+
+/* Class = "IBUILabel"; text = "Notizen:"; ObjectID = "hDZ-Sl-4jd"; */
+"hDZ-Sl-4jd.text" = "Notes:";
+
+
+/* Class = "IBUILabel"; text = "Gewichtung:"; ObjectID = "n0p-OD-ImR"; */
+"n0p-OD-ImR.text" = "Weighting:";
+
+
+/* Class = "IBUILabel"; text = "Note:"; ObjectID = "tko-kz-oR2"; */
+"tko-kz-oR2.text" = "Grade:";
+
+
+/* Class = "IBUILabel"; text = "Datum:"; ObjectID = "wc1-1h-RUx"; */
+"wc1-1h-RUx.text" = "Date:";

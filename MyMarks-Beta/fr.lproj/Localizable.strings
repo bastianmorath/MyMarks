@@ -1,0 +1,23 @@
+/* 
+  Localizable.strings
+  Notenapplikation
+
+  Created by Bastian Morath on 05/09/14.
+  Copyright (c) 2014 Bastian Morath. All rights reserved.
+*/
+
+"Pluspoints: %0.1f" = "Pluspoints: %0.1f";
+"Minuspoints: %0.1f" = "Minuspoints: %0.1f";
+"Average: %0.2f" = "Moyenne: %0.2f" ;
+"Add new subject" = "Ajouter une nouvelle matière";
+"Edit subjects" = "Editer matières";
+"Export marks" = "Exporter les notes";
+"Preferences" = "Réglagés";
+"Cancel" = "Annuler";
+"Done" = "OK";
+"Add subject" = "Ajouter une matière";
+"Add" = "Ajouter";
+"Add new exam" = "Ajouter un nouveau examen";
+"Average" = "Moyenne";
+"Exams" = "Examens";
+"Add exam" = "Ajouter un examen";

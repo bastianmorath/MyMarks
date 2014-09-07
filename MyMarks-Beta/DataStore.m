@@ -74,8 +74,6 @@ static DataStore *defaultStore;
     {
         coreDataContext = [[NSManagedObjectContext alloc]init];
         [coreDataContext setPersistentStoreCoordinator:persistenStoreCoordinator];
-        // [persistenStoreCoordinator release];
-        
     }
     NSLog(@"Info: Core Data wurde initialisiert");
     
@@ -98,7 +96,7 @@ static DataStore *defaultStore;
 {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    // Abfrageandofderung
+    // Abfrageanforderung
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:objectName inManagedObjectContext:coreDataContext]];
     

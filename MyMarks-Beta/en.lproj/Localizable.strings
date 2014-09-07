@@ -8,3 +8,16 @@
 
 "Pluspoints: %0.1f" = "Pluspoints: %0.1f";
 "Minuspoints: %0.1f" = "Minuspoints: %0.1f";
+"Average: %0.2f" = "Average: %0.2f" ;
+"Add new subject" = "Add new subject";
+"Edit subjects" = "Edit subjects";
+"Export marks" = "Export marks";
+"Preferences" = "Preferences";
+"Cancel" = "Cancel";
+"Done" = "Done";
+"Add subject" = "Add subject";
+"Add" = "Add";
+"Add new exam" = "Add new exam";
+"Average" = "Average";
+"Exams" = "Exams";
+"Add exam" = "Add exam";

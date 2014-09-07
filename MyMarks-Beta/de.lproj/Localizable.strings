@@ -8,3 +8,16 @@
 
 "Pluspoints: %0.1f" = "Pluspunkte: %0.1f";
 "Minuspoints: %0.1f" = "Minuspunkte: %0.1f";
+"Average: %0.2f" = "Durchschnitt: %0.2f";
+"Add new subject" = "Neues Fach hinzufügen";
+"Edit subjects" = "Fächer editieren";
+"Export marks" = "Noten exportieren";
+"Preferences" = "Einstellungen";
+"Cancel" = "Abbrechen";
+"Done" = "Fertig";
+"Add subject" = "Fach hinzufügen";
+"Add" = "Hinzufügen";
+"Add new exam" = "Neue Prüfung hinzufügen";
+"Average" = "Durchschnitt";
+"Exams" = "Prüfungen";
+"Add exam" = "Prüfung hinzufügen";

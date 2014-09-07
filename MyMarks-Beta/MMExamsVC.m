@@ -181,7 +181,7 @@
             UILabel *label = (UILabel *)[cell viewWithTag:1];
 
             cell.accessoryType = UITableViewCellAccessoryNone;
-            label.text = @"Neue Prüfung hinzufügen";
+            label.text = NSLocalizedString(@"Add new exam", nil);
             cell.backgroundColor =[UIColor colorWithRed:130/255.0f green:200/255.0f blue:150/255.0f alpha:1];
             return cell;
             
@@ -217,10 +217,10 @@
     tempLabel.frame = CGRectMake(10.0, 0.0, 300.0, 44.0);
     if (section ==0)
     {
-        tempLabel.text=@"Durchschnitt";
+        tempLabel.text=NSLocalizedString(@"Average", nil);
     } else
     {
-        tempLabel.text=@"Noten";
+        tempLabel.text=NSLocalizedString(@"Exams", nil);
     }
     
     [tempView addSubview:tempLabel];
@@ -307,7 +307,7 @@
     [self.tableView setEditing:YES animated:YES];
     
     //Donebutton erstellen, der während dem Editieren angezeigt wird
-    UIBarButtonItem *doneButton =[[MMBarButtonItem alloc]initWithText:@"Done" target:self Position:PTRight];
+    UIBarButtonItem *doneButton =[[MMBarButtonItem alloc]initWithText:NSLocalizedString(@"Done", nil) target:self Position:PTRight];
     
     //Editbutton wird zu einem DoneButton animiert geändert
     [self.navigationItem setRightBarButtonItem:doneButton animated:YES];

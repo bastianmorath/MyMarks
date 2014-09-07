@@ -409,6 +409,7 @@
     
     //Ein Controller für das Mail-Programm wird erstellt und aufgerufen
     MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+    [mailer.view setTintColor:[UIColor whiteColor]];
     mailer.mailComposeDelegate = self;
     [mailer setSubject:@"MyMarks"];
     [mailer addAttachmentData:[NSData dataWithContentsOfFile:[self dataFilePath] ]
@@ -472,11 +473,11 @@
 //Hinzufügen einer Prüfung
 -(void)addSubject
 {
-    UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Fach hinzufügen"
+    UIAlertView *alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Add subject", nil)
                                                   message:nil
                                                  delegate:self
-                                        cancelButtonTitle:@"Abbrechen"
-                                        otherButtonTitles:@"Fertig", nil];
+                                        cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                        otherButtonTitles:NSLocalizedString(@"Add", nil), nil];
     [alert setAlertViewStyle: UIAlertViewStyleLoginAndPasswordInput];
     [[alert textFieldAtIndex:1] setSecureTextEntry:NO];
     [[alert textFieldAtIndex:0] setPlaceholder:@"Name"];
@@ -491,7 +492,7 @@
     if (buttonIndex==1)
     {
         //Diese if-Schlaufe wird durchlaufen, wenn der AlertView des "Prüfung hinzufügen" aufgerufen wird
-        if ([alertView.title isEqualToString:@"Fach hinzufügen"])
+        if ([alertView.title isEqualToString:NSLocalizedString(@"Add subject", nil)])
         {
             if (![[alertView textFieldAtIndex:0].text isEqualToString:@""])
             {
@@ -512,7 +513,8 @@
 
 -(void)showActionSheet
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Abbrechen" destructiveButtonTitle:nil otherButtonTitles:@"Neues Fach hinzufügen",@"Fächer editieren",@"Noten exportieren", @"Einstellungen", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Add new subject", nil), NSLocalizedString(@"Edit subjects", nil), NSLocalizedString(@"Export marks", nil), NSLocalizedString(@"Preferences", nil), nil];
+                                  
     [actionSheet showInView:self.view];
     
 }

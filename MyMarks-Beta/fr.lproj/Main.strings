@@ -1,0 +1,78 @@
+
+/* Class = "IBUILabel"; text = "0.0"; ObjectID = "CLC-sr-rKR"; */
+"CLC-sr-rKR.text" = "0.0";
+
+/* Class = "IBUILabel"; text = "Frühlingssemester"; ObjectID = "CTO-um-7E1"; */
+"CTO-um-7E1.text" = "Frühlingssemester";
+
+/* Class = "IBUINavigationItem"; title = "Prüfung hinzufügen"; ObjectID = "Dww-7R-fcd"; */
+"Dww-7R-fcd.title" = "Prüfung hinzufügen";
+
+/* Class = "IBUILabel"; text = "Anzeige"; ObjectID = "EXz-Xw-O37"; */
+"EXz-Xw-O37.text" = "Affichage";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "Fg7-kr-c3Z"; */
+"Fg7-kr-c3Z.text" = "Title";
+
+/* Class = "IBUILabel"; text = "iCloud"; ObjectID = "LPL-C3-MBN"; */
+"LPL-C3-MBN.text" = "iCloud";
+
+/* Class = "IBUILabel"; text = "Semester"; ObjectID = "Lkr-ln-U26"; */
+"Lkr-ln-U26.text" = "Semester";
+
+/* Class = "IBUILabel"; text = "0.0"; ObjectID = "LsH-6r-8uj"; */
+"LsH-6r-8uj.text" = "0.0";
+
+/* Class = "IBUILabel"; text = "0.00"; ObjectID = "OtZ-pR-bvv"; */
+"OtZ-pR-bvv.text" = "0.00";
+
+/* Class = "IBUILabel"; text = "Pluspunkte"; ObjectID = "PRz-Bd-Vge"; */
+"PRz-Bd-Vge.text" = "Pluspunkte";
+
+/* Class = "IBUITableViewSection"; headerTitle = "iCloud"; ObjectID = "PvH-8F-4nY"; */
+"PvH-8F-4nY.headerTitle" = "iCloud";
+
+/* Class = "IBUITableViewSection"; headerTitle = "Section-1"; ObjectID = "Suz-QS-VKi"; */
+"Suz-QS-VKi.headerTitle" = "Section-1";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "UUQ-v4-qTx"; */
+"UUQ-v4-qTx.text" = "Label";
+
+/* Class = "IBUINavigationItem"; title = "Choose Calculation"; ObjectID = "adc-O3-XG2"; */
+"adc-O3-XG2.title" = "Choose Calculation";
+
+/* Class = "IBUILabel"; text = "Semester"; ObjectID = "b3u-yq-x1R"; */
+"b3u-yq-x1R.text" = "Semestre";
+
+/* Class = "IBUILabel"; text = "Pluspunkte"; ObjectID = "egg-jd-us1"; */
+"egg-jd-us1.text" = "Pluspunkte";
+
+/* Class = "IBUITextField"; text = "1.0"; ObjectID = "gbO-K4-N0n"; */
+"gbO-K4-N0n.text" = "1.0";
+
+/* Class = "IBUITableViewSection"; headerTitle = "Section-3"; ObjectID = "gmk-mj-DdA"; */
+"gmk-mj-DdA.headerTitle" = "Section-3";
+
+/* Class = "IBUILabel"; text = "Notizen:"; ObjectID = "hDZ-Sl-4jd"; */
+"hDZ-Sl-4jd.text" = "Notes:";
+
+/* Class = "IBUILabel"; text = "Gewichtung:"; ObjectID = "n0p-OD-ImR"; */
+"n0p-OD-ImR.text" = "Evaluation:";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "pAI-eB-MYx"; */
+"pAI-eB-MYx.text" = "Label";
+
+/* Class = "IBUITableViewSection"; headerTitle = "Section-2"; ObjectID = "pIw-wU-MIk"; */
+"pIw-wU-MIk.headerTitle" = "Section-2";
+
+/* Class = "IBUILabel"; text = "iCloud"; ObjectID = "pYj-Oe-sNm"; */
+"pYj-Oe-sNm.text" = "iCloud";
+
+/* Class = "IBUILabel"; text = "Durchschnitt"; ObjectID = "tN5-Qn-ftm"; */
+"tN5-Qn-ftm.text" = "Durchschnitt";
+
+/* Class = "IBUILabel"; text = "Note:"; ObjectID = "tko-kz-oR2"; */
+"tko-kz-oR2.text" = "Note:";
+
+/* Class = "IBUILabel"; text = "Datum:"; ObjectID = "wc1-1h-RUx"; */
+"wc1-1h-RUx.text" = "Date:";
