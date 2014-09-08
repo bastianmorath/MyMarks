@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Bastian Morath. All rights reserved.
 //
 
-#import "MMChooseSemester.h"
+#import "MMChooseSemesterVC.h"
 
-@interface MMChooseSemester ()
+@interface MMChooseSemesterVC ()
 
 @end
 
-@implementation MMChooseSemester
+@implementation MMChooseSemesterVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,6 +30,21 @@
     
     semesterArray = [[NSArray alloc]init];
     [self updateSemesterArray];
+    
+    //**Google Analytics**//
+    
+    // May return nil if a tracker has not already been initialized with a
+    // property ID.
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    
+    // This screen name value will remain set on the tracker and sent with
+    // hits until it is set to a new value or to nil.
+    [tracker set:kGAIScreenName
+           value:@"MMChooseSemesterVC"];
+    
+    // New SDK versions
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+
 }
 
 

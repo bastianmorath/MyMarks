@@ -117,17 +117,16 @@
 }
 
 +(UIBarButtonItem *)backBarButtonItemForClass:(id)class{
-    UIImage* image = [UIImage imageNamed:@"backArrow.png"];
-    CGRect frameimg = CGRectMake(-3, 9, 18, 18);
-    UIButton *arrowButton = [[UIButton alloc] initWithFrame:frameimg];
-    [arrowButton setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton *arrowButton = [[UIButton alloc] initWithFrame:CGRectMake(-3, 0, 40, 40)];
     [arrowButton addTarget:class action:@selector(backPressed)
         forControlEvents:UIControlEventTouchUpInside];
     [arrowButton setShowsTouchWhenHighlighted:YES];
     
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
-    [view addSubview:arrowButton];
-    UIBarButtonItem *backBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:view];
+    UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(0, 10, 19, 19)];
+    [view setImage:[UIImage imageNamed:@"backArrow.png"]];
+    [arrowButton addSubview:view];
+    
+    UIBarButtonItem *backBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:arrowButton];
     return backBarButtonItem;
 }
 @end

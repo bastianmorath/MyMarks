@@ -92,6 +92,21 @@
         self.NotesTextField.text = [NSString stringWithFormat:@"%@", self.exam.notes];
         self.doneBarButton.enabled = YES;
     }
+    
+    //**Google Analytics**//
+    
+    // May return nil if a tracker has not already been initialized with a
+    // property ID.
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    
+    // This screen name value will remain set on the tracker and sent with
+    // hits until it is set to a new value or to nil.
+    [tracker set:kGAIScreenName
+           value:@"MMAddExamVC"];
+    
+    // New SDK versions
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+
 }
 
 

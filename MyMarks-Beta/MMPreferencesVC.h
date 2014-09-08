@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMPreferencesTableViewController : UITableViewController
+@interface MMPreferencesVC : UITableViewController
 - (IBAction)donePressed:(id)sender;
 
 @end

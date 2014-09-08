@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMChooseCalculationType : UITableViewController
+@interface MMChooseCalculationTypeVC : UITableViewController
 @property (strong, nonatomic) IBOutlet UITableViewCell *pluspointsCell;
 @property (strong, nonatomic) IBOutlet UITableViewCell *averageCell;
 

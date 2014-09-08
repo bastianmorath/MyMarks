@@ -54,10 +54,10 @@
             </objects>
             <point key="canvasLocation" x="-250" y="-128"/>
         </scene>
-        <!--Preferences Table View Controller-->
+        <!--PreferencesVC-->
         <scene sceneID="1h3-iG-0EK">
             <objects>
-                <tableViewController id="UzC-4R-wuv" customClass="MMPreferencesTableViewController" sceneMemberID="viewController">
+                <tableViewController id="UzC-4R-wuv" customClass="MMPreferencesVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="rBR-3h-v2G">
                         <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -153,7 +153,7 @@
         <!--Choose Calculation-->
         <scene sceneID="NJa-mn-kRK">
             <objects>
-                <tableViewController id="js3-uI-fhp" customClass="MMChooseCalculationType" sceneMemberID="viewController">
+                <tableViewController id="js3-uI-fhp" customClass="MMChooseCalculationTypeVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qme-DL-Kjb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -207,10 +207,10 @@
             </objects>
             <point key="canvasLocation" x="754" y="555"/>
         </scene>
-        <!--Choose Semester-->
+        <!--Choose SemesterVC-->
         <scene sceneID="k0k-6n-2Df">
             <objects>
-                <tableViewController id="177-Xm-JKx" customClass="MMChooseSemester" sceneMemberID="viewController">
+                <tableViewController id="177-Xm-JKx" customClass="MMChooseSemesterVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="R8s-rt-Tx1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
