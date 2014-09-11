@@ -38,6 +38,7 @@
     //Background setzen
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
     
+    
     //**Google Analytics**//
     
     // May return nil if a tracker has not already been initialized with a
@@ -93,6 +94,60 @@
     
     return tempLabel;
 }
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    //Gibt die Anzahl Section zurück
+    return 3;
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+
+
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier;
+    UITableViewCell *cell;
+    switch (indexPath.section) {
+        case 0:
+        {
+            CellIdentifier = @"calculationTypeCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"calculationType"];
+        }
+            break;
+            
+        case 1:
+        {
+            CellIdentifier = @"semesterCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"semester"];
+        }
+            break;
+            
+        case 2:
+        {
+            CellIdentifier = @"iCloudCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+    return cell;
+}
+
 
 -(void)rightBarButtonItemPressed{
     NSLog(@"Dismiss");

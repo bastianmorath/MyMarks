@@ -25,6 +25,9 @@
 
     self.navigationItem.leftBarButtonItem = [MMFactory backBarButtonItemForClass:self];
 
+    //Background setzen
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
+    
     //Scrollen im TabelView verhindern
     [[self tableView]setBounces:NO];
     

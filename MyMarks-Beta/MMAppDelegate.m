@@ -18,7 +18,7 @@
     //Diese Methode wird nur das aller erste Mal im "Lebenszyklus" der App durchlaufen. Es werden vordefinierte Fächer hinzugefügt.
     static dispatch_once_t once;
     dispatch_once(&once, ^ {
-        [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"calculationType"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"Average" forKey:@"calculationType"];
         
         //calcType bestimmt, ob der User den Durchschnitt oder die PLuspunkte anzeigen will,
         // Object für Key Average: 0
@@ -28,7 +28,7 @@
         
         }
      );
-
+    
     
     //Farbe der Navigation-Bar wird auf blau gesetzt
     [[UINavigationBar appearance]setBarTintColor:[UIColor colorWithRed:40/255.0f green:119/255.0f blue:235/255.0f alpha:1]];
@@ -41,10 +41,10 @@
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     
     // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
-    [GAI sharedInstance].dispatchInterval = 5;
+    [GAI sharedInstance].dispatchInterval = 30;
     
     // Optional: set Logger to VERBOSE for debug information.
-    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelInfo];
     
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-54555153-1"];

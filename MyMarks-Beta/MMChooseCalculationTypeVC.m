@@ -19,6 +19,11 @@
     
     self.navigationItem.leftBarButtonItem = [MMFactory backBarButtonItemForClass:self];
 
+    self.navigationItem.titleView = [MMFactory getNavigationViewForString:NSLocalizedString(@"Calculation Type", nil)];
+
+    //Background setzen
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
+    
     //**Google Analytics**//
     
     // May return nil if a tracker has not already been initialized with a
@@ -38,13 +43,19 @@
 
 
 -(NSNumber *)checkedIndexPath{
-    NSNumber  *checkedIndex= [[NSUserDefaults standardUserDefaults] objectForKey:@"calculationType"];
+    NSNumber  *checkedIndex;
+    NSString *calcString =[[NSUserDefaults standardUserDefaults] objectForKey:@"calculationType"];;
+    if ([calcString isEqualToString:@"Average"]) {
+        checkedIndex = @0;
+    }
+    if ([calcString isEqualToString:@"Pluspoints"]) {
+        checkedIndex = @1;
+    }
+    
     return checkedIndex;
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}  
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -59,17 +70,23 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
       UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    if ([@(indexPath.row) isEqualToNumber:[[NSUserDefaults standardUserDefaults]objectForKey:@"calculationType"]]) {
+    if ([@(indexPath.row) isEqualToNumber:[self checkedIndexPath]]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     switch (indexPath.row) {
         case 0:
+        {
             cell = self.pluspointsCell;
+            cell.textLabel.text = NSLocalizedString(@"Average", nil);
+        }
             break;
         case 1:
+        {
             cell = self.averageCell;
+            cell.textLabel.text = NSLocalizedString(@"Pluspoints", nil);
+        }
             break;
     }
     return cell;
@@ -82,13 +99,17 @@
     NSIndexPath *secondIndexPath = [NSIndexPath indexPathForRow:secondRow inSection:0];
     UITableViewCell *secondCell = [tableView cellForRowAtIndexPath:secondIndexPath];
 
-    NSLog(@"Checked IndexPath : %@, %i", [self checkedIndexPath], indexPath.row);
 
     
     selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
     secondCell.accessoryType = UITableViewCellAccessoryNone;
     
-    [[NSUserDefaults standardUserDefaults] setObject:@(indexPath.row) forKey:@"calculationType"];
+    if (indexPath.row == 0) {
+        [[NSUserDefaults standardUserDefaults] setObject:NSLocalizedString(@"Average", nil)  forKey:@"calculationType"];
+    }
+    if (indexPath.row == 1) {
+        [[NSUserDefaults standardUserDefaults] setObject:NSLocalizedString(@"Pluspoints", nil) forKey:@"calculationType"];
+    }
 }
 
 
