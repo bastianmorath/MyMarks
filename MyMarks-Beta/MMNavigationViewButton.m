@@ -15,12 +15,27 @@
 -(instancetype)initWithType:(enum buttonType)type AndTarget:(id)class{
     self = [super initWithFrame:CGRectMake(-50, 0, 100, 50)];
     if (self) {
-        label = [[UILabel alloc] initWithFrame:CGRectMake(-55, 0, 200, 50)];
+        label = [[UILabel alloc] initWithFrame:CGRectMake(-50, -4, 200, 50)];
         [label setTextAlignment:NSTextAlignmentCenter];
         [label setFont:[UIFont fontWithName:@"Helvetica Light" size:16]];
         [label setTextColor:[UIColor whiteColor]];
         [self addSubview:label];
+        NSLog(@"counter :%@", [[NSUserDefaults standardUserDefaults] objectForKey:@"tapCounter"]);
+        NSNumber *counter = ((NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"tapCounter"]);
+        NSLog(@"counter :%@",counter);
 
+        if (counter) {
+            NSLog(@"counter !=nil");
+            tapLabel = [[UILabel alloc] initWithFrame:CGRectMake(-50, 12, 200, 50)];
+            [tapLabel setTextAlignment:NSTextAlignmentCenter];
+            [tapLabel setFont:[UIFont fontWithName:@"Helvetica Light" size:10]];
+            [tapLabel setText:@"Tap to change"];
+            [tapLabel setTextColor:[UIColor whiteColor]];
+            [self addSubview:tapLabel];
+        } else {
+            [label setFrame:CGRectMake(-50, 0, 200, 50)];
+        }
+        
         self.type = type;
         [self addTarget:class action:@selector(navigationButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -39,6 +54,20 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:@(self.type)  forKey:@"calcType"];
     
+    //Prüfen, ob der User mehr als 10 mal auf den Button gedrückt hat. Wenn ja, wird das tapLabel entfernt und der counter auf nil
+    NSNumber *counter = [[NSUserDefaults standardUserDefaults] objectForKey:@"tapCounter"];
+    if (counter) {
+        if (counter.intValue>10) {
+            [tapLabel removeFromSuperview];
+            tapLabel = nil;
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"tapCounter"];
+            [label setFrame:CGRectMake(-50, 0, 200, 50)];
+        } else {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:(counter.intValue+1)] forKey:@"tapCounter"];
+        }
+    }
+ 
+
     [self updateText];
 }
 

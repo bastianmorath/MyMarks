@@ -29,6 +29,8 @@
     
     self.navigationController.navigationBar.tintColor =[UIColor whiteColor];
 
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:28/255.0f green:125/255.0f blue:253/255.0f alpha:1];
+
     //Titel setzen
     self.navigationItem.titleView = [MMFactory getNavigationViewForString:NSLocalizedString(@"Preferences", nil)];
 
@@ -38,6 +40,12 @@
     //Background setzen
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
     
+    
+    
+    //Schwarzer Strich am unteren Ende der Navigationbar entfernen
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
+
     
     //**Google Analytics**//
     
@@ -76,15 +84,12 @@
     tempLabel.font = [UIFont fontWithName:@"Helvetica Light" size:15];
     
     switch (section) {
-        case 0:
-        tempLabel.text = @"  Calculation Type";
-            break;
             
-        case 1:
+        case 0:
             tempLabel.text=@"  Semester";
             break;
             
-        case 2:
+        case 1:
             tempLabel.text=@"  iCloud";
             break;
         default:
@@ -99,7 +104,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     //Gibt die Anzahl Section zurück
-    return 3;
+    return 1;
 }
 
 
@@ -117,23 +122,18 @@
     static NSString *CellIdentifier;
     UITableViewCell *cell;
     switch (indexPath.section) {
-        case 0:
-        {
-            CellIdentifier = @"calculationTypeCell";
-            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-            cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"calculationType"];
-        }
-            break;
+       
             
-        case 1:
+        case 0:
         {
             CellIdentifier = @"semesterCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
             cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"semester"];
+            cell.accessoryView.tintColor = [UIColor whiteColor];
         }
             break;
             
-        case 2:
+        case 1:
         {
             CellIdentifier = @"iCloudCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];

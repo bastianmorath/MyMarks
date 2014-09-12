@@ -11,6 +11,7 @@
 @interface MMNavigationViewButton : UIButton
 {
     UILabel *label;
+    UILabel *tapLabel;
 }
 @property (nonatomic) enum buttonType type;
 

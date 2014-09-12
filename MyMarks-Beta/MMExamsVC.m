@@ -138,7 +138,7 @@
         UITableViewCell *averageCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         
         //Hintergrund und Schriftfarbe der Cell wird bestimmt
-        averageCell.backgroundColor = [UIColor colorWithRed:30/255.0f green:115/255.0f blue:238/255.0f alpha:1];
+        averageCell.backgroundColor = [UIColor colorWithRed:28/255.0f green:125/255.0f blue:253/255.0f alpha:1];
         UILabel *label = (UILabel *)[averageCell viewWithTag:1];
         
         
@@ -171,9 +171,9 @@
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
             
             //Hintergrundverlauf der Zellen wird bestimmt. Verlauf von Blau nach Grün
-            double redColor =   35  + (indexPath.row * 136/([self.exams count]+1));
-            double greenColor = 129 + (indexPath.row * 114/([self.exams count]+1));
-            double blueColor =  238 - (indexPath.row * 130/([self.exams count]+1));
+            double redColor =   28  + (indexPath.row * 136/([self.exams count]+1));
+            double greenColor = 125 + (indexPath.row * 114/([self.exams count]+1));
+            double blueColor =  253 - (indexPath.row * 130/([self.exams count]+1));
             cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
             
             

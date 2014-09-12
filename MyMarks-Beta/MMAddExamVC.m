@@ -82,6 +82,10 @@
     
     self.navigationItem.titleView = [MMFactory getNavigationViewForString:NSLocalizedString(@"Add exam", nil)];
 
+    //Schwarzer Strich am unteren Ende der Navigationbar entfernen
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
+
     
     //Wenn  im DetailViewController auf eine bereits vorhandene Prüfung gedrückt wird, um sie zu editieren, werden hier die TextFields entsprechend ausgefüllt
     if (self.exam)

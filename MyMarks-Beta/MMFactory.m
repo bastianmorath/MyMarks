@@ -43,6 +43,7 @@
                 tempCount += eachSubject.average;
             }
         }
+        
         return tempCount / numberOfSubjects;
     } else {
         return 0.0;
@@ -122,7 +123,7 @@
         forControlEvents:UIControlEventTouchUpInside];
     [arrowButton setShowsTouchWhenHighlighted:YES];
     
-    UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(0, 10, 19, 19)];
+    UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(0, 10, 23, 23)];
     [view setImage:[UIImage imageNamed:@"backArrow.png"]];
     [arrowButton addSubview:view];
     

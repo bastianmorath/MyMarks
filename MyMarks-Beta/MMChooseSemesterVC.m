@@ -31,9 +31,20 @@
     //Scrollen im TabelView verhindern
     [[self tableView]setBounces:NO];
     
+    
+    self.navigationItem.titleView = [MMFactory getNavigationViewForString:NSLocalizedString(@"Choose semester", nil)];
+
+    
     semesterArray = [[NSArray alloc]init];
     [self updateSemesterArray];
     
+    
+    
+    //Wenn noch kein Semester hinzugefügt wurde, öfne direkt den AlertView
+    
+    if ([semesterArray count] == 0) {
+        [self showAlertView];
+    }
     //**Google Analytics**//
     
     // May return nil if a tracker has not already been initialized with a
@@ -115,7 +126,7 @@
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
-    return NO;
+    return YES;
 }
 
 

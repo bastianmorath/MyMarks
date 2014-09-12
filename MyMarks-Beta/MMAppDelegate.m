@@ -16,22 +16,20 @@
     
        
     //Diese Methode wird nur das aller erste Mal im "Lebenszyklus" der App durchlaufen. Es werden vordefinierte Fächer hinzugefügt.
-    static dispatch_once_t once;
-    dispatch_once(&once, ^ {
+    /*Dispatch once*/
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"Started"])
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Started"];
         [[NSUserDefaults standardUserDefaults] setObject:@"Average" forKey:@"calculationType"];
         
-        //calcType bestimmt, ob der User den Durchschnitt oder die PLuspunkte anzeigen will,
-        // Object für Key Average: 0
-        // Object für Key Pluspoints: 1
-        //Average by Default
-        //[[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"calcType"];
-        
-        }
-     );
-    
+        //Wenn der User mehr als 10 mal den Buton im MMSubjectVC drückt, wir der entfernt
+        [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"tapCounter"];
+
+    }
+
     
     //Farbe der Navigation-Bar wird auf blau gesetzt
-    [[UINavigationBar appearance]setBarTintColor:[UIColor colorWithRed:40/255.0f green:119/255.0f blue:235/255.0f alpha:1]];
+    [[UINavigationBar appearance]setBarTintColor:[UIColor colorWithRed:20/255.0f green:120/255.0f blue:261/255.0f alpha:1]];
     
     //Zeigt die Statusbarsymbole in weisser Schrift an
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];

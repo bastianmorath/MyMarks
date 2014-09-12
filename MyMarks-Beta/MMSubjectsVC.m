@@ -60,6 +60,10 @@
     //Scrollen im TabelView verhindern
     [[self tableView]setBounces:NO];
     
+    //Schwarzer Strich am unteren Ende der Navigationbar entfernen
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
+
     //"Zurück-Button"-Titel des Navigation-Controllers ändern
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backArrow.png"] style:UIBarButtonItemStylePlain target:self action:@selector(backPressed)];
     [[self navigationItem] setBackBarButtonItem: newBackButton];
@@ -168,9 +172,9 @@
         cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
     } else
     {
-        double redColor =   35  + (indexPath.row * 116/([self.subjectArray count]-1));
-        double greenColor = 129 + (indexPath.row * 94/([self.subjectArray count]-1));
-        double blueColor =  238 - (indexPath.row * 110/([self.subjectArray count]-1));
+        double redColor =   41  + (indexPath.row * 116/([self.subjectArray count]-1));
+        double greenColor = 135 + (indexPath.row * 94/([self.subjectArray count]-1));
+        double blueColor =  241 - (indexPath.row * 110/([self.subjectArray count]-1));
         cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
     }
 
