@@ -511,18 +511,20 @@
     if (buttonIndex==1)
     {
         //Diese if-Schlaufe wird durchlaufen, wenn der AlertView des "Prüfung hinzufügen" aufgerufen wird
-        if ([alertView.title isEqualToString:@"Fach hinzufügen"])
+        if ([alertView.title isEqualToString:NSLocalizedString(@"Add subject", nil)])
         {
             if (![[alertView textFieldAtIndex:0].text isEqualToString:@""])
             {
                 //Ein neues Fach wird erstellt und im DataHandler hinzugefügt. Der Text des AlertViews wird unter dem Fachnamen des Faches gespeichert.
                 NSString *name= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
                 NSNumber *weighting = [NSNumber numberWithFloat:[[alertView textFieldAtIndex:1].text floatValue]];
-
-                if ( ([weighting isEqualToNumber:[NSNumber numberWithInt:1]]) || ([weighting isEqualToNumber:[NSNumber numberWithInt:0]] ) ) {
+                if ([[alertView textFieldAtIndex:1].text isEqualToString:@""]) {
+                    [[DataStore defaultStore]createSubjectWithName:name AndWeighting:@1 AndSemester:self.semester];
+                } else if ( ([weighting isEqualToNumber:@1]) || [weighting isEqualToNumber:@0]) {
                     [[DataStore defaultStore]createSubjectWithName:name AndWeighting:weighting AndSemester:self.semester];
                 }
                 
+
                 [self updateSubjectArray];
                 [self.tableView reloadData];
             }

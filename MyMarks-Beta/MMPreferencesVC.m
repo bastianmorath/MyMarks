@@ -74,29 +74,21 @@
 //Diese Methode setzt die Titel der Sections auf weisse Schrift
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-
+    UIView *tempView=[[UIView alloc]initWithFrame:CGRectMake(0,200,300,244)];
+    tempView.backgroundColor=[UIColor clearColor];
     
-    UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(20,0,100,44)];
+    UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(10,0,3000,44)];
     tempLabel.backgroundColor=[UIColor clearColor];
     
     tempLabel.textColor = [UIColor whiteColor]; //here you can change the text color of header.
-    tempLabel.font = [UIFont fontWithName:@"Helvetica Light" size:15];
+    tempLabel.font = [UIFont fontWithName:@"Helvetica Light" size:17];
+    tempLabel.frame = CGRectMake(10.0, 0.0, 300.0, 44.0);
+  
+    tempLabel.text=NSLocalizedString(@"Semester", nil);
+   
     
-    switch (section) {
-            
-        case 0:
-            tempLabel.text=@"  Semester";
-            break;
-            
-        case 1:
-            tempLabel.text=@"  iCloud";
-            break;
-        default:
-            break;
-    }
-
-    
-    return tempLabel;
+    [tempView addSubview:tempLabel];
+    return tempView;
 }
 
 
@@ -112,7 +104,10 @@
     return 1;
 }
 
-
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 46;
+}
 
 
 
