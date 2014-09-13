@@ -163,11 +163,11 @@ static DataStore *defaultStore;
 /* ------------------  Spezifische Funktionen ----------------------------------- */
 
 
--(void)createSubjectWithName:(NSString *)name AndWeighting:(float)weighting AndSemester:(Semester *)semester{
+-(void)createSubjectWithName:(NSString *)name AndWeighting:(NSNumber*)weighting AndSemester:(Semester *)semester{
     Subject *subject = [self addObjectForName:@"Subject"];
     subject.name= name;
     if (weighting) {
-        subject.weighting = [NSNumber numberWithFloat:weighting];
+        subject.weighting = weighting;
     } else {
         subject.weighting = @1;
     }
@@ -182,10 +182,24 @@ static DataStore *defaultStore;
 -(Semester *)createSemestertWithName:(NSString *)name{
     Semester *semester = [self addObjectForName:@"Semester"];
     semester.name = name;
+    
+    [[NSUserDefaults standardUserDefaults]setObject:name forKey:@"semester"];
+
     [self storeData];
     
     return semester;
 }
+
+-(Semester *)semesterWithName:(NSString *)name{
+    for (Semester *semester in [self getSemesters]) {
+        if ([semester.name isEqualToString:name]) {
+            return semester;
+        }
+    }
+    
+    return nil;
+}
+
 -(void)addExamWithData:(NSDictionary *)data ToSubject:(Subject *)subject{
     
     Exam *exam = [self addObjectForName:@"Exam"];
@@ -195,7 +209,6 @@ static DataStore *defaultStore;
     exam.notes = [data objectForKey:@"notes"];
     
     [subject addExamObject:exam];
-    NSLog(@"Exam: %@", exam);
     [self storeData];
 }
 

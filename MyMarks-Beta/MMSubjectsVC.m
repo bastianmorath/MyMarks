@@ -34,9 +34,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
+    NSLog(@"viewwillappear");
+    self.semester = [[DataStore defaultStore]semesterWithName:[[NSUserDefaults standardUserDefaults]objectForKey:@"semester"]];
     [self updateSubjectArray];
     [self.navigationViewButton update];
-
     [self.tableView reloadData];
 }
 
@@ -70,7 +71,12 @@
     
     //Background auf eine Grundfarbe setzen, damit zum Beispiel beim Zeilen-Verschieben kein weisser Hintergrund zu sehen ist
     self.view.backgroundColor = [UIColor colorWithRed:61/255.0f green:132/255.0f blue:238/255.0f alpha:1];
+
+    //Semester setzen
+    self.semester = [[DataStore defaultStore]semesterWithName:[[NSUserDefaults standardUserDefaults]objectForKey:@"semester"]];
     
+    [self updateSubjectArray];
+
     //Navigation Button initlialisieren
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"calcType"] isEqualToNumber:@0]) {
         self.navigationViewButton = [[MMNavigationViewButton alloc]initWithType:BTAverage AndTarget:self];
@@ -80,14 +86,8 @@
     }
     self.navigationItem.titleView = self.navigationViewButton;
     
-    //Semester setzen
-    NSString *semesterName = [[NSUserDefaults standardUserDefaults]objectForKey:@"semester"];
-    for (Semester *semester in [[DataStore defaultStore]getSemesters]) {
-        if ([semester.name isEqualToString:semesterName]) {
-            self.semester = semester;
-        }
-    }
-    
+
+    NSLog(@"Subjects :%@", self.subjectArray);
 
     //**Google Analytics**//
 
@@ -112,7 +112,7 @@
 
 -(void)updateSubjectArray;
 {
-    self.subjectArray =  [[DataStore defaultStore] getSubjects];
+    self.subjectArray =  [self.semester.subject allObjects];
 }
 
 
@@ -196,6 +196,7 @@
         cell.textLabel.text = @"";
         cell.detailTextLabel.text=@"";
     }
+    
     return cell;
 }
 
@@ -206,7 +207,8 @@
 //Diese Methode wird aufgerufen, wenn eine Cell gedrückt wird
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.subjectArray count]-1>=indexPath.row)
+
+    if ([self.subjectArray count]>=indexPath.row+1)
     {
         //Segue wird gestartet
     [self performSegueWithIdentifier:@"detailsegue" sender:indexPath];
@@ -509,14 +511,17 @@
     if (buttonIndex==1)
     {
         //Diese if-Schlaufe wird durchlaufen, wenn der AlertView des "Prüfung hinzufügen" aufgerufen wird
-        if ([alertView.title isEqualToString:NSLocalizedString(@"Add subject", nil)])
+        if ([alertView.title isEqualToString:@"Fach hinzufügen"])
         {
             if (![[alertView textFieldAtIndex:0].text isEqualToString:@""])
             {
                 //Ein neues Fach wird erstellt und im DataHandler hinzugefügt. Der Text des AlertViews wird unter dem Fachnamen des Faches gespeichert.
                 NSString *name= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
-                
-                [[DataStore defaultStore]createSubjectWithName:name AndWeighting:[[alertView textFieldAtIndex:1].text floatValue]AndSemester:self.semester];
+                NSNumber *weighting = [NSNumber numberWithFloat:[[alertView textFieldAtIndex:1].text floatValue]];
+
+                if ( ([weighting isEqualToNumber:[NSNumber numberWithInt:1]]) || ([weighting isEqualToNumber:[NSNumber numberWithInt:0]] ) ) {
+                    [[DataStore defaultStore]createSubjectWithName:name AndWeighting:weighting AndSemester:self.semester];
+                }
                 
                 [self updateSubjectArray];
                 [self.tableView reloadData];

@@ -19,12 +19,14 @@
     /*Dispatch once*/
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"Started"])
     {
+        NSLog(@"Started");
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Started"];
-        [[NSUserDefaults standardUserDefaults] setObject:@"Average" forKey:@"calculationType"];
         
         //Wenn der User mehr als 10 mal den Buton im MMSubjectVC drückt, wir der entfernt
         [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"tapCounter"];
 
+        [[DataStore defaultStore] createSemestertWithName:@"Semester 1"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"Semester 1" forKey:@"semester"];
     }
 
     

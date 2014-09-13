@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B6D6BD9F17A31CBB00B3B09F"
-               BuildableName = "Notenapplikation.app"
-               BlueprintName = "Notenapplikation"
-               ReferencedContainer = "container:Notenapplikation.xcodeproj">
+               BuildableName = "MyMarks.app"
+               BlueprintName = "MyMarks"
+               ReferencedContainer = "container:MyMarks.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B6D6BD9F17A31CBB00B3B09F"
-            BuildableName = "Notenapplikation.app"
-            BlueprintName = "Notenapplikation"
-            ReferencedContainer = "container:Notenapplikation.xcodeproj">
+            BuildableName = "MyMarks.app"
+            BlueprintName = "MyMarks"
+            ReferencedContainer = "container:MyMarks.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -52,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B6D6BD9F17A31CBB00B3B09F"
-            BuildableName = "Notenapplikation.app"
-            BlueprintName = "Notenapplikation"
-            ReferencedContainer = "container:Notenapplikation.xcodeproj">
+            BuildableName = "MyMarks.app"
+            BlueprintName = "MyMarks"
+            ReferencedContainer = "container:MyMarks.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -70,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B6D6BD9F17A31CBB00B3B09F"
-            BuildableName = "Notenapplikation.app"
-            BlueprintName = "Notenapplikation"
-            ReferencedContainer = "container:Notenapplikation.xcodeproj">
+            BuildableName = "MyMarks.app"
+            BlueprintName = "MyMarks"
+            ReferencedContainer = "container:MyMarks.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -137,8 +137,25 @@
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         //Entfernen des zu löschendem Elements aus dem Datenspeicher
+        
+        //Wenn das letzte Semester gelöscht wird, wird der AlertView angezeigt
+        if ([semesterArray count] ==1) {
+            [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
+            [self updateSemesterArray];
+            [self showAlertView];
+            
+        //Wenn gerade das Semester gelöscht wird, das ausgewählt ist, dann wird das erste Semester als das Neue verwendet
+
+        } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"] isEqualToString:((Semester *)[semesterArray objectAtIndex:indexPath.row]).name]){
+            [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
+            [self updateSemesterArray];
+            [[NSUserDefaults standardUserDefaults]setObject:((Semester *)[semesterArray objectAtIndex:0]).name forKey:@"semester"];
+        } else {
+            //Sonst wird einfach das Semester aus dem DataStore gelöscht
+                [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
+        }
+            
        
-        [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
         [self updateSemesterArray];
         [self.tableView reloadData];
     }
@@ -159,12 +176,25 @@
 //Hinzufügen einer Prüfung
 -(void)showAlertView
 {
-    UIAlertView *alert =[[UIAlertView alloc]initWithTitle:@"Semester hinzufügen"
-                                                  message:nil
-                                                 delegate:self
-                                        cancelButtonTitle:@"Abbrechen"
-                                        otherButtonTitles:@"Fertig", nil];
-    [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
+    UIAlertView *alert;
+    NSLog(@"semesterarray: %i", [semesterArray count]);
+    //Wenn kein Semester vorhanden ist, kann der User nicht abbrechen
+    if ([semesterArray count]!=0) {
+        alert =[[UIAlertView alloc]initWithTitle:@"Semester hinzufügen"
+                                                      message:nil
+                                                     delegate:self
+                                            cancelButtonTitle:@"Abbrechen"
+                                            otherButtonTitles:@"Fertig", nil];
+    } else {
+        alert =[[UIAlertView alloc]initWithTitle:@"Semester hinzufügen"
+                                                      message:nil
+                                                     delegate:self
+                                            cancelButtonTitle:nil
+                                            otherButtonTitles:@"Fertig", nil];
+    }
+    
+    
+       [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
     [[alert textFieldAtIndex:0] setPlaceholder:@"Name"];
     [alert show];
 }
@@ -173,7 +203,7 @@
 //Methode, die aufgerufen wird, wenn ein Button des AlertViews gedrückt wird
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex==1)
+    if (buttonIndex==1 || [semesterArray count]==0)
     {
         //Diese if-Schlaufe wird durchlaufen, wenn der AlertView des "Prüfung hinzufügen" aufgerufen wird
         if ([alertView.title isEqualToString:@"Semester hinzufügen"])
