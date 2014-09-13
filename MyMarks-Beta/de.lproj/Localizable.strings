@@ -24,3 +24,5 @@
 "Add exam" = "Prüfung hinzufügen";
 "Calculation Type" = "Zählart";
 "Choose semester" = "Semester wählen";
+"Error" = "Fehler";
+"Weighting Error" = "Bitte geben Sie für die Gewichtung 0 oder 1 ein";

@@ -24,3 +24,5 @@
 "Add exam" = "Ajouter un examen";
 "Calculation Type" = "Type de compte";
 "Choose semester" = "Choisir semèstre";
+"Error" = "Erreur";
+"Weighting Error" = "Il faut que la pondération soit 0 ou 1";

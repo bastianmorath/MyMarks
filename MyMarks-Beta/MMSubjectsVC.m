@@ -522,6 +522,17 @@
                     [[DataStore defaultStore]createSubjectWithName:name AndWeighting:@1 AndSemester:self.semester];
                 } else if ( ([weighting isEqualToNumber:@1]) || [weighting isEqualToNumber:@0]) {
                     [[DataStore defaultStore]createSubjectWithName:name AndWeighting:weighting AndSemester:self.semester];
+                } else {
+                
+                    // Gewichtung wurde falsch eingegeben
+                    UIAlertView *alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Error", nil)
+                                                                  message:NSLocalizedString(@"Weighting Error", nil)
+                                                                 delegate:self
+                                                        cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                        otherButtonTitles:@"Okey", nil];
+                    [alert setAlertViewStyle: UIAlertViewStyleDefault];
+                    [alert show];
+
                 }
                 
 
@@ -529,6 +540,12 @@
                 [self.tableView reloadData];
             }
         }
+        // Alert-View with Title-Error: When User Accepted Error
+        if ([alertView.title isEqualToString:NSLocalizedString(@"Error", nil)])
+        {
+            [self addSubject];
+        }
+
     }
 }
 

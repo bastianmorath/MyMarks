@@ -24,3 +24,5 @@
 "Add exam" = "Add exam";
 "Calculation Type" = "Calculation Type";
 "Choose semester" = "Choose semester";
+"Error" = "Error";
+"Weighting Error" = "Make sure you type in for weighting 0 or 1";
