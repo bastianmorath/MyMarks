@@ -26,3 +26,6 @@
 "Choose semester" = "Semester wählen";
 "Error" = "Fehler";
 "Weighting Error" = "Bitte geben Sie für die Gewichtung 0 oder 1 ein";
+"Confirmation" = "Bestätigung";
+"confirmationMessage" = "Sind sie sicher, dass Sie dieses Semester löschen wollen?";
+"Add semester" = "Semester hinzufügen";

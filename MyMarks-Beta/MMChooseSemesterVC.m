@@ -8,7 +8,11 @@
 
 #import "MMChooseSemesterVC.h"
 
-@interface MMChooseSemesterVC ()
+@interface MMChooseSemesterVC (){
+
+    NSIndexPath *currentIndexPathToDelete;
+
+}
 
 @end
 
@@ -136,31 +140,43 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        //Entfernen des zu löschendem Elements aus dem Datenspeicher
+        // Bestätigung er Löschung mit AlertView
+        [self showConfirmationAlertView];
         
-        //Wenn das letzte Semester gelöscht wird, wird der AlertView angezeigt
-        if ([semesterArray count] ==1) {
-            [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
-            [self updateSemesterArray];
-            [self showAlertView];
-            
-        //Wenn gerade das Semester gelöscht wird, das ausgewählt ist, dann wird das erste Semester als das Neue verwendet
-
-        } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"] isEqualToString:((Semester *)[semesterArray objectAtIndex:indexPath.row]).name]){
-            [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
-            [self updateSemesterArray];
-            [[NSUserDefaults standardUserDefaults]setObject:((Semester *)[semesterArray objectAtIndex:0]).name forKey:@"semester"];
-        } else {
-            //Sonst wird einfach das Semester aus dem DataStore gelöscht
-                [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
-        }
-            
-       
-        [self updateSemesterArray];
-        [self.tableView reloadData];
+        currentIndexPathToDelete = indexPath;
     }
 }
 
+-(void)deleteSemesterAtIndexPath:(NSIndexPath*)indexPath {
+    
+    //Entfernen des zu löschendem Elements aus dem Datenspeicher
+    
+    //Wenn das letzte Semester gelöscht wird, wird der AlertView angezeigt
+    if ([semesterArray count] ==1) {
+        
+        [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
+        
+        [self updateSemesterArray];
+        [self showAlertView];
+        
+        //Wenn gerade das Semester gelöscht wird, das ausgewählt ist, dann wird das erste Semester als das Neue verwendet
+        
+    } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"] isEqualToString:((Semester *)[semesterArray objectAtIndex:indexPath.row]).name]){
+        
+        [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
+        
+        [self updateSemesterArray];
+        [[NSUserDefaults standardUserDefaults]setObject:((Semester *)[semesterArray objectAtIndex:0]).name forKey:@"semester"];
+    } else {
+        //Sonst wird einfach das Semester aus dem DataStore gelöscht
+        [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
+    }
+    
+    
+    [self updateSemesterArray];
+    [self.tableView reloadData];
+
+}
 
 
 // Override to support conditional rearranging of the table view.
@@ -173,6 +189,17 @@
 
 #pragma mark - AlertView
 
+-(void)showConfirmationAlertView{
+    UIAlertView *alert;
+    alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Confirmation", nil)
+                                         message:NSLocalizedString(@"confirmationMessage", nil)
+                                        delegate:self
+                               cancelButtonTitle:NSLocalizedString(@"Cancle", nil)
+                               otherButtonTitles:@"Okey", nil];
+    [alert setAlertViewStyle: UIAlertViewStyleDefault];
+    [alert show];
+}
+
 //Hinzufügen einer Prüfung
 -(void)showAlertView
 {
@@ -180,17 +207,17 @@
     NSLog(@"semesterarray: %i", [semesterArray count]);
     //Wenn kein Semester vorhanden ist, kann der User nicht abbrechen
     if ([semesterArray count]!=0) {
-        alert =[[UIAlertView alloc]initWithTitle:@"Semester hinzufügen"
+        alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Add semester", nil)
                                                       message:nil
                                                      delegate:self
-                                            cancelButtonTitle:@"Abbrechen"
-                                            otherButtonTitles:@"Fertig", nil];
+                                            cancelButtonTitle:NSLocalizedString(@"Cancle", nil)
+                                            otherButtonTitles:NSLocalizedString(@"Done", nil), nil];
     } else {
-        alert =[[UIAlertView alloc]initWithTitle:@"Semester hinzufügen"
+        alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Add semester", nil)
                                                       message:nil
                                                      delegate:self
                                             cancelButtonTitle:nil
-                                            otherButtonTitles:@"Fertig", nil];
+                                            otherButtonTitles:NSLocalizedString(@"Done", nil), nil];
     }
     
     
@@ -206,7 +233,7 @@
     if (buttonIndex==1 || [semesterArray count]==0)
     {
         //Diese if-Schlaufe wird durchlaufen, wenn der AlertView des "Prüfung hinzufügen" aufgerufen wird
-        if ([alertView.title isEqualToString:@"Semester hinzufügen"])
+        if ([alertView.title isEqualToString:NSLocalizedString(@"Add semester", nil)])
         {
             if (![[alertView textFieldAtIndex:0].text isEqualToString:@""])
             {
@@ -218,7 +245,21 @@
                 [self.tableView reloadData];
             }
         }
+        if ([alertView.title isEqualToString:NSLocalizedString(@"Confirmation", nil)])
+        {
+            [self deleteSemesterAtIndexPath:currentIndexPathToDelete];
+        
+        }
     }
+    if  (buttonIndex == 0) {
+        
+        if ([alertView.title isEqualToString:NSLocalizedString(@"Confirmation", nil)]) {
+            // User will Semester nicht löschen
+            [self setEditing:NO animated:YES];
+        }
+    }
+    
+    
 }
 
 

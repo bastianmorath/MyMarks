@@ -26,3 +26,6 @@
 "Choose semester" = "Choisir semèstre";
 "Error" = "Erreur";
 "Weighting Error" = "Il faut que la pondération soit 0 ou 1";
+"Confirmation" = "Confirmation";
+"confirmationMessage" = "Êtes-vous sure de éteindre cet semestre";
+"Add semester" = "Ajoute semestre";
