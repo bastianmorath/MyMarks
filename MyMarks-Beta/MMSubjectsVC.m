@@ -523,7 +523,6 @@
                 } else if ( ([weighting isEqualToNumber:@1]) || [weighting isEqualToNumber:@0]) {
                     [[DataStore defaultStore]createSubjectWithName:name AndWeighting:weighting AndSemester:self.semester];
                 } else {
-                
                     // Gewichtung wurde falsch eingegeben
                     UIAlertView *alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Error", nil)
                                                                   message:NSLocalizedString(@"Weighting Error", nil)
@@ -532,10 +531,8 @@
                                                         otherButtonTitles:@"Okey", nil];
                     [alert setAlertViewStyle: UIAlertViewStyleDefault];
                     [alert show];
-
                 }
                 
-
                 [self updateSubjectArray];
                 [self.tableView reloadData];
             }

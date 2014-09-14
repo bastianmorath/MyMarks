@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface MMPreferencesVC : UITableViewController
+@interface MMPreferencesVC : UITableViewController<MFMailComposeViewControllerDelegate>
+{
+    MFMailComposeViewController *mailComposer;
+}
+
+
 
 
 @end

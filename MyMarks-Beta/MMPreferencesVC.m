@@ -71,26 +71,6 @@
 #pragma mark - Table view data source
 
 
-//Diese Methode setzt die Titel der Sections auf weisse Schrift
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView *tempView=[[UIView alloc]initWithFrame:CGRectMake(0,200,300,244)];
-    tempView.backgroundColor=[UIColor clearColor];
-    
-    UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(10,0,3000,44)];
-    tempLabel.backgroundColor=[UIColor clearColor];
-    
-    tempLabel.textColor = [UIColor whiteColor]; //here you can change the text color of header.
-    tempLabel.font = [UIFont fontWithName:@"Helvetica Light" size:17];
-    tempLabel.frame = CGRectMake(10.0, 0.0, 300.0, 44.0);
-  
-    tempLabel.text=NSLocalizedString(@"Semester", nil);
-   
-    
-    [tempView addSubview:tempLabel];
-    return tempView;
-}
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -101,13 +81,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return 4;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 46;
-}
+
 
 
 
@@ -115,7 +92,7 @@
 {
     static NSString *CellIdentifier;
     UITableViewCell *cell;
-    switch (indexPath.section) {
+    switch (indexPath.row) {
        
             
         case 0:
@@ -124,6 +101,8 @@
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
             cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"semester"];
             cell.accessoryView.tintColor = [UIColor whiteColor];
+            cell.textLabel.text = NSLocalizedString(@"Semester", nil);
+            [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f]];
         }
             break;
             
@@ -131,8 +110,36 @@
         {
             CellIdentifier = @"iCloudCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            cell.accessoryView.tintColor = [UIColor whiteColor];
+            cell.textLabel.text = @"iCloud Synchronisation";
+            cell.textLabel.textColor = [UIColor whiteColor];
+            [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f]];
+  
+            
         }
             break;
+            
+        case 2:
+        {
+            CellIdentifier = @"mailCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            cell.accessoryView.tintColor = [UIColor whiteColor];
+            cell.textLabel.text = NSLocalizedString(@"Send Mail To Developers", nil);
+            [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f]];
+        }
+            break;
+            
+        case 3:
+        {
+            CellIdentifier = @"reviewCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            cell.accessoryView.tintColor = [UIColor whiteColor];
+            cell.textLabel.text = NSLocalizedString(@"Review MyMarks in the AppStore", nil);
+            [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f]];
+        }
+            break;
+
+
             
         default:
             break;
@@ -152,4 +159,78 @@
         NSLog(@"Type");
     }
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    switch (indexPath.row) {
+            
+            
+        case 2:
+        {
+            
+            [self sendMailToDevelopers];
+        }
+            break;
+            
+        case 3:
+        {
+            
+            [self reviewAppInAppstore];
+        }
+            break;
+            
+    }
+            
+    
+
+}
+
+-(void) reviewAppInAppstore
+{
+    NSLog(@"review App");
+    
+}
+
+
+-(void) sendMailToDevelopers
+{
+    mailComposer = [[MFMailComposeViewController alloc]init];
+    mailComposer.mailComposeDelegate = self;
+    [mailComposer setSubject:@"MyMarks - Question"];
+    [mailComposer setToRecipients:@[@"bf.morath@gmail.com"]];
+    [self presentViewController:mailComposer animated:YES completion:nil];
+}
+     
+#pragma mark - mail compose delegate
+
+-(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    if (result) {
+        NSLog(@"Result : %d",result);
+    }
+    if (error) {
+        NSLog(@"Error : %@",error);
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
+
+
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+

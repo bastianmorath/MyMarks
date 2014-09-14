@@ -17,9 +17,9 @@
        
     //Diese Methode wird nur das aller erste Mal im "Lebenszyklus" der App durchlaufen. Es werden vordefinierte Fächer hinzugefügt.
     /*Dispatch once*/
+  
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"Started"])
     {
-        NSLog(@"Started");
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Started"];
         
         //Wenn der User mehr als 10 mal den Buton im MMSubjectVC drückt, wir der entfernt

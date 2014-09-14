@@ -12,8 +12,10 @@
 
 +(float)plusPoints{
     float plusPoints =0;
+   
     for (Subject *eachSubject in [[DataStore defaultStore]getSubjects])
     {
+        
         if ([eachSubject.weighting isEqualToNumber:[NSNumber numberWithInt:1]])
         {
             

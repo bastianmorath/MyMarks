@@ -29,3 +29,6 @@
 "Confirmation" = "Bestätigung";
 "confirmationMessage" = "Sind sie sicher, dass Sie dieses Semester löschen wollen?";
 "Add semester" = "Semester hinzufügen";
+"Semester" = "Semester";
+"Send Mail To Developers" = "Sende eine Mail an die Entwickler";
+"Review MyMarks in the AppStore" = "Bewerte MyMarks im AppStore";
