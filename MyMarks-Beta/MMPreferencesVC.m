@@ -187,8 +187,8 @@
 
 -(void) reviewAppInAppstore
 {
-    NSLog(@"review App");
-    
+    NSString *url = @"https://itunes.apple.com/de/app/mymarks/id736015615?mt=8"; 
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
 
 
