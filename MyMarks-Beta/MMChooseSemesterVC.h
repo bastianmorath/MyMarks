@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMChooseSemesterVC : UITableViewController <UITableViewDelegate,UIApplicationDelegate, UIAlertViewDelegate, UIActionSheetDelegate>
+@interface MMChooseSemesterVC : UITableViewController <UITableViewDelegate,UIApplicationDelegate, UIAlertViewDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate>
 {
     NSArray *semesterArray;
 }

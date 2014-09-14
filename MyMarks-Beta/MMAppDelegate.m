@@ -19,7 +19,6 @@
     /*Dispatch once*/
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"Started"])
     {
-        NSLog(@"Started");
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Started"];
         
         //Wenn der User mehr als 10 mal den Buton im MMSubjectVC drückt, wir der entfernt
@@ -27,9 +26,10 @@
 
         [[DataStore defaultStore] createSemestertWithName:@"Semester 1"];
         [[NSUserDefaults standardUserDefaults] setObject:@"Semester 1" forKey:@"semester"];
+
     }
 
-    
+
     //Farbe der Navigation-Bar wird auf blau gesetzt
     [[UINavigationBar appearance]setBarTintColor:[UIColor colorWithRed:20/255.0f green:120/255.0f blue:261/255.0f alpha:1]];
     
@@ -44,7 +44,7 @@
     [GAI sharedInstance].dispatchInterval = 30;
     
     // Optional: set Logger to VERBOSE for debug information.
-    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelInfo];
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
     
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-54555153-1"];

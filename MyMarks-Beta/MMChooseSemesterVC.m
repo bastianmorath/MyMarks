@@ -9,8 +9,9 @@
 #import "MMChooseSemesterVC.h"
 
 @interface MMChooseSemesterVC (){
-
+    
     NSIndexPath *currentIndexPathToDelete;
+    const char MyConstantKey;
 
 }
 
@@ -23,12 +24,12 @@
     
     //Background setzen
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
-
+    
     //Rechter Button erstellen
-    self.navigationItem.rightBarButtonItem= [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showAlertView)];
-
+    self.navigationItem.rightBarButtonItem= [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showAlertViewToAddSemester)];
+    
     self.navigationItem.leftBarButtonItem = [MMFactory backBarButtonItemForClass:self];
-
+    
     //Background setzen
     self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
     
@@ -37,7 +38,7 @@
     
     
     self.navigationItem.titleView = [MMFactory getNavigationViewForString:NSLocalizedString(@"Choose semester", nil)];
-
+    
     
     semesterArray = [[NSArray alloc]init];
     [self updateSemesterArray];
@@ -47,7 +48,7 @@
     //Wenn noch kein Semester hinzugefügt wurde, öfne direkt den AlertView
     
     if ([semesterArray count] == 0) {
-        [self showAlertView];
+        [self showAlertViewToAddSemester];
     }
     //**Google Analytics**//
     
@@ -62,7 +63,14 @@
     
     // New SDK versions
     [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-
+    
+    //Long Tap Gesture hinzufügen. Wird länger auf eine Cell gedrückt, kann sie editiert werden
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 1.0; //seconds
+    lpgr.delegate = self;
+    [self.tableView addGestureRecognizer:lpgr];
+    
 }
 
 
@@ -82,13 +90,13 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
+    
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     // Return the number of rows in the section.
     return semesterArray.count;
 }
@@ -101,7 +109,7 @@
     
     Semester *semester =[semesterArray objectAtIndex:indexPath.row];
     cell.textLabel.text = semester.name;
-
+    
     //Wenn nur ein Semester hinzugefügt wurde, dann klicke es automatisch an
     if ([semesterArray count]==1) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -111,11 +119,11 @@
         } else {
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
-
+        
     }
     
     
-
+    
     return cell;
 }
 
@@ -125,7 +133,7 @@
     NSString *semesterName = cell.textLabel.text;
 
     [[NSUserDefaults standardUserDefaults] setObject:semesterName forKey:@"semester"];
-     [self.tableView reloadData];    
+    [self.tableView reloadData];
 }
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -140,7 +148,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        // Bestätigung er Löschung mit AlertView
+        // Bestätigung der Löschung mit AlertView
         [self showConfirmationAlertView];
         
         currentIndexPathToDelete = indexPath;
@@ -157,7 +165,7 @@
         [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
         
         [self updateSemesterArray];
-        [self showAlertView];
+        [self showAlertViewToAddSemester];
         
         //Wenn gerade das Semester gelöscht wird, das ausgewählt ist, dann wird das erste Semester als das Neue verwendet
         
@@ -175,7 +183,7 @@
     
     [self updateSemesterArray];
     [self.tableView reloadData];
-
+    
 }
 
 
@@ -189,51 +197,91 @@
 
 #pragma mark - AlertView
 
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    CGPoint p = [gestureRecognizer locationInView:self.tableView];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+    
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        //AlertView, um Namen des Semesters zu ändern
+        UIAlertView *alert;
+        alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Change name", nil)
+                                         message:NSLocalizedString(@"Enter the new name of the semester", nil)
+                                        delegate:self
+                               cancelButtonTitle:NSLocalizedString(@"Cancle", nil)
+                               otherButtonTitles:@"Done", nil];
+        [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
+        [alert show];
+        
+        //Übergebe dem AlertView das Semester
+        objc_setAssociatedObject(alert, MyConstantKey, [semesterArray objectAtIndex:indexPath.row], OBJC_ASSOCIATION_RETAIN);
+        
+    }
+    
+}
+
 -(void)showConfirmationAlertView{
     UIAlertView *alert;
     alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Confirmation", nil)
-                                         message:NSLocalizedString(@"confirmationMessage", nil)
-                                        delegate:self
-                               cancelButtonTitle:NSLocalizedString(@"Cancle", nil)
-                               otherButtonTitles:@"Okey", nil];
+                                     message:NSLocalizedString(@"confirmationMessage", nil)
+                                    delegate:self
+                           cancelButtonTitle:NSLocalizedString(@"Cancle", nil)
+                           otherButtonTitles:@"Okey", nil];
     [alert setAlertViewStyle: UIAlertViewStyleDefault];
     [alert show];
 }
 
 //Hinzufügen einer Prüfung
--(void)showAlertView
+-(void)showAlertViewToAddSemester
 {
     UIAlertView *alert;
-    NSLog(@"semesterarray: %i", [semesterArray count]);
     //Wenn kein Semester vorhanden ist, kann der User nicht abbrechen
     if ([semesterArray count]!=0) {
         alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Add semester", nil)
-                                                      message:nil
-                                                     delegate:self
-                                            cancelButtonTitle:NSLocalizedString(@"Cancle", nil)
-                                            otherButtonTitles:NSLocalizedString(@"Done", nil), nil];
+                                         message:nil
+                                        delegate:self
+                               cancelButtonTitle:NSLocalizedString(@"Cancle", nil)
+                               otherButtonTitles:NSLocalizedString(@"Done", nil), nil];
     } else {
         alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Add semester", nil)
-                                                      message:nil
-                                                     delegate:self
-                                            cancelButtonTitle:nil
-                                            otherButtonTitles:NSLocalizedString(@"Done", nil), nil];
+                                         message:nil
+                                        delegate:self
+                               cancelButtonTitle:nil
+                               otherButtonTitles:NSLocalizedString(@"Done", nil), nil];
     }
     
     
-       [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
+    [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
     [[alert textFieldAtIndex:0] setPlaceholder:@"Name"];
     [alert show];
 }
 
+//Wenn ein Semester-Name geändert wird, dann kann man ihn nur ändern, wenn etwas im TextField eingegeben wurde!
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
+{
+    if (alertView.alertViewStyle == UIAlertViewStylePlainTextInput && [alertView.title isEqualToString:    NSLocalizedString(@"Change name", nil)]) {
+        if([[[alertView textFieldAtIndex:0] text] length] >= 1 )
+        {
+            return YES;
+        }
+        else
+        {
+            return NO;
+        }
+    }else{
+        return YES;
+    }
+}
 
 //Methode, die aufgerufen wird, wenn ein Button des AlertViews gedrückt wird
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex==1 || [semesterArray count]==0)
+    
+    if ([alertView.title isEqualToString:NSLocalizedString(@"Add semester", nil)])
     {
-        //Diese if-Schlaufe wird durchlaufen, wenn der AlertView des "Prüfung hinzufügen" aufgerufen wird
-        if ([alertView.title isEqualToString:NSLocalizedString(@"Add semester", nil)])
+        if (buttonIndex==1 || [semesterArray count]==0)
         {
             if (![[alertView textFieldAtIndex:0].text isEqualToString:@""])
             {
@@ -245,21 +293,39 @@
                 [self.tableView reloadData];
             }
         }
+    }
+    
         if ([alertView.title isEqualToString:NSLocalizedString(@"Confirmation", nil)])
         {
             [self deleteSemesterAtIndexPath:currentIndexPathToDelete];
-        
+            if  (buttonIndex == 0) {
+                
+                if ([alertView.title isEqualToString:NSLocalizedString(@"Confirmation", nil)]) {
+                    // User will Semester nicht löschen
+                    [self setEditing:NO animated:YES];
+                }
+            }
+
         }
-    }
-    if  (buttonIndex == 0) {
         
-        if ([alertView.title isEqualToString:NSLocalizedString(@"Confirmation", nil)]) {
-            // User will Semester nicht löschen
-            [self setEditing:NO animated:YES];
-        }
-    }
+        
     
     
+    if ([alertView.title isEqualToString:    NSLocalizedString(@"Change name", nil)
+         ] && buttonIndex ==1)
+    {
+        Semester *semester = objc_getAssociatedObject(alertView, MyConstantKey);
+        NSString *newSemesterName= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
+        if ([semester.name isEqualToString:[[NSUserDefaults standardUserDefaults]objectForKey:@"semester"]]){
+            [[NSUserDefaults standardUserDefaults]setObject:newSemesterName forKey:@"semester"];
+        }
+        
+        semester.name =newSemesterName;
+        [self updateSemesterArray];
+        [self.tableView reloadData];
+
+    }
+
 }
 
 

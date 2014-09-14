@@ -27,5 +27,7 @@
 "Error" = "Erreur";
 "Weighting Error" = "Il faut que la pondération soit 0 ou 1";
 "Confirmation" = "Confirmation";
-"confirmationMessage" = "Êtes-vous sure de éteindre cet semestre";
+"confirmationMessage" = "Êtes-vous sure de éteindre ce semèstre";
 "Add semester" = "Ajoute semestre";
+"Enter the new name of the subject" = "Entre le nouveau nom de la matière";
+"Change name" = "Changer le nom";

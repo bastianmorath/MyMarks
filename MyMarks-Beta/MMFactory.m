@@ -12,6 +12,7 @@
 
 +(float)plusPoints{
     float plusPoints =0;
+
     for (Subject *eachSubject in [[DataStore defaultStore]getSubjects])
     {
         if ([eachSubject.weighting isEqualToNumber:[NSNumber numberWithInt:1]])
@@ -107,7 +108,7 @@
     
     UILabel *label= [[UILabel alloc]init];
     label.text=string;
-    label.font=    [UIFont fontWithName:@"Helvetica Light" size:17];
+    label.font=    [UIFont fontWithName:@"Helvetica Neue Light" size:17];
     label.textColor=[UIColor whiteColor];
     [label setNumberOfLines:1];
     CGSize maximumLabelSize = CGSizeMake(9999,label.frame.size.height);

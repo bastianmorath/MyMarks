@@ -29,3 +29,5 @@
 "Confirmation" = "Bestätigung";
 "confirmationMessage" = "Sind sie sicher, dass Sie dieses Semester löschen wollen?";
 "Add semester" = "Semester hinzufügen";
+"Enter the new name of the subject" = "Neuer Name des Faches eingeben";
+"Change name" = "Name ändern";

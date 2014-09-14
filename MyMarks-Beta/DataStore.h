@@ -45,7 +45,8 @@
 -(void)createSubjectWithName:(NSString *)name AndWeighting:(NSNumber*)weighting AndSemester:(Semester *)semester;
 
 -(Semester *)createSemestertWithName:(NSString *)name;
--(Semester *)semesterWithName:(NSString *)name;
+-(Semester *)currentSemester;
+//-(Semester *)semesterWithName:(NSString *)name;
 
 -(void)addExamWithData:(NSDictionary *)data ToSubject:(Subject *)subject;
 

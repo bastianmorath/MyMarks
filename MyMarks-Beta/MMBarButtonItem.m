@@ -18,9 +18,9 @@
         self.position=position;
 
 
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(5, 13, 50, 15)];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(5, 13, 80, 15)];
         label.text = text;
-        [label setFont:[UIFont fontWithName:@"Helvetica Light" size:13]];
+        [label setFont:[UIFont fontWithName:@"Helvetica Neue Light " size:13]];
         label.textColor= [UIColor whiteColor];
         [button addSubview:label];
  

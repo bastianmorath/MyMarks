@@ -29,7 +29,7 @@
     
     self.navigationController.navigationBar.tintColor =[UIColor whiteColor];
 
-   // self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:28/255.0f green:125/255.0f blue:253/255.0f alpha:1];
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:28/255.0f green:125/255.0f blue:253/255.0f alpha:1];
 
     //Titel setzen
     self.navigationItem.titleView = [MMFactory getNavigationViewForString:NSLocalizedString(@"Preferences", nil)];
@@ -81,7 +81,7 @@
     tempLabel.backgroundColor=[UIColor clearColor];
     
     tempLabel.textColor = [UIColor whiteColor]; //here you can change the text color of header.
-    tempLabel.font = [UIFont fontWithName:@"Helvetica Light" size:17];
+    tempLabel.font = [UIFont fontWithName:@"Helvetica Neue Light" size:17];
     tempLabel.frame = CGRectMake(10.0, 0.0, 300.0, 44.0);
   
     tempLabel.text=NSLocalizedString(@"Semester", nil);
@@ -144,7 +144,6 @@
 
 
 -(void)rightBarButtonItemPressed{
-    NSLog(@"Dismiss");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

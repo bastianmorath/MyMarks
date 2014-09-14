@@ -94,7 +94,6 @@ static DataStore *defaultStore;
 
 - (NSFetchedResultsController*)performFetchForAttribute:(NSString *)attributeName OfObject:(NSString *)objectName
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     
     // Abfrageanforderung
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
@@ -191,14 +190,19 @@ static DataStore *defaultStore;
 }
 
 -(Semester *)semesterWithName:(NSString *)name{
-    for (Semester *semester in [self getSemesters]) {
-        if ([semester.name isEqualToString:name]) {
-            return semester;
-        }
-    }
     
     return nil;
 }
+
+-(Semester *)currentSemester{
+    for (Semester *semester in [self getSemesters]) {
+        if ([semester.name isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"]]) {
+            return semester;
+        }
+    }
+    return nil;
+}
+
 
 -(void)addExamWithData:(NSDictionary *)data ToSubject:(Subject *)subject{
     
@@ -215,8 +219,16 @@ static DataStore *defaultStore;
 -(NSArray *)getSubjects{
     NSSortDescriptor *sDescriptor = [[NSSortDescriptor alloc]initWithKey:@"position" ascending:YES];
     NSArray *descriptors = @[sDescriptor];
-    return [self performFetchForEntity:@"Subject" WithPredicate:nil AndSortDescriptor:descriptors];
-
+    NSArray *subjects =[self performFetchForEntity:@"Subject" WithPredicate:nil AndSortDescriptor:descriptors];
+    Semester *currentSemester= [self currentSemester];
+    NSMutableArray *subjectsForCurrentSemester = [[NSMutableArray alloc]init];
+    for (Subject *subject in subjects) {
+        if ([currentSemester.subject containsObject:subject]) {
+            [subjectsForCurrentSemester addObject:subject];
+        }
+    }
+    
+    return subjectsForCurrentSemester;
 }
 
 -(NSArray *)getSemesters{

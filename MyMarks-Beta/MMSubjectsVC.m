@@ -20,6 +20,8 @@
 
 @implementation MMSubjectsVC
 
+const char MyConstantKey;
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -34,8 +36,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
-    NSLog(@"viewwillappear");
-    self.semester = [[DataStore defaultStore]semesterWithName:[[NSUserDefaults standardUserDefaults]objectForKey:@"semester"]];
+    
+    self.semester = [[DataStore defaultStore] currentSemester];
     [self updateSubjectArray];
     [self.navigationViewButton update];
     [self.tableView reloadData];
@@ -73,7 +75,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:61/255.0f green:132/255.0f blue:238/255.0f alpha:1];
 
     //Semester setzen
-    self.semester = [[DataStore defaultStore]semesterWithName:[[NSUserDefaults standardUserDefaults]objectForKey:@"semester"]];
+    self.semester = [[DataStore defaultStore] currentSemester];
     
     [self updateSubjectArray];
 
@@ -87,7 +89,6 @@
     self.navigationItem.titleView = self.navigationViewButton;
     
 
-    NSLog(@"Subjects :%@", self.subjectArray);
 
     //**Google Analytics**//
 
@@ -102,6 +103,15 @@
 
     // New SDK versions
     [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    
+    
+    
+    //Long Tap Gesture hinzufügen. Wird länger auf eine Cell gedrückt, kann sie editiert werden
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 1.0; //seconds
+    lpgr.delegate = self;
+    [self.tableView addGestureRecognizer:lpgr];
 }
 
 
@@ -112,7 +122,7 @@
 
 -(void)updateSubjectArray;
 {
-    self.subjectArray =  [self.semester.subject allObjects];
+    self.subjectArray =  [[DataStore defaultStore] getSubjects];
 }
 
 
@@ -229,11 +239,15 @@
         ;
         //Position müssen neu gesetzt werden
         [self updateSubjectArray];
-
-        [self updatePositions];
         [self.navigationViewButton updateText];
-       
+
+        if ([self.subjectArray count]==0) {
+            [self donePressed];
+        } else {
+            [self updatePositions];
+        }
         [self.tableView reloadData];
+
     }
 }
 
@@ -330,6 +344,30 @@
 }
 
 
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    CGPoint p = [gestureRecognizer locationInView:self.tableView];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+    
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        //AlertView, um Namen des Faches zu ändern
+        UIAlertView *alert;
+        alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Change name", nil)
+                                         message:NSLocalizedString(@"Enter the new name of the Subject", nil)
+                                        delegate:self
+                               cancelButtonTitle:NSLocalizedString(@"Cancle", nil)
+                               otherButtonTitles:@"Done", nil];
+        [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
+        [alert show];
+        
+        //Übergebe dem AlertView das Fach
+        objc_setAssociatedObject(alert, MyConstantKey, [self.subjectArray objectAtIndex:indexPath.row], OBJC_ASSOCIATION_RETAIN);
+        
+    }
+    
+}
 
 #pragma mark - Buttons
 
@@ -545,6 +583,20 @@
         {
             [self addSubject];
         }
+        
+        
+        //Änderung des Subjectsnamens bei längerem Drücken einer Cell
+        if ([alertView.title isEqualToString:    NSLocalizedString(@"Change name", nil)
+             ] && buttonIndex ==1)
+        {
+            Subject *subject = objc_getAssociatedObject(alertView, MyConstantKey);
+            NSString *newSubejctName= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
+          
+            subject.name =newSubejctName;
+            [self updateSubjectArray];
+            [self.tableView reloadData];
+        }
+
 
     }
 }

@@ -29,3 +29,5 @@
 "Confirmation" = "Confirmation";
 "confirmationMessage" = "Are you sure you want to delete this semester?";
 "Add semester" = "Add semester";
+"Enter the new name of the subject" = "Enter the new name of the Subject";
+"Change name" = "Change name";
