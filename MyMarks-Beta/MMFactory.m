@@ -11,10 +11,9 @@
 @implementation MMFactory
 
 +(float)plusPoints{
-    float plusPoints =0;
-
-    for (Subject *eachSubject in [[DataStore defaultStore]getSubjects])
+    float plusPoints =0;    for (Subject *eachSubject in [[DataStore defaultStore]getSubjects])
     {
+        
         if ([eachSubject.weighting isEqualToNumber:[NSNumber numberWithInt:1]])
         {
             
@@ -127,7 +126,7 @@
         forControlEvents:UIControlEventTouchUpInside];
     [arrowButton setShowsTouchWhenHighlighted:YES];
     
-    UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(0, 10, 23, 23)];
+    UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(-7, 3, 30, 30)];
     [view setImage:[UIImage imageNamed:@"backArrow.png"]];
     [arrowButton addSubview:view];
     
