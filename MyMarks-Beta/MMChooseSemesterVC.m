@@ -37,7 +37,7 @@
     [[self tableView]setBounces:NO];
     
     
-    self.navigationItem.titleView = [MMFactory getNavigationViewForString:NSLocalizedString(@"Choose semester", nil)];
+    self.navigationItem.titleView = [MMFactory navigationViewForString:NSLocalizedString(@"Choose semester", nil)];
     
     
     semesterArray = [[NSArray alloc]init];
@@ -50,20 +50,11 @@
     if ([semesterArray count] == 0) {
         [self showAlertViewToAddSemester];
     }
+    
     //**Google Analytics**//
+    [MMFactory initGoogleAnalyticsForClass:self];
     
-    // May return nil if a tracker has not already been initialized with a
-    // property ID.
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    
-    // This screen name value will remain set on the tracker and sent with
-    // hits until it is set to a new value or to nil.
-    [tracker set:kGAIScreenName
-           value:@"MMChooseSemesterVC"];
-    
-    // New SDK versions
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-    
+
     //Long Tap Gesture hinzufügen. Wird länger auf eine Cell gedrückt, kann sie editiert werden
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
@@ -75,17 +66,14 @@
 
 
 -(void)updateSemesterArray{
-    semesterArray = [[DataStore defaultStore]getSemesters];
+    semesterArray = [[DataStore defaultStore]semesterArray];
 }
 
 -(void)backPressed{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 #pragma mark - Table view data source
 
@@ -100,6 +88,11 @@
     // Return the number of rows in the section.
     return semesterArray.count;
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 46;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     

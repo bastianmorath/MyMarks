@@ -10,7 +10,9 @@
 
 @implementation MMBarButtonItem
 -(instancetype)initWithText:(NSString*)text target:(id)class Position:(enum ATPosition)position{
+
     if (self) {
+
         button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
         button.backgroundColor=[UIColor greenColor];
         target=class;
@@ -24,8 +26,8 @@
         label.textColor= [UIColor whiteColor];
         [button addSubview:label];
  
-
         self = [super initWithCustomView:button];
+
 
     }
         return self;

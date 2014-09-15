@@ -50,7 +50,7 @@
 
 -(void)addExamWithData:(NSDictionary *)data ToSubject:(Subject *)subject;
 
--(NSArray *)getSubjects;
--(NSArray *)getSemesters;
+-(NSArray *)subjectArray;
+-(NSArray *)semesterArray;
 
 @end

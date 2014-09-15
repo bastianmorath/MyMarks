@@ -15,6 +15,10 @@
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSSet *subject;
+
+-(float)average;
+-(float)plusPoints;
+
 @end
 
 @interface Semester (CoreDataGeneratedAccessors)

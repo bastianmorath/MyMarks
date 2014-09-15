@@ -12,7 +12,7 @@
 
 
 
--(instancetype)initWithType:(enum buttonType)type AndTarget:(id)class{
+-(instancetype)initWithTarget:(id)class{
     self = [super initWithFrame:CGRectMake(-50, 0, 100, 50)];
     if (self) {
         label = [[UILabel alloc] initWithFrame:CGRectMake(-50, -4, 200, 50)];
@@ -33,15 +33,21 @@
             [label setFrame:CGRectMake(-50, 0, 200, 50)];
         }
         
-        self.type = type;
+            if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"calcType"] isEqualToNumber:@0]) {
+                self.type = BTAverage;
+            } else {
+                self.type = BTPluspoints;
+            }
+        self.semester = [[DataStore defaultStore] currentSemester];
         [self addTarget:class action:@selector(navigationButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     }
-
     return self;
 }
 
 
 -(void)update{
+    self.semester = [[DataStore defaultStore] currentSemester];
+
     [self updateText];
 }
 
@@ -72,7 +78,7 @@
     switch (self.type) {
         case 0:
         {
-            label.text = [NSString stringWithFormat:NSLocalizedString(@"Average: %0.2f", nil), [MMFactory average]];
+            label.text = [NSString stringWithFormat:NSLocalizedString(@"Average: %0.2f", nil), [self.semester average]];
             
         }
             break;
@@ -80,10 +86,10 @@
         case 1:
         {
             //Plus-/Minuspunkte anzeigen
-            if ([MMFactory plusPoints]>=0) {
-                label.text = [NSString stringWithFormat:NSLocalizedString(@"Pluspoints: %0.1f", nil), [MMFactory plusPoints]];
+            if ([self.semester plusPoints]>=0) {
+                label.text = [NSString stringWithFormat:NSLocalizedString(@"Pluspoints: %0.1f", nil), [self.semester plusPoints]];
             } else {
-                label.text = [NSString stringWithFormat:NSLocalizedString(@"Minuspoints: %0.1f", nil), -[MMFactory plusPoints]];
+                label.text = [NSString stringWithFormat:NSLocalizedString(@"Minuspoints: %0.1f", nil), -[self.semester plusPoints]];
             }
         }
             break;

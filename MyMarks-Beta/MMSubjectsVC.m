@@ -54,7 +54,6 @@ const char MyConstantKey;
     self.navigationController.navigationBar.tintColor =[UIColor whiteColor];
     
     //Rechter Button erstellen
-    //self.navigationItem.rightBarButtonItem= [MMFactory editIconItemForClass:self];
     self.navigationItem.rightBarButtonItem= [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionSheet)];
   
     //Linkes Logo setzen
@@ -77,39 +76,23 @@ const char MyConstantKey;
     //Semester setzen
     self.semester = [[DataStore defaultStore] currentSemester];
     
+    
     [self updateSubjectArray];
 
     //Navigation Button initlialisieren
-    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"calcType"] isEqualToNumber:@0]) {
-        self.navigationViewButton = [[MMNavigationViewButton alloc]initWithType:BTAverage AndTarget:self];
-    } else {
-        self.navigationViewButton = [[MMNavigationViewButton alloc]initWithType:BTPluspoints AndTarget:self];
-
-    }
+    self.navigationViewButton = [[MMNavigationViewButton alloc]initWithTarget:self];;
     self.navigationItem.titleView = self.navigationViewButton;
     
 
 
     //**Google Analytics**//
-
-    // May return nil if a tracker has not already been initialized with a
-    // property ID.
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    
-    // This screen name value will remain set on the tracker and sent with
-    // hits until it is set to a new value or to nil.
-    [tracker set:kGAIScreenName
-           value:@"MMSubjectsVC"];
-
-    // New SDK versions
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-    
-    
+    [MMFactory initGoogleAnalyticsForClass:self];
+       
     
     //Long Tap Gesture hinzufügen. Wird länger auf eine Cell gedrückt, kann sie editiert werden
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.minimumPressDuration = 1.0; //seconds
+    lpgr.minimumPressDuration = 1.0;
     lpgr.delegate = self;
     [self.tableView addGestureRecognizer:lpgr];
 }
@@ -122,7 +105,7 @@ const char MyConstantKey;
 
 -(void)updateSubjectArray;
 {
-    self.subjectArray =  [[DataStore defaultStore] getSubjects];
+    self.subjectArray =  [[DataStore defaultStore] subjectArray];
 }
 
 
@@ -165,11 +148,7 @@ const char MyConstantKey;
     static NSString *CellIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    //Farbe wird bestimmt, welche beim Drücken einer Zelle angezeigt wird 
-    UIView *selectetView = [[UIView alloc]init];
-    selectetView.backgroundColor = [UIColor colorWithRed:30/255.0f green:115/255.0f blue:238/255.0f alpha:1];
-    cell.selectedBackgroundView = selectetView;
-    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+
 
     
         //Je nach dem, ob weniger/gleich oder mehr als 10 Fächer eingetragen wurden(bei über 10 verlassen die untersten Zellen den Screen), wird der Farbverlauf der Zellen anderst konfiguriert
@@ -192,14 +171,11 @@ const char MyConstantKey;
     if ([self.subjectArray count]>indexPath.row)
     {
         Subject *subject = [self.subjectArray objectAtIndex:indexPath.row];
-
         //Die Labels der Cells werden konfiguriert und der Hintergrund transparent gemacht
         cell.textLabel.text = subject.name;
 
         [cell.detailTextLabel setFrame:CGRectMake(280, 15, 24, 20.5)];
         cell.detailTextLabel.text = subject.average>0 ? [NSString stringWithFormat:@"%.2f", subject.average] : [NSString stringWithFormat:@"0.0"];
-        
-        
     } else //Wenn kein Fach eingetragen wurde
     {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;

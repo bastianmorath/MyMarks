@@ -171,7 +171,7 @@ static DataStore *defaultStore;
         subject.weighting = @1;
     }
     //Die Prüfung wird an letzter Position eingefügt
-    subject.position = [NSNumber numberWithInt:[[self getSubjects]count]-1];
+    subject.position = [NSNumber numberWithInt:[[self subjectArray]count]-1];
     
     //Die prüfung wird dem Semester hinzugefügt
     [semester addSubjectObject:subject];
@@ -195,12 +195,15 @@ static DataStore *defaultStore;
 }
 
 -(Semester *)currentSemester{
-    for (Semester *semester in [self getSemesters]) {
+    for (Semester *semester in [self semesterArray]) {
         if ([semester.name isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"]]) {
             return semester;
         }
     }
-    return nil;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@"Semester 1" forKey:@"semester"];
+
+    return [[DataStore defaultStore] createSemestertWithName:@"Semester 1"];
 }
 
 
@@ -216,7 +219,7 @@ static DataStore *defaultStore;
     [self storeData];
 }
 
--(NSArray *)getSubjects{
+-(NSArray *)subjectArray{
     NSSortDescriptor *sDescriptor = [[NSSortDescriptor alloc]initWithKey:@"position" ascending:YES];
     NSArray *descriptors = @[sDescriptor];
     NSArray *subjects =[self performFetchForEntity:@"Subject" WithPredicate:nil AndSortDescriptor:descriptors];
@@ -231,7 +234,7 @@ static DataStore *defaultStore;
     return subjectsForCurrentSemester;
 }
 
--(NSArray *)getSemesters{
+-(NSArray *)semesterArray{
     NSSortDescriptor *sDescriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
     NSArray *descriptors = @[sDescriptor];
     return [self performFetchForEntity:@"Semester" WithPredicate:nil AndSortDescriptor:descriptors];

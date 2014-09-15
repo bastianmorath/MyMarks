@@ -10,48 +10,6 @@
 
 @implementation MMFactory
 
-+(float)plusPoints{
-    float plusPoints =0;    for (Subject *eachSubject in [[DataStore defaultStore]getSubjects])
-    {
-        
-        if ([eachSubject.weighting isEqualToNumber:[NSNumber numberWithInt:1]])
-        {
-            
-            if(eachSubject.average !=0)
-            {
-                if (round(eachSubject.average * 2) / 2<4) //Wenn der gerundete Durchscnitt kleiner als 4 ist, wird die if-Schlaufe durchlaufen
-                {
-                    plusPoints -=  2* (4-round(eachSubject.average * 2) / 2);// Subtrahiert zweimal den Wert unter 4
-                } else
-                {
-                    plusPoints +=  (round(eachSubject.average * 2) / 2)-4;   // Addiert einmal den Wert über 4
-                }
-            }
-        }
-    }
-    
-    return plusPoints;
-}
-
-+(float)average{
-    if ([[[DataStore defaultStore]getSubjects]count]!=0) {
-        float countedSubjects=0;
-        float tempCount = 0;
-        for (Subject *eachSubject in [[DataStore defaultStore]getSubjects]){
-            if (eachSubject.average!=0) {
-                countedSubjects++;
-                tempCount += eachSubject.average;
-            }
-        }
-        if (countedSubjects == 0) {
-            return 0.0;
-        } else{ 
-        return tempCount / countedSubjects;
-        }
-    } else {
-        return 0.0;
-    }
-}
 
 +(UIBarButtonItem *)appIconItem{
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -101,7 +59,7 @@
     
     return [df dateFromString:string];
 }
-+(UIView*)getNavigationViewForString:(NSString *)string{
++(UIView*)navigationViewForString:(NSString *)string{
     UIView *customTitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 160, 30)];
     customTitleView.backgroundColor = [UIColor clearColor];
     
@@ -132,5 +90,21 @@
     
     UIBarButtonItem *backBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:arrowButton];
     return backBarButtonItem;
+}
+
++(void)initGoogleAnalyticsForClass:(id)class{
+    //**Google Analytics**//
+    
+    // May return nil if a tracker has not already been initialized with a
+    // property ID.
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    
+    // This screen name value will remain set on the tracker and sent with
+    // hits until it is set to a new value or to nil.
+    [tracker set:kGAIScreenName
+           value:NSStringFromClass([class class])];
+    
+    // New SDK versions
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 @end

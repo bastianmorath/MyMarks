@@ -10,12 +10,11 @@
 
 @interface MMFactory : NSObject
 
-+(float)plusPoints;
-+(float)average;
 +(UIBarButtonItem *)appIconItem;
 +(UIBarButtonItem *)editIconItemForClass:(id)class;
 +(NSString *)NSStringFromDate:(NSDate*)date;
 +(NSDate *)NSDateFromString:(NSString*)string;
-+(UIView *)getNavigationViewForString:(NSString *)string;
++(UIView *)navigationViewForString:(NSString *)string;
 +(UIBarButtonItem *)backBarButtonItemForClass:(id)class;
++(void)initGoogleAnalyticsForClass:(id)class;
 @end

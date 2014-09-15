@@ -17,7 +17,7 @@
 #import "MMNavigationViewButton.h"
 
 
-@interface MMSubjectsVC : UITableViewController <UITableViewDelegate, UIAlertViewDelegate, UIApplicationDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate>
+@interface MMSubjectsVC : UITableViewController <UITableViewDelegate, UIAlertViewDelegate, UIApplicationDelegate, MFMailComposeViewControllerDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate>
 
 
 

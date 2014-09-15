@@ -27,39 +27,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.tintColor =[UIColor whiteColor];
-
-    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:28/255.0f green:125/255.0f blue:253/255.0f alpha:1];
-
     //Titel setzen
-    self.navigationItem.titleView = [MMFactory getNavigationViewForString:NSLocalizedString(@"Preferences", nil)];
+    self.navigationItem.titleView = [MMFactory navigationViewForString:NSLocalizedString(@"Preferences", nil)];
 
-    //Rechtes BarbuttonItem setzen
-    [self.navigationItem setRightBarButtonItem:[[MMBarButtonItem alloc]initWithText:@"Done" target:self Position:PTRight] animated:YES];
+    //Barbutton-Items auf weisse Schrift setzen
+    self.navigationController.navigationBar.tintColor =[UIColor whiteColor];
     
     //Background setzen
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
-
     
     //Schwarzer Strich am unteren Ende der Navigationbar entfernen
     [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
+    
+    //Rechtes BarbuttonItem setzen
+    [self.navigationItem setRightBarButtonItem:[[MMBarButtonItem alloc]initWithText:NSLocalizedString(@"Done", nil) target:self Position:PTRight] animated:YES];
+    
+    
 
     
     //**Google Analytics**//
-    
-    // May return nil if a tracker has not already been initialized with a
-    // property ID.
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    
-    // This screen name value will remain set on the tracker and sent with
-    // hits until it is set to a new value or to nil.
-    [tracker set:kGAIScreenName
-           value:@"MMPreferencesVC"];
-    
-    // New SDK versions
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-
+    [MMFactory initGoogleAnalyticsForClass:self];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -84,7 +72,9 @@
     return 4;
 }
 
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 46;
+}
 
 
 

@@ -53,22 +53,10 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
     self.navigationItem.leftBarButtonItem = [MMFactory backBarButtonItemForClass:self];
-    self.navigationItem.titleView = [MMFactory getNavigationViewForString:self.subject.name];
+    self.navigationItem.titleView = [MMFactory navigationViewForString:self.subject.name];
     
     //**Google Analytics**//
-    
-    // May return nil if a tracker has not already been initialized with a
-    // property ID.
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    
-    // This screen name value will remain set on the tracker and sent with
-    // hits until it is set to a new value or to nil.
-    [tracker set:kGAIScreenName
-           value:@"MMExamsVC"];
-    
-    // New SDK versions
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-
+    [MMFactory initGoogleAnalyticsForClass:self];
 }
 
 
@@ -178,11 +166,6 @@
             cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
             
             
-            //Farbe wird bestimmt, welche beim Drücken einer Zelle angezeigt wird
-            UIView *selectetView = [[UIView alloc]init];
-            selectetView.backgroundColor = [UIColor colorWithRed:30/255.0f green:115/255.0f blue:238/255.0f alpha:1];
-            cell.selectedBackgroundView = selectetView;
-            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             Exam *exam = [self.exams objectAtIndex:indexPath.row];
             
             [self configureTextForCell:cell withExam:exam];

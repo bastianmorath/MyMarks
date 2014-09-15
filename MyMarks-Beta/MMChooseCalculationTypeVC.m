@@ -19,25 +19,13 @@
     
     self.navigationItem.leftBarButtonItem = [MMFactory backBarButtonItemForClass:self];
 
-    self.navigationItem.titleView = [MMFactory getNavigationViewForString:NSLocalizedString(@"Calculation Type", nil)];
+    self.navigationItem.titleView = [MMFactory navigationViewForString:NSLocalizedString(@"Calculation Type", nil)];
 
     //Background setzen
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
     
     //**Google Analytics**//
-    
-    // May return nil if a tracker has not already been initialized with a
-    // property ID.
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    
-    // This screen name value will remain set on the tracker and sent with
-    // hits until it is set to a new value or to nil.
-    [tracker set:kGAIScreenName
-           value:@"MMChooseCalculationTypeVC"];
-    
-    // New SDK versions
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-
+    [MMFactory initGoogleAnalyticsForClass:self];
 }
 
 
@@ -66,6 +54,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     return 2;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 46;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

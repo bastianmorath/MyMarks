@@ -80,7 +80,7 @@
     //Rechtes BarButtonItem setzen
     [self.navigationItem setRightBarButtonItem:[[MMBarButtonItem alloc]initWithText:NSLocalizedString(@"Done", nil) target:self Position:PTRight] animated:YES];
     
-    self.navigationItem.titleView = [MMFactory getNavigationViewForString:NSLocalizedString(@"Add exam", nil)];
+    self.navigationItem.titleView = [MMFactory navigationViewForString:NSLocalizedString(@"Add exam", nil)];
 
     //Schwarzer Strich am unteren Ende der Navigationbar entfernen
     [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
@@ -98,19 +98,7 @@
     }
     
     //**Google Analytics**//
-    
-    // May return nil if a tracker has not already been initialized with a
-    // property ID.
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    
-    // This screen name value will remain set on the tracker and sent with
-    // hits until it is set to a new value or to nil.
-    [tracker set:kGAIScreenName
-           value:@"MMAddExamVC"];
-    
-    // New SDK versions
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-
+    [MMFactory initGoogleAnalyticsForClass:self];
 }
 
 

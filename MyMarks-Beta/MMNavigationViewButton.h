@@ -23,6 +23,9 @@
 //Updatet den angezeigten Text
 -(void)updateText;
 
--(instancetype)initWithType:(enum buttonType)type AndTarget:(id)class;
+
+//Das Semester, welches der Button repräsentiert
+@property (nonatomic, assign) Semester *semester;
+-(instancetype)initWithTarget:(id)class;
 
 @end
