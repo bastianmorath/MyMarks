@@ -17,11 +17,12 @@
         float countedSubjects=0;
         float tempCount = 0;
         for (Subject *eachSubject in [[DataStore defaultStore]subjectArray]){
-            if (eachSubject.average!=0) {
+            if (eachSubject.average!=0 && ![eachSubject.weighting  isEqual:@0]) {
                 countedSubjects++;
                 tempCount += eachSubject.average;
             }
         }
+        
         if (countedSubjects == 0) {
             return 0.0;
         } else{

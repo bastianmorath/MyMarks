@@ -17,7 +17,7 @@
     if (self) {
         label = [[UILabel alloc] initWithFrame:CGRectMake(-50, -4, 200, 50)];
         [label setTextAlignment:NSTextAlignmentCenter];
-        [label setFont:[UIFont fontWithName:@"Helvetica Neue Light" size:16]];
+        [label setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
         [label setTextColor:[UIColor whiteColor]];
         [self addSubview:label];
         NSNumber *counter = ((NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"tapCounter"]);
@@ -25,7 +25,7 @@
         if (counter) {
             tapLabel = [[UILabel alloc] initWithFrame:CGRectMake(-50, 12, 200, 50)];
             [tapLabel setTextAlignment:NSTextAlignmentCenter];
-            [tapLabel setFont:[UIFont fontWithName:@"Helvetica Neue Light" size:10]];
+            [tapLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
             [tapLabel setText:@"Tap to change"];
             [tapLabel setTextColor:[UIColor whiteColor]];
             [self addSubview:tapLabel];

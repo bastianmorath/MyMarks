@@ -9,12 +9,13 @@
 #import "MMBarButtonItem.h"
 
 @implementation MMBarButtonItem
+
+
 -(instancetype)initWithText:(NSString*)text target:(id)class Position:(enum ATPosition)position{
 
     if (self) {
 
         button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
-        button.backgroundColor=[UIColor greenColor];
         target=class;
 
         self.position=position;
@@ -22,7 +23,7 @@
 
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(5, 13, 80, 15)];
         label.text = text;
-        [label setFont:[UIFont fontWithName:@"Helvetica Neue Light " size:13]];
+        [label setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
         label.textColor= [UIColor whiteColor];
         [button addSubview:label];
  

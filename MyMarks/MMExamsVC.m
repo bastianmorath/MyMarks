@@ -212,7 +212,7 @@
     tempLabel.backgroundColor=[UIColor clearColor];
     
     tempLabel.textColor = [UIColor whiteColor]; //here you can change the text color of header.
-    tempLabel.font = [UIFont fontWithName:@"Helvetica Neue Light" size:17];
+    tempLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17];
     tempLabel.frame = CGRectMake(10.0, 0.0, 300.0, 44.0);
     if (section ==0)
     {

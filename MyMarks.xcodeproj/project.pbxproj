@@ -297,8 +297,7 @@
 				B6D6BDBB17A31CBC00B3B09F /* Images.xcassets */,
 				B6E4D8F018032D9800A51E64 /* Supporting Files */,
 			);
-			name = MyMarks;
-			path = "MyMarks-Beta";
+			path = MyMarks;
 			sourceTree = "<group>";
 		};
 		B6D6BDAA17A31CBB00B3B09F /* AppIcons */ = {
@@ -595,19 +594,19 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MyMarks-Beta/MyMarks-Prefix.pch";
-				INFOPLIST_FILE = "MyMarks-Beta/MyMarks-Info.plist";
+				GCC_PREFIX_HEADER = "MyMarks/MyMarks-Prefix.pch";
+				INFOPLIST_FILE = "MyMarks/MyMarks-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/bastianmorath/Downloads/GoogleAnalyticsServicesiOS_3.09,
-					"$(PROJECT_DIR)/MyMarks-Beta",
+					"$(PROJECT_DIR)/MyMarks",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = MyMarks;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "MyMarks-Beta/Notenapplikation-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyMarks/Notenapplikation-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
@@ -624,20 +623,20 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MyMarks-Beta/MyMarks-Prefix.pch";
-				INFOPLIST_FILE = "MyMarks-Beta/MyMarks-Info.plist";
+				GCC_PREFIX_HEADER = "MyMarks/MyMarks-Prefix.pch";
+				INFOPLIST_FILE = "MyMarks/MyMarks-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/bastianmorath/Downloads/GoogleAnalyticsServicesiOS_3.09,
-					"$(PROJECT_DIR)/MyMarks-Beta",
+					"$(PROJECT_DIR)/MyMarks",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = MyMarks;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "MyMarks-Beta/Notenapplikation-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyMarks/Notenapplikation-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
