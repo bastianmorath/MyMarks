@@ -414,111 +414,6 @@ const char MyConstantKey;
 
 
 
-#pragma mark - E-Mail
-
-- (void)exportMarks
-{
-    if ([[NSFileManager defaultManager] fileExistsAtPath:[self dataFilePath]])
-    {
-        [[NSFileManager defaultManager] removeItemAtPath:[self dataFilePath] error:nil];
-    }
-    [[NSFileManager defaultManager] createFileAtPath: [self dataFilePath] contents:nil attributes:nil];
-    
-    //Alle Prüfungen werden in einem NSMtableString aufgelistet
-    NSMutableString *writeString = [[NSMutableString alloc]init];
-    writeString = [NSMutableString string];
-    [writeString appendString:@"MyMarks \n \n"];
-    
-    //Note, gewichtung, Datum und Notizen einer Prüfung werden dem NSMutableString angehängt
-    for (Semester *semester in [[DataStore defaultStore]semesterArray])
-    {
-        [writeString appendString:[NSString stringWithFormat:@"\n\n%@\n ",semester.name]];
-
-        for (int i=0; i<[semester.subject count]; i++)
-        {
-            Subject *subject = [[semester.subject allObjects] objectAtIndex:i];
-            [writeString appendString:[NSString stringWithFormat:@"\n\n%@\n ",subject.name]];
-            
-            for (Exam *eachExam in [subject.exam allObjects])
-            {
-                [writeString appendString:[NSString stringWithFormat:
-                                           @"Note: \t%0.2f       Gewichtung: \t%0.2f       Datum:\t %@       Notizen:  \t%@ \n\n",
-                                           eachExam.mark.floatValue, eachExam.weighting.floatValue, eachExam.date, eachExam.notes]];
-            }
-            [writeString appendString:@"\t\n\n"];
-        }
-
-    }
-    
-    
-    NSFileHandle *handle;
-    //Sagt, wo das File gelesen werden soll
-    handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
-    //Stellt den Cursor ans Ende des Files
-    [handle truncateFileAtOffset:[handle seekToEndOfFile]];
-    [handle writeData:[writeString dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    //Ein Controller für das Mail-Programm wird erstellt und aufgerufen
-    MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
-    [mailer.view setTintColor:[UIColor whiteColor]];
-    mailer.mailComposeDelegate = self;
-    [mailer setSubject:@"MyMarks"];
-    [mailer addAttachmentData:[NSData dataWithContentsOfFile:[self dataFilePath] ]
-                     mimeType:@"text/csv"
-                     fileName:@"MyMarks.csv"];
-    [self presentViewController:mailer animated:YES completion:nil];
-}
-
-
-//Exportieren einer csv-Datei
--(NSString *)dataFilePath
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    return [documentsDirectory stringByAppendingPathComponent:@"myfile.csv"];
-}
-
-
-//Diese Methode kontrolliert das Resulat des Mail-Vorganges und gibt bei einem Error eine Meldung aus
-- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
-{
-    switch (result)
-    
-    {
-        case MFMailComposeResultCancelled:
-            
-            NSLog(@"Mail abgebrochen");
-            
-            break;
-            
-        case MFMailComposeResultSaved:
-            
-            NSLog(@"Mail gespeichert");
-            
-            break;
-            
-        case MFMailComposeResultSent:
-            
-            NSLog(@"Mail gesendet");
-            
-            break;
-            
-        case MFMailComposeResultFailed:
-            
-            NSLog(@"Mail senden fehlgeschlagen: %@", [error localizedDescription]);
-            
-            break;
-            
-        default:
-            
-            break;
-    }
-    
-    // Schliesst den View des Mails
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
-
 #pragma mark - AlertView
 
 //Hinzufügen einer Prüfung
@@ -599,7 +494,7 @@ const char MyConstantKey;
 
 -(void)showActionSheet
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Add new subject", nil), NSLocalizedString(@"Edit subjects", nil), NSLocalizedString(@"Export marks", nil), NSLocalizedString(@"Preferences", nil), nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Add new subject", nil), NSLocalizedString(@"Edit subjects", nil), NSLocalizedString(@"Preferences", nil), nil];
                                   
     [actionSheet showInView:self.view];
     
@@ -619,11 +514,6 @@ const char MyConstantKey;
     }
     
     if(buttonIndex == 2)
-    {
-        [self exportMarks];
-    }
-    
-    if(buttonIndex == 3)
     {
         [self openPreferences];
     }
