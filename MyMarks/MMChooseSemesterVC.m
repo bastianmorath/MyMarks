@@ -22,17 +22,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //Background setzen
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
-    
+        
     //Rechter Button erstellen
     self.navigationItem.rightBarButtonItem= [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showAlertViewToAddSemester)];
     
     self.navigationItem.leftBarButtonItem = [MMFactory backBarButtonItemForClass:self];
     
     //Background setzen
-    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
+    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
+    [self.tableView setBackgroundView:backgroundView];
     
     //Scrollen im TabelView verhindern
     [[self tableView]setBounces:NO];
@@ -88,11 +86,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     // Return the number of rows in the section.
-    return semesterArray.count;
+    return semesterArray.count >10 ?semesterArray.count : 10;
+    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 46;
+    return ([[UIScreen mainScreen] bounds].size.height-64)/10;
 }
 
 
@@ -100,28 +99,46 @@
     
     static NSString *CellIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    // Configure the cell...
-    
-    Semester *semester =[semesterArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = semester.name;
-    
-    //Wenn nur ein Semester hinzugefügt wurde, dann klicke es automatisch an
-    if ([semesterArray count]==1)
+
+    //Cell konfigurieren
+    if (indexPath.row<semesterArray.count)
     {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else
-    {
-        if (    [[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"]isEqualToString:semester.name])
+        Semester *semester =[semesterArray objectAtIndex:indexPath.row];
+        cell.textLabel.text = semester.name;
+        
+        //Wenn nur ein Semester hinzugefügt wurde, dann klicke es automatisch an
+        if ([semesterArray count]==1)
         {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         } else
         {
-            cell.accessoryType = UITableViewCellAccessoryNone;
+            if (    [[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"]isEqualToString:semester.name])
+            {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            } else
+            {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
         }
-        
+
     }
     
-    
+    //Farbverlauf bestimmen
+    //Je nach dem, ob weniger/gleich oder mehr als 10 Fächer eingetragen wurden(bei über 10 verlassen die untersten Zellen den Screen), wird der Farbverlauf der Zellen anderst konfiguriert
+    if ([semesterArray count]<=10)
+    {
+        double redColor =   41  + (indexPath.row * 116/9);
+        double greenColor = 135 + (indexPath.row * 94/9);
+        double blueColor =  241 - (indexPath.row * 110/9);
+        
+        cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
+    } else
+    {
+        double redColor =   41  + (indexPath.row * 116/(semesterArray.count-1));
+        double greenColor = 135 + (indexPath.row * 94/(semesterArray.count-1));
+        double blueColor =  241 - (indexPath.row * 110/(semesterArray.count-1));
+        cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
+    }
     
     return cell;
 }

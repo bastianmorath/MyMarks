@@ -24,9 +24,16 @@
 
     //Barbutton-Items auf weisse Schrift setzen
     self.navigationController.navigationBar.tintColor =[UIColor whiteColor];
+
+    //NavigationBar Background setzen
+    UIView *addStatusBar = [[UIView alloc] init];
+    addStatusBar.frame = CGRectMake(0, 0, 320, 20);
+    [addStatusBar setBackgroundColor:[MMFactory blueColor]];
+    [self.navigationController.view addSubview:addStatusBar];
+    [self.navigationController.navigationBar setBackgroundColor:[MMFactory blueColor]];
     
-    //Background setzen
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
+    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
+    [self.tableView setBackgroundView:backgroundView];
     
     //Schwarzer Strich am unteren Ende der Navigationbar entfernen
     [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
@@ -61,11 +68,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 10;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 46;
+    return ([[UIScreen mainScreen] bounds].size.height-64)/10;
 }
 
 
@@ -81,34 +88,23 @@
             CellIdentifier = @"semesterCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
             cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"semester"];
-            cell.accessoryView.tintColor = [UIColor whiteColor];
             cell.textLabel.text = NSLocalizedString(@"Semester", nil);
             [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f]];
         }
             break;
+    
             
         case 1:
         {
-            CellIdentifier = @"iCloudCell";
-            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-            cell.accessoryView.tintColor = [UIColor whiteColor];
-            cell.textLabel.text = @"iCloud Synchronisation";
-            cell.textLabel.textColor = [UIColor whiteColor];
-            [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f]];
-        }
-            break;
-            
-        case 2:
-        {
-            CellIdentifier = @"mailCell";
+            CellIdentifier = @"textCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
             cell.textLabel.text = NSLocalizedString(@"Send Mail To Developers", nil);
         }
             break;
             
-        case 3:
+        case 2:
         {
-            CellIdentifier = @"reviewCell";
+            CellIdentifier = @"textCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
             cell.textLabel.text = NSLocalizedString(@"Review MyMarks in the AppStore", nil);
         }
@@ -117,9 +113,19 @@
 
             
         default:
+        {
+            CellIdentifier = @"textCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        }
             break;
     }
     
+    //Farbverlauf bestimmen
+    double redColor =   41  + (indexPath.row * 116/9);
+    double greenColor = 135 + (indexPath.row * 94/9);
+    double blueColor =  241 - (indexPath.row * 110/9);
+
+    cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
     
     return cell;
 }
@@ -143,14 +149,14 @@
     {
             
             
-        case 2:
+        case 1:
         {
             
             [self sendMailToDevelopers];
         }
             break;
             
-        case 3:
+        case 2:
         {
             
             [self reviewAppInAppstore];

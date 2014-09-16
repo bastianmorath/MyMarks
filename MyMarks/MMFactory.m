@@ -44,7 +44,7 @@
     df.dateFormat = dateString;
     
     
-    
+
     return [NSString stringWithFormat: @"%@", [df stringFromDate:date]] ;
 }
 
@@ -106,5 +106,9 @@
     
     // New SDK versions
     [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+}
+
++(UIColor *)blueColor{
+    return [UIColor colorWithRed:29/255.0f green:125/255.0f blue:253/255.0f alpha:1];
 }
 @end

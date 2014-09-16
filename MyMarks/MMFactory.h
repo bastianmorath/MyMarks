@@ -17,4 +17,5 @@
 +(UIView *)navigationViewForString:(NSString *)string;
 +(UIBarButtonItem *)backBarButtonItemForClass:(id)class;
 +(void)initGoogleAnalyticsForClass:(id)class;
++(UIColor *)blueColor;
 @end

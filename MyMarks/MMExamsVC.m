@@ -192,7 +192,6 @@
 //Diese Methode konfiguriert eine Zelle mit Note und Datum der Prüfung
 -(void)configureTextForCell:(UITableViewCell *)cell withExam:(Exam *)exam
 {
-    NSLog(@"Date :%@", exam.date);
     cell.textLabel.text = [NSString stringWithFormat:@"%@", exam.mark ];
     cell.detailTextLabel.text = [MMFactory NSStringFromDate:exam.date];
 }

@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    NSLog(@"Begin");
     //Für alle TextFields jeweils: transparenter Background, weisser Rand und Keyboard translucent machen
     self.MarkTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
     self.MarkTextField.layer.borderColor = [[UIColor whiteColor]CGColor];
@@ -83,6 +83,7 @@
     
     //**Google Analytics**//
     [MMFactory initGoogleAnalyticsForClass:self];
+    NSLog(@"End");
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

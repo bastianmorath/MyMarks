@@ -72,7 +72,7 @@ const char MyConstantKey;
     [[self navigationItem] setBackBarButtonItem: newBackButton];
     
     //Background auf eine Grundfarbe setzen, damit zum Beispiel beim Zeilen-Verschieben kein weisser Hintergrund zu sehen ist
-    self.view.backgroundColor = [UIColor colorWithRed:61/255.0f green:132/255.0f blue:238/255.0f alpha:1];
+    self.view.backgroundColor = [MMFactory blueColor];
 
     //Semester setzen
     self.semester = [[DataStore defaultStore] currentSemester];
@@ -430,19 +430,26 @@ const char MyConstantKey;
     [writeString appendString:@"MyMarks \n \n"];
     
     //Note, gewichtung, Datum und Notizen einer Prüfung werden dem NSMutableString angehängt
-    for (int i=0; i<[self.subjectArray count]; i++)
+    for (Semester *semester in [[DataStore defaultStore]semesterArray])
     {
-        Subject *subject = [self.subjectArray objectAtIndex:i];
-        [writeString appendString:[NSString stringWithFormat:@"\n\n%@\n ",subject.name]];
-        
-        for (Exam *eachExam in [subject.exam allObjects])
+        [writeString appendString:[NSString stringWithFormat:@"\n\n%@\n ",semester.name]];
+
+        for (int i=0; i<[semester.subject count]; i++)
         {
-            [writeString appendString:[NSString stringWithFormat:
-                                       @"Note: \t%0.2f       Gewichtung: \t%0.2f       Datum:\t %@       Notizen:  \t%@ \n\n",
-                                       eachExam.mark.floatValue, eachExam.weighting.floatValue, eachExam.date, eachExam.notes]];
+            Subject *subject = [[semester.subject allObjects] objectAtIndex:i];
+            [writeString appendString:[NSString stringWithFormat:@"\n\n%@\n ",subject.name]];
+            
+            for (Exam *eachExam in [subject.exam allObjects])
+            {
+                [writeString appendString:[NSString stringWithFormat:
+                                           @"Note: \t%0.2f       Gewichtung: \t%0.2f       Datum:\t %@       Notizen:  \t%@ \n\n",
+                                           eachExam.mark.floatValue, eachExam.weighting.floatValue, eachExam.date, eachExam.notes]];
+            }
+            [writeString appendString:@"\t\n\n"];
         }
-        [writeString appendString:@"\t\n\n"];
+
     }
+    
     
     NSFileHandle *handle;
     //Sagt, wo das File gelesen werden soll

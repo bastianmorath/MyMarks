@@ -22,7 +22,6 @@
 		B617A715180F420D00189688 /* Launchimage_iPhone5.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A714180F420D00189688 /* Launchimage_iPhone5.png */; };
 		B617A717180F423E00189688 /* App Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A716180F423E00189688 /* App Icon.png */; };
 		B617A719180FE42B00189688 /* IPhone5_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A718180FE42B00189688 /* IPhone5_Background.png */; };
-		B6388A8419BB9DED00B3A92F /* MMChooseCalculationTypeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B6388A8119BB9DED00B3A92F /* MMChooseCalculationTypeVC.m */; };
 		B6388A8519BB9DED00B3A92F /* MMChooseSemesterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B6388A8319BB9DED00B3A92F /* MMChooseSemesterVC.m */; };
 		B63E900E17A48D65003EC11D /* MMExamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B63E900D17A48D65003EC11D /* MMExamsVC.m */; };
 		B653E820180ADC79004C1D39 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B653E81F180ADC79004C1D39 /* libz.dylib */; };
@@ -81,8 +80,6 @@
 		B617A714180F420D00189688 /* Launchimage_iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Launchimage_iPhone5.png; sourceTree = "<group>"; };
 		B617A716180F423E00189688 /* App Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App Icon.png"; sourceTree = "<group>"; };
 		B617A718180FE42B00189688 /* IPhone5_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IPhone5_Background.png; sourceTree = "<group>"; };
-		B6388A8019BB9DED00B3A92F /* MMChooseCalculationTypeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMChooseCalculationTypeVC.h; sourceTree = "<group>"; };
-		B6388A8119BB9DED00B3A92F /* MMChooseCalculationTypeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMChooseCalculationTypeVC.m; sourceTree = "<group>"; };
 		B6388A8219BB9DED00B3A92F /* MMChooseSemesterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMChooseSemesterVC.h; sourceTree = "<group>"; };
 		B6388A8319BB9DED00B3A92F /* MMChooseSemesterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMChooseSemesterVC.m; sourceTree = "<group>"; };
 		B63E900C17A48D65003EC11D /* MMExamsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMExamsVC.h; sourceTree = "<group>"; };
@@ -230,8 +227,6 @@
 				B665A54917A7550900CC5A74 /* MMAddExamVC.m */,
 				B6E8C8B719BB9D54004B7514 /* MMPreferencesVC.h */,
 				B6E8C8B819BB9D54004B7514 /* MMPreferencesVC.m */,
-				B6388A8019BB9DED00B3A92F /* MMChooseCalculationTypeVC.h */,
-				B6388A8119BB9DED00B3A92F /* MMChooseCalculationTypeVC.m */,
 				B6388A8219BB9DED00B3A92F /* MMChooseSemesterVC.h */,
 				B6388A8319BB9DED00B3A92F /* MMChooseSemesterVC.m */,
 			);
@@ -473,7 +468,6 @@
 				B6E2553519BC8B7000E24FDF /* Exam.m in Sources */,
 				B6D6BDB017A31CBB00B3B09F /* main.m in Sources */,
 				B63E900E17A48D65003EC11D /* MMExamsVC.m in Sources */,
-				B6388A8419BB9DED00B3A92F /* MMChooseCalculationTypeVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

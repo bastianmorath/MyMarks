@@ -32,7 +32,7 @@
 
 
     //Farbe der Navigation-Bar wird auf blau gesetzt
-    [[UINavigationBar appearance]setBarTintColor:[UIColor colorWithRed:20/255.0f green:120/255.0f blue:261/255.0f alpha:1]];
+    [[UINavigationBar appearance]setBarTintColor:[MMFactory blueColor]];
     
     //Zeigt die Statusbarsymbole in weisser Schrift an
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
