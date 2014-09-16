@@ -23,7 +23,8 @@
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
     }
     return self;
@@ -121,7 +122,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //Section: 0
-    if (indexPath.section ==0) {
+    if (indexPath.section ==0)
+    {
         static NSString *CellIdentifier = @"averageCell";
         UITableViewCell *averageCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         
@@ -151,9 +153,7 @@
         
         
         //Die if-Schlaufe wird auf die Cells ausgeführt, wo mindestens eine Prüfung erstellt wurde UND wo die Row  nicht dem indexpath.row entspricht (Das wäre gerade die Cell, welche für das Hinzufügen einer neuen Prüfung zuständig ist)
-        
-        
-        
+
         if ([self.exams count]!=0 && [self.exams count]!=indexPath.row )
         {
             static NSString *CellIdentifier = @"cell";
@@ -169,7 +169,6 @@
             Exam *exam = [self.exams objectAtIndex:indexPath.row];
             
             [self configureTextForCell:cell withExam:exam];
-            //Wenn noch keine Prüfung hinzugefügt wurde
             return cell;
             
         } else
@@ -193,6 +192,7 @@
 //Diese Methode konfiguriert eine Zelle mit Note und Datum der Prüfung
 -(void)configureTextForCell:(UITableViewCell *)cell withExam:(Exam *)exam
 {
+    NSLog(@"Date :%@", exam.date);
     cell.textLabel.text = [NSString stringWithFormat:@"%@", exam.mark ];
     cell.detailTextLabel.text = [MMFactory NSStringFromDate:exam.date];
 }
@@ -247,7 +247,8 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        if ([self.exams count]!=0) {
+        if ([self.exams count]!=0)
+        {
             
             if (indexPath.section!=0 & indexPath.row <= [self.exams count] )
             {

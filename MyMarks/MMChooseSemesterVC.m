@@ -8,7 +8,8 @@
 
 #import "MMChooseSemesterVC.h"
 
-@interface MMChooseSemesterVC (){
+@interface MMChooseSemesterVC ()
+{
     
     NSIndexPath *currentIndexPathToDelete;
     const char MyConstantKey;
@@ -47,7 +48,8 @@
     
     //Wenn noch kein Semester hinzugefügt wurde, öfne direkt den AlertView
     
-    if ([semesterArray count] == 0) {
+    if ([semesterArray count] == 0)
+    {
         [self showAlertViewToAddSemester];
     }
     
@@ -104,12 +106,16 @@
     cell.textLabel.text = semester.name;
     
     //Wenn nur ein Semester hinzugefügt wurde, dann klicke es automatisch an
-    if ([semesterArray count]==1) {
+    if ([semesterArray count]==1)
+    {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else {
-        if (    [[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"]isEqualToString:semester.name]) {
+    } else
+    {
+        if (    [[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"]isEqualToString:semester.name])
+        {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        } else {
+        } else
+        {
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         
@@ -148,12 +154,14 @@
     }
 }
 
--(void)deleteSemesterAtIndexPath:(NSIndexPath*)indexPath {
+-(void)deleteSemesterAtIndexPath:(NSIndexPath*)indexPath
+{
     
     //Entfernen des zu löschendem Elements aus dem Datenspeicher
     
     //Wenn das letzte Semester gelöscht wird, wird der AlertView angezeigt
-    if ([semesterArray count] ==1) {
+    if ([semesterArray count] ==1)
+    {
         
         [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
         
@@ -162,7 +170,8 @@
         
         //Wenn gerade das Semester gelöscht wird, das ausgewählt ist, dann wird das erste Semester als das Neue verwendet
         
-    } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"] isEqualToString:((Semester *)[semesterArray objectAtIndex:indexPath.row]).name]){
+    } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"] isEqualToString:((Semester *)[semesterArray objectAtIndex:indexPath.row]).name])
+    {
         
         [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
         
@@ -197,7 +206,8 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
     
     
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
+    {
         //AlertView, um Namen des Semesters zu ändern
         UIAlertView *alert;
         alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Change name", nil)
@@ -231,13 +241,15 @@
 {
     UIAlertView *alert;
     //Wenn kein Semester vorhanden ist, kann der User nicht abbrechen
-    if ([semesterArray count]!=0) {
+    if ([semesterArray count]!=0)
+    {
         alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Add semester", nil)
                                          message:nil
                                         delegate:self
                                cancelButtonTitle:NSLocalizedString(@"Cancle", nil)
                                otherButtonTitles:NSLocalizedString(@"Done", nil), nil];
-    } else {
+    } else
+    {
         alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Add semester", nil)
                                          message:nil
                                         delegate:self
@@ -254,7 +266,8 @@
 //Wenn ein Semester-Name geändert wird, dann kann man ihn nur ändern, wenn etwas im TextField eingegeben wurde!
 - (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
 {
-    if (alertView.alertViewStyle == UIAlertViewStylePlainTextInput && [alertView.title isEqualToString:    NSLocalizedString(@"Change name", nil)]) {
+    if (alertView.alertViewStyle == UIAlertViewStylePlainTextInput && [alertView.title isEqualToString:    NSLocalizedString(@"Change name", nil)])
+    {
         if([[[alertView textFieldAtIndex:0] text] length] >= 1 )
         {
             return YES;
@@ -263,7 +276,8 @@
         {
             return NO;
         }
-    }else{
+    }else
+    {
         return YES;
     }
 }
@@ -291,9 +305,11 @@
         if ([alertView.title isEqualToString:NSLocalizedString(@"Confirmation", nil)])
         {
             [self deleteSemesterAtIndexPath:currentIndexPathToDelete];
-            if  (buttonIndex == 0) {
+            if  (buttonIndex == 0)
+            {
                 
-                if ([alertView.title isEqualToString:NSLocalizedString(@"Confirmation", nil)]) {
+                if ([alertView.title isEqualToString:NSLocalizedString(@"Confirmation", nil)])
+                {
                     // User will Semester nicht löschen
                     [self setEditing:NO animated:YES];
                 }
@@ -309,7 +325,8 @@
     {
         Semester *semester = objc_getAssociatedObject(alertView, MyConstantKey);
         NSString *newSemesterName= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
-        if ([semester.name isEqualToString:[[NSUserDefaults standardUserDefaults]objectForKey:@"semester"]]){
+        if ([semester.name isEqualToString:[[NSUserDefaults standardUserDefaults]objectForKey:@"semester"]])
+        {
             [[NSUserDefaults standardUserDefaults]setObject:newSemesterName forKey:@"semester"];
         }
         

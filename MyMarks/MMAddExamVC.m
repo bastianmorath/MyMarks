@@ -139,7 +139,8 @@
 //Diese Methode wird aufgerufen, wenn das Datum des DatePickers geändert wird
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if ([textField isEqual:self.DateTextField]) {
+    if ([textField isEqual:self.DateTextField])
+    {
         datePicker = [UIDatePicker new];
         datePicker.datePickerMode= UIDatePickerModeDate;
         
@@ -151,8 +152,10 @@
  
 }
 
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if ([textField isEqual:self.MarkTextField]) {
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([textField isEqual:self.MarkTextField])
+    {
         //Der Done-Button kann nur dann gedrückt werden, wenn im Noten-Feld eine Zahl eingetragen ist
         NSInteger textLength = [textField.text length] - range.length + [string length];
         if (textLength > 0)
@@ -177,7 +180,8 @@
 
 
 -(BOOL)textFieldShouldClear:(UITextField *)textField{
-    if ([textField isEqual:self.MarkTextField]) {
+    if ([textField isEqual:self.MarkTextField])
+    {
         //Der Done-Button kann nur dann gedrückt werden, wenn im Noten-Feld eine Zahl eingetragen ist
         self.doneBarButton.enabled = NO;
         self.doneBarButton.textLabel.textColor =  [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1];
@@ -285,7 +289,8 @@
     
     NSNumber *mark = [NSNumber numberWithDouble:[self.MarkTextField.text doubleValue]];
     NSDate *date;
-    if (datePicker.date) {
+    if (datePicker.date)
+    {
         date = datePicker.date;
     } else {
         date = [MMFactory NSDateFromString:self.DateTextField.text];
@@ -300,10 +305,11 @@
         weighting = [NSNumber numberWithDouble:[self.WeightingTextField.text doubleValue]];
     }
     
-    if ([self.subject.exam containsObject:self.exam]) { //Exam wurde bearbeitet
+    if ([self.subject.exam containsObject:self.exam])
+    { //Exam wurde bearbeitet
         self.exam.mark = mark;
         self.exam.weighting = weighting;
-        self.exam.date =date;
+        self.exam.date = date;
         self.exam.notes = self.NotesTextField.text;
     } else {
         //Neue Exam wurde erstellt
@@ -314,7 +320,6 @@
                                };
 
         [[DataStore defaultStore] addExamWithData:dict ToSubject:self.subject];
-
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }

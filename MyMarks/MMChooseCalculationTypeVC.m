@@ -14,7 +14,8 @@
 
 @implementation MMChooseCalculationTypeVC
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.navigationItem.leftBarButtonItem = [MMFactory backBarButtonItemForClass:self];
@@ -30,13 +31,16 @@
 
 
 
--(NSNumber *)checkedIndexPath{
+-(NSNumber *)checkedIndexPath
+{
     NSNumber  *checkedIndex;
-    NSString *calcString =[[NSUserDefaults standardUserDefaults] objectForKey:@"calculationType"];;
-    if ([calcString isEqualToString:@"Average"]) {
+    NSString *calcString =[[NSUserDefaults standardUserDefaults] objectForKey:@"calculationType"];
+    if ([calcString isEqualToString:@"Average"])
+    {
         checkedIndex = @0;
     }
-    if ([calcString isEqualToString:@"Pluspoints"]) {
+    if ([calcString isEqualToString:@"Pluspoints"])
+    {
         checkedIndex = @1;
     }
     
@@ -46,28 +50,35 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     // Return the number of sections.
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     // Return the number of rows in the section.
     return 2;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 46;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
       UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    if ([@(indexPath.row) isEqualToNumber:[self checkedIndexPath]]) {
+    if ([@(indexPath.row) isEqualToNumber:[self checkedIndexPath]])
+    {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else {
+    } else
+    {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-    switch (indexPath.row) {
+    switch (indexPath.row)
+    {
         case 0:
         {
             cell = self.pluspointsCell;
@@ -85,7 +96,8 @@
 }
 
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     int secondRow = indexPath.row ==1 ? 0 : 1;
     NSIndexPath *secondIndexPath = [NSIndexPath indexPathForRow:secondRow inSection:0];
@@ -96,10 +108,12 @@
     selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
     secondCell.accessoryType = UITableViewCellAccessoryNone;
     
-    if (indexPath.row == 0) {
+    if (indexPath.row == 0)
+    {
         [[NSUserDefaults standardUserDefaults] setObject:NSLocalizedString(@"Average", nil)  forKey:@"calculationType"];
     }
-    if (indexPath.row == 1) {
+    if (indexPath.row == 1)
+    {
         [[NSUserDefaults standardUserDefaults] setObject:NSLocalizedString(@"Pluspoints", nil) forKey:@"calculationType"];
     }
 }

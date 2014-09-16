@@ -19,7 +19,8 @@
 
 -(float)average{
     float  average;
-    if ([[self.exam allObjects]count]!=0) {
+    if ([[self.exam allObjects]count]!=0)
+    {
         float totalWeighting =0.0;     // Zählt alle Gewichtungen zusammen
         float smallestWeighting = 1.0; // Die kleinste eingegebene Gewichtung
         float totalMarks= 0.0;         // Alle Noten zusammengezählt

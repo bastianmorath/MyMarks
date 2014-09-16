@@ -11,9 +11,11 @@
 @implementation MMBarButtonItem
 
 
--(instancetype)initWithText:(NSString*)text target:(id)class Position:(enum ATPosition)position{
+-(instancetype)initWithText:(NSString*)text target:(id)class Position:(enum ATPosition)position
+{
 
-    if (self) {
+    if (self)
+    {
 
         button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
         target=class;
@@ -38,12 +40,14 @@
 
 
 
--(void)setPosition:(enum ATPosition)position{
+-(void)setPosition:(enum ATPosition)position
+{
     button = [[UIButton alloc]initWithFrame:CGRectMake(-10, 0, 40, 40)];
     [button setBackgroundColor:[UIColor clearColor]];
 
     //Position: Left
-    if (position==0) {
+    if (position==0)
+    {
         [button addTarget:target action:@selector(leftBarButtonItemPressed) forControlEvents:UIControlEventTouchUpInside];
         imageView = [[UIImageView alloc]initWithFrame:CGRectMake(-5, 0, 30, 30)];
     } else

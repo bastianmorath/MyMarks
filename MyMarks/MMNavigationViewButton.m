@@ -12,9 +12,11 @@
 
 
 
--(instancetype)initWithTarget:(id)class{
+-(instancetype)initWithTarget:(id)class
+{
     self = [super initWithFrame:CGRectMake(-50, 0, 100, 50)];
-    if (self) {
+    if (self)
+    {
         label = [[UILabel alloc] initWithFrame:CGRectMake(-50, -4, 200, 50)];
         [label setTextAlignment:NSTextAlignmentCenter];
         [label setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
@@ -22,20 +24,24 @@
         [self addSubview:label];
         NSNumber *counter = ((NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"tapCounter"]);
 
-        if (counter) {
+        if (counter)
+        {
             tapLabel = [[UILabel alloc] initWithFrame:CGRectMake(-50, 12, 200, 50)];
             [tapLabel setTextAlignment:NSTextAlignmentCenter];
             [tapLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
             [tapLabel setText:@"Tap to change"];
             [tapLabel setTextColor:[UIColor whiteColor]];
             [self addSubview:tapLabel];
-        } else {
+        } else
+        {
             [label setFrame:CGRectMake(-50, 0, 200, 50)];
         }
         
-            if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"calcType"] isEqualToNumber:@0]) {
+            if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"calcType"] isEqualToNumber:@0])
+            {
                 self.type = BTAverage;
-            } else {
+            } else
+            {
                 self.type = BTPluspoints;
             }
         self.semester = [[DataStore defaultStore] currentSemester];
@@ -59,13 +65,16 @@
     
     //Prüfen, ob der User mehr als 10 mal auf den Button gedrückt hat. Wenn ja, wird das tapLabel entfernt und der counter auf nil
     NSNumber *counter = [[NSUserDefaults standardUserDefaults] objectForKey:@"tapCounter"];
-    if (counter) {
-        if (counter.intValue>10) {
+    if (counter)
+    {
+        if (counter.intValue>10)
+        {
             [tapLabel removeFromSuperview];
             tapLabel = nil;
             [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"tapCounter"];
             [label setFrame:CGRectMake(-50, 0, 200, 50)];
-        } else {
+        } else
+        {
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:(counter.intValue+1)] forKey:@"tapCounter"];
         }
     }
@@ -75,7 +84,8 @@
 }
 
 -(void)updateText{
-    switch (self.type) {
+    switch (self.type)
+    {
         case 0:
         {
             label.text = [NSString stringWithFormat:NSLocalizedString(@"Average: %0.2f", nil), [self.semester average]];
@@ -87,7 +97,8 @@
         {
             //Plus-/Minuspunkte anzeigen
             float pluspoints =[self.semester plusPoints];
-            if (pluspoints>=0) {
+            if (pluspoints>=0)
+            {
                 label.text = [NSString stringWithFormat:NSLocalizedString(@"Pluspoints: %0.1f", nil), pluspoints];
             } else {
                 label.text = [NSString stringWithFormat:NSLocalizedString(@"Minuspoints: %0.1f", nil), -pluspoints];

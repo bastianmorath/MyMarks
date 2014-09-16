@@ -17,7 +17,8 @@ static DataStore *defaultStore;
 // Singleton Funktionen
 + (DataStore*)defaultStore
 {
-    if (!defaultStore){
+    if (!defaultStore)
+    {
         defaultStore = [[super allocWithZone:nil]init];
     }
     return defaultStore;
@@ -31,12 +32,12 @@ static DataStore *defaultStore;
 - (id)init
 {
     self = [super init];
-    if (self){
-        if (![self initCoreData]){
+    if (self)
+    {
+        if (![self initCoreData])
+        {
             return nil;
         }
-        // Debugging Objekte erstellen
-        //[self createSomeObjects];
     }
     return self;
 }
@@ -109,7 +110,8 @@ static DataStore *defaultStore;
     NSError *error = nil;
     NSFetchedResultsController *fRC = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:coreDataContext sectionNameKeyPath:nil cacheName:@"Root"];
     
-    if (![fRC performFetch:&error]){
+    if (![fRC performFetch:&error])
+    {
         NSLog(@"Error: %@", [error localizedFailureReason]);
         return nil;
     }
@@ -131,7 +133,8 @@ static DataStore *defaultStore;
     NSError *error = nil;
     NSArray *array = [coreDataContext executeFetchRequest:request error:&error];
     
-    if (error!=nil){
+    if (error!=nil)
+    {
         NSLog(@"Error: %@", [error localizedFailureReason]);
     }
     
@@ -162,10 +165,12 @@ static DataStore *defaultStore;
 /* ------------------  Spezifische Funktionen ----------------------------------- */
 
 
--(void)createSubjectWithName:(NSString *)name AndWeighting:(NSNumber*)weighting AndSemester:(Semester *)semester{
+-(void)createSubjectWithName:(NSString *)name AndWeighting:(NSNumber*)weighting AndSemester:(Semester *)semester
+{
     Subject *subject = [self addObjectForName:@"Subject"];
     subject.name= name;
-    if (weighting) {
+    if (weighting)
+    {
         subject.weighting = weighting;
     } else {
         subject.weighting = @1;
@@ -178,7 +183,8 @@ static DataStore *defaultStore;
     [self storeData];
 }
 
--(Semester *)createSemestertWithName:(NSString *)name{
+-(Semester *)createSemestertWithName:(NSString *)name
+{
     Semester *semester = [self addObjectForName:@"Semester"];
     semester.name = name;
     
@@ -194,9 +200,12 @@ static DataStore *defaultStore;
     return nil;
 }
 
--(Semester *)currentSemester{
-    for (Semester *semester in [self semesterArray]) {
-        if ([semester.name isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"]]) {
+-(Semester *)currentSemester
+{
+    for (Semester *semester in [self semesterArray])
+    {
+        if ([semester.name isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"]])
+        {
             return semester;
         }
     }
@@ -207,7 +216,8 @@ static DataStore *defaultStore;
 }
 
 
--(void)addExamWithData:(NSDictionary *)data ToSubject:(Subject *)subject{
+-(void)addExamWithData:(NSDictionary *)data ToSubject:(Subject *)subject
+{
     
     Exam *exam = [self addObjectForName:@"Exam"];
     exam.mark = [data objectForKey:@"mark"];
@@ -219,14 +229,16 @@ static DataStore *defaultStore;
     [self storeData];
 }
 
--(NSArray *)subjectArray{
+-(NSArray *)subjectArray
+{
     NSSortDescriptor *sDescriptor = [[NSSortDescriptor alloc]initWithKey:@"position" ascending:YES];
     NSArray *descriptors = @[sDescriptor];
     NSArray *subjects =[self performFetchForEntity:@"Subject" WithPredicate:nil AndSortDescriptor:descriptors];
     Semester *currentSemester= [self currentSemester];
     NSMutableArray *subjectsForCurrentSemester = [[NSMutableArray alloc]init];
     for (Subject *subject in subjects) {
-        if ([currentSemester.subject containsObject:subject]) {
+        if ([currentSemester.subject containsObject:subject])
+        {
             [subjectsForCurrentSemester addObject:subject];
         }
     }
@@ -234,7 +246,8 @@ static DataStore *defaultStore;
     return subjectsForCurrentSemester;
 }
 
--(NSArray *)semesterArray{
+-(NSArray *)semesterArray
+{
     NSSortDescriptor *sDescriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
     NSArray *descriptors = @[sDescriptor];
     return [self performFetchForEntity:@"Semester" WithPredicate:nil AndSortDescriptor:descriptors];

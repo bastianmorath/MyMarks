@@ -8,14 +8,6 @@
 
 
 
-///////  Dynamic Cells!!!
-//NSLog(@"section 0, %@",[[NSUserDefaults standardUserDefaults]objectForKey:@"calculationType"]);
-//if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"calculationType"] isEqualToNumber:@0]) {
-//    tempLabel.text = @" Pluspunkte";
-//} else {
-//    NSLog(@"Durchscnitt");
-//    tempLabel.text = @" Durchschnitt";
-//}
 #import "MMPreferencesVC.h"
 
 @interface MMPreferencesVC ()
@@ -82,9 +74,8 @@
 {
     static NSString *CellIdentifier;
     UITableViewCell *cell;
-    switch (indexPath.row) {
-       
-            
+    switch (indexPath.row)
+    {
         case 0:
         {
             CellIdentifier = @"semesterCell";
@@ -137,15 +128,19 @@
 -(void)rightBarButtonItemPressed{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"chooseCalculationType"]) {
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"chooseCalculationType"])
+    {
         NSLog(@"Type");
     }
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
 
-    switch (indexPath.row) {
+    switch (indexPath.row)
+    {
             
             
         case 2:
@@ -190,10 +185,12 @@
 #pragma mark - mail compose delegate
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
-    if (result) {
+    if (result)
+    {
         NSLog(@"Result : %d",result);
     }
-    if (error) {
+    if (error)
+    {
         NSLog(@"Error : %@",error);
     }
     [self dismissViewControllerAnimated:YES completion:nil];

@@ -26,7 +26,8 @@ const char MyConstantKey;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
     }
     return self;
@@ -217,9 +218,11 @@ const char MyConstantKey;
         [self updateSubjectArray];
         [self.navigationViewButton updateText];
 
-        if ([self.subjectArray count]==0) {
+        if ([self.subjectArray count]==0)
+        {
             [self donePressed];
-        } else {
+        } else
+        {
             [self updatePositions];
         }
         [self.tableView reloadData];
@@ -230,7 +233,8 @@ const char MyConstantKey;
 -(void)updatePositions{
     int counter=0;
     
-    for (Subject *subject in self.subjectArray) {
+    for (Subject *subject in self.subjectArray)
+    {
         subject.position= @(counter);
         counter++;
     }
@@ -264,11 +268,16 @@ const char MyConstantKey;
     
 }
 
--(void)changePosition:(int)sourceIndex WithPosition:(int)destinationIndex{
-    for (Subject *sourceSubject in self.subjectArray) {
-        if ([sourceSubject.position intValue] == sourceIndex) {
-            for (Subject *destinationSubject in self.subjectArray) {
-                if ([destinationSubject.position intValue] == destinationIndex) {
+-(void)changePosition:(int)sourceIndex WithPosition:(int)destinationIndex
+{
+    for (Subject *sourceSubject in self.subjectArray)
+    {
+        if ([sourceSubject.position intValue] == sourceIndex)
+        {
+            for (Subject *destinationSubject in self.subjectArray)
+            {
+                if ([destinationSubject.position intValue] == destinationIndex)
+                {
                     //Change positions
                     sourceSubject.position = [NSNumber numberWithInt:destinationIndex];
                     destinationSubject.position = [NSNumber numberWithInt:sourceIndex];
@@ -328,7 +337,8 @@ const char MyConstantKey;
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
     
     
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
+    {
         //AlertView, um Namen des Faches zu ändern
         UIAlertView *alert;
         alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Change name", nil)
@@ -533,9 +543,11 @@ const char MyConstantKey;
                 //Ein neues Fach wird erstellt und im DataHandler hinzugefügt. Der Text des AlertViews wird unter dem Fachnamen des Faches gespeichert.
                 NSString *name= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
                 NSNumber *weighting = [NSNumber numberWithFloat:[[alertView textFieldAtIndex:1].text floatValue]];
-                if ([[alertView textFieldAtIndex:1].text isEqualToString:@""]) {
+                if ([[alertView textFieldAtIndex:1].text isEqualToString:@""])
+                {
                     [[DataStore defaultStore]createSubjectWithName:name AndWeighting:@1 AndSemester:self.semester];
-                } else if ( ([weighting isEqualToNumber:@1]) || [weighting isEqualToNumber:@0]) {
+                } else if ( ([weighting isEqualToNumber:@1]) || [weighting isEqualToNumber:@0])
+                {
                     [[DataStore defaultStore]createSubjectWithName:name AndWeighting:weighting AndSemester:self.semester];
                 } else {
                     // Gewichtung wurde falsch eingegeben
