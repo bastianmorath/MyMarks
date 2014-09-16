@@ -11,13 +11,16 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Exam.h"
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@interface MMAddExamVC : UITableViewController <UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIScrollViewDelegate>
+@interface MMAddExamVC : UITableViewController <UITextFieldDelegate, UITextViewDelegate, UIScrollViewDelegate>
 {
     UIColor *color1;
     UIColor *color2;
     UIColor *color3;
     UIColor *color4;
+    UIDatePicker *datePicker;
+
 }
 @property (strong, nonatomic) Exam *exam; //Die Prüfung, die bearbeitet/erstellt wird
 @property (strong, nonatomic) Subject *subject; //Das Fach, zu welchem die Prüfung hinzugefügt wird
@@ -28,8 +31,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *DateTextField;
 @property (strong, nonatomic) IBOutlet UITextView  *NotesTextField;
 
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *doneBarButton;
-@property (weak, nonatomic)   IBOutlet UIDatePicker *datePicker;
+@property (strong, nonatomic)  MMBarButtonItem *doneBarButton;
 
 
 - (IBAction)cancelPressed:(id)sender;

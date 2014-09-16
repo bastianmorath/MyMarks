@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A329f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="158-KI-aPO">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -349,16 +348,6 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <datePicker key="tableFooterView" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="fm1-Ll-xk0">
-                            <rect key="frame" x="0.0" y="479" width="320" height="216"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <date key="date" timeIntervalSinceReferenceDate="401541675.12366199">
-                                <!--2013-09-22 11:21:15 +0000-->
-                            </date>
-                            <connections>
-                                <action selector="datePicker:" destination="5rs-X2-FMo" eventType="valueChanged" id="YeK-VV-8fq"/>
-                            </connections>
-                        </datePicker>
                         <sections>
                             <tableViewSection id="FUn-FU-XT4">
                                 <cells>
@@ -525,7 +514,6 @@
                         <outlet property="MarkTextField" destination="p7R-LB-pvQ" id="3OE-u8-cne"/>
                         <outlet property="NotesTextField" destination="vXG-rk-Prz" id="1t6-1E-sgw"/>
                         <outlet property="WeightingTextField" destination="gbO-K4-N0n" id="R2p-yb-8eC"/>
-                        <outlet property="datePicker" destination="fm1-Ll-xk0" id="NXH-g1-Rno"/>
                         <outlet property="doneBarButton" destination="Deu-ar-GOD" id="WjK-NQ-V3E"/>
                     </connections>
                 </tableViewController>

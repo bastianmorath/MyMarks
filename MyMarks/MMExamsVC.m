@@ -194,7 +194,6 @@
 -(void)configureTextForCell:(UITableViewCell *)cell withExam:(Exam *)exam
 {
     cell.textLabel.text = [NSString stringWithFormat:@"%@", exam.mark ];
-    
     cell.detailTextLabel.text = [MMFactory NSStringFromDate:exam.date];
 }
 

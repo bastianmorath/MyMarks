@@ -11,27 +11,9 @@
 @implementation MMAddExamVC
 
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-        self.exam = [[Exam alloc]init];
-        self.exam.mark = 0;
-        [self.datePicker setHidden:YES];
-        [self.DateTextField setDelegate:self];
-    }
-    return self;
-}
 
 
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [self.MarkTextField resignFirstResponder];
-    [self.WeightingTextField resignFirstResponder];
-    [self.DateTextField resignFirstResponder];
-    [self.NotesTextField resignFirstResponder];
-}
+
 
 
 - (void)viewDidLoad
@@ -70,15 +52,14 @@
     //Barbutton-Items weiss einfärben
     self.navigationController.navigationBar.tintColor =[UIColor whiteColor];
     
-    //DatePicker wird versteckt und der Done-Button wird deaktiviert
-    [self.datePicker setHidden:YES];
-     self.doneBarButton.enabled = NO;
+    
     
     //Linkes BarButtonItem setzen
     [self.navigationItem setLeftBarButtonItem:[[MMBarButtonItem alloc]initWithText:NSLocalizedString(@"Cancel", nil)  target:self Position:PTLeft] animated:YES];
 
     //Rechtes BarButtonItem setzen
-    [self.navigationItem setRightBarButtonItem:[[MMBarButtonItem alloc]initWithText:NSLocalizedString(@"Done", nil) target:self Position:PTRight] animated:YES];
+    self.doneBarButton = [[MMBarButtonItem alloc]initWithText:NSLocalizedString(@"Done", nil) target:self Position:PTRight];
+    [self.navigationItem setRightBarButtonItem:self.doneBarButton animated:YES];
     
     self.navigationItem.titleView = [MMFactory navigationViewForString:NSLocalizedString(@"Add exam", nil)];
 
@@ -97,31 +78,45 @@
         self.doneBarButton.enabled = YES;
     }
     
+    //Done-Button wird deaktiviert
+    [self updateDoneBarButton];
+    
     //**Google Analytics**//
     [MMFactory initGoogleAnalyticsForClass:self];
 }
 
-
-
-#pragma mark - DatePicker
-
-//Diese Methode ist da, damit der DatePicker erkannt wird; Sie ist aber leer
--(IBAction)datePicker:(id)sender{
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self dismissDatePicker:datePicker];
+    [self.MarkTextField resignFirstResponder];
+    [self.WeightingTextField resignFirstResponder];
+    [self.DateTextField resignFirstResponder];
+    [self.NotesTextField resignFirstResponder];
 }
+
+-(void)updateDoneBarButton{
+    NSInteger textLength =[self.MarkTextField.text length];
+    if (textLength > 0)
+    {
+        self.doneBarButton.enabled = YES;
+        self.doneBarButton.textLabel.textColor = [UIColor whiteColor];
+    }
+    else
+    {
+        self.doneBarButton.enabled = NO;
+        self.doneBarButton.textLabel.textColor =  [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1];
+        
+    }
+
+}
+#pragma mark - DatePicker
 
 
 //Wenn im DatePicker das Datum geändert wird, wird der Text im Datum-Field entsprechend geändert
 - (void)changeDate:(UIDatePicker *)sender
 {
-    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_CH"];
-    NSString *date = [NSDateFormatter dateFormatFromTemplate:@"EdMMM" options:0 locale:usLocale];
-    
-    NSDateFormatter *df = [[NSDateFormatter alloc]init];
-    df.dateFormat = date;
-    
-    self.DateTextField.text = [NSString stringWithFormat:@"%@", [df stringFromDate:sender.date]];
+    self.DateTextField.text = [MMFactory NSStringFromDate:sender.date];
 }
-
 
 //Diese Methode wird aufgerufen, wenn der DatePicker verschwinden soll
 - (void)dismissDatePicker:(id)sender
@@ -139,64 +134,56 @@
 }
 
 
-//Diese Methode entfernt die Views des DatePickers
-- (void)removeViews:(id)object
-{
-    [[self.view viewWithTag:9] removeFromSuperview];
-    [[self.view viewWithTag:10] removeFromSuperview];
-    [[self.view viewWithTag:11] removeFromSuperview];
-}
-
-
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    //Wenn noch kein Datum eingetragen ist, wird das Datum vom aktuellen Tag eingetragen
-    if (textField==self.DateTextField && [self.DateTextField.text length]==0)
-    {
-        NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_CH"];
-        NSString *date = [NSDateFormatter dateFormatFromTemplate:@"EdMMM" options:0 locale:usLocale];
-        
-        NSDateFormatter *df = [[NSDateFormatter alloc]init];
-        df.dateFormat = date;
-        
-        self.DateTextField.text = [NSString stringWithFormat:@"%@", [df stringFromDate:self.datePicker.date]];
-    }
-    return YES;
-}
 
 
 //Diese Methode wird aufgerufen, wenn das Datum des DatePickers geändert wird
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    UIDatePicker *datePicker = [UIDatePicker new];
-    datePicker.datePickerMode= UIDatePickerModeDate;
-    datePicker.tag = 10;
+    if ([textField isEqual:self.DateTextField]) {
+        datePicker = [UIDatePicker new];
+        datePicker.datePickerMode= UIDatePickerModeDate;
+        
+        [datePicker addTarget:self action:@selector(changeDate:) forControlEvents:UIControlEventValueChanged];
+        //Das aktuelle Datum des DatePickers wird im TextFeld angezeigt
+        self.DateTextField.inputView = datePicker;
+    }
     
-    [datePicker addTarget:self action:@selector(changeDate:) forControlEvents:UIControlEventValueChanged];
-    //Das aktuelle Datum des DatePickers wird im TextFeld angezeigt
-    self.DateTextField.inputView = datePicker;
+ 
 }
 
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if ([textField isEqual:self.MarkTextField]) {
+        //Der Done-Button kann nur dann gedrückt werden, wenn im Noten-Feld eine Zahl eingetragen ist
+        NSInteger textLength = [textField.text length] - range.length + [string length];
+        if (textLength > 0)
+        {
+            self.doneBarButton.enabled = YES;
+            self.doneBarButton.textLabel.textColor = [UIColor whiteColor];
+        }
+        else
+        {
+            self.doneBarButton.enabled = NO;
+            self.doneBarButton.textLabel.textColor =  [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1];
+            
+        }
 
-
-#pragma mark - TextField delegates
-
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    //Der Done-Button kann nur dann gedrückt werden, wenn im Noten-Feld eine Zahl eingetragen ist
-    NSInteger textLength = [textField.text length] - range.length + [string length];
-    if (textLength > 0)
-    {
-        self.doneBarButton.enabled = YES;
     }
-    else
-    {
-        self.doneBarButton.enabled = NO;
-    }
+
     return YES;
 }
 
+#pragma mark - TextField delegates
 
+
+
+-(BOOL)textFieldShouldClear:(UITextField *)textField{
+    if ([textField isEqual:self.MarkTextField]) {
+        //Der Done-Button kann nur dann gedrückt werden, wenn im Noten-Feld eine Zahl eingetragen ist
+        self.doneBarButton.enabled = NO;
+        self.doneBarButton.textLabel.textColor =  [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1];
+    }
+    return YES;
+}
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     //Wenn der Return-Button auf dem Keyboard gedrückt wird, verschwindet das Keyboard
@@ -297,6 +284,13 @@
 {
     
     NSNumber *mark = [NSNumber numberWithDouble:[self.MarkTextField.text doubleValue]];
+    NSDate *date;
+    if (datePicker.date) {
+        date = datePicker.date;
+    } else {
+        date = [MMFactory NSDateFromString:self.DateTextField.text];
+    }
+    
     NSNumber *weighting;
     if ([self.WeightingTextField.text doubleValue]==0)
     {
@@ -309,20 +303,19 @@
     if ([self.subject.exam containsObject:self.exam]) { //Exam wurde bearbeitet
         self.exam.mark = mark;
         self.exam.weighting = weighting;
-        self.exam.date = [MMFactory NSDateFromString:self.DateTextField.text];
+        self.exam.date =date;
         self.exam.notes = self.NotesTextField.text;
     } else {
         //Neue Exam wurde erstellt
         NSDictionary *dict = @{@"mark": mark,
                                @"weighting":weighting,
-                               @"date" : [MMFactory NSDateFromString:self.DateTextField.text],
+                               @"date" : date,
                                @"notes":self.NotesTextField.text
                                };
-        
+
         [[DataStore defaultStore] addExamWithData:dict ToSubject:self.subject];
 
     }
-    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

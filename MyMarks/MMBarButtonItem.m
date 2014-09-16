@@ -21,11 +21,11 @@
         self.position=position;
 
 
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(5, 13, 80, 15)];
-        label.text = text;
-        [label setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
-        label.textColor= [UIColor whiteColor];
-        [button addSubview:label];
+        self.textLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 13, 80, 15)];
+        self.textLabel.text = text;
+        [self.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
+        self.textLabel.textColor= [UIColor whiteColor];
+        [button addSubview:self.textLabel];
  
         self = [super initWithCustomView:button];
 

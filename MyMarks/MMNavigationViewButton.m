@@ -86,10 +86,11 @@
         case 1:
         {
             //Plus-/Minuspunkte anzeigen
-            if ([self.semester plusPoints]>=0) {
-                label.text = [NSString stringWithFormat:NSLocalizedString(@"Pluspoints: %0.1f", nil), [self.semester plusPoints]];
+            float pluspoints =[self.semester plusPoints];
+            if (pluspoints>=0) {
+                label.text = [NSString stringWithFormat:NSLocalizedString(@"Pluspoints: %0.1f", nil), pluspoints];
             } else {
-                label.text = [NSString stringWithFormat:NSLocalizedString(@"Minuspoints: %0.1f", nil), -[self.semester plusPoints]];
+                label.text = [NSString stringWithFormat:NSLocalizedString(@"Minuspoints: %0.1f", nil), -pluspoints];
             }
         }
             break;
