@@ -46,7 +46,6 @@ static DataStore *defaultStore;
 /* Initialisiert CoreData */
 - (Boolean)initCoreData
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     NSError *error;
     
     // Pfad zur Datendatei
@@ -76,17 +75,11 @@ static DataStore *defaultStore;
         coreDataContext = [[NSManagedObjectContext alloc]init];
         [coreDataContext setPersistentStoreCoordinator:persistenStoreCoordinator];
     }
-    NSLog(@"Info: Core Data wurde initialisiert");
     
     return true;
 }
 
-#pragma mark -
-#pragma mark Object_Managing
-- (void)removeManagedObject:(id)object
-{
-    [coreDataContext deleteObject:object];
-}
+#pragma mark - Object_Managing
 
 - (id)addObjectForName:(NSString *)entityName
 {
@@ -129,7 +122,7 @@ static DataStore *defaultStore;
     [request setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:coreDataContext]];
     [request setPredicate:predicate];
     [request setSortDescriptors:sDescriptors];
-    
+    [request setReturnsObjectsAsFaults:NO];
     NSError *error = nil;
     NSArray *array = [coreDataContext executeFetchRequest:request error:&error];
     
@@ -142,20 +135,17 @@ static DataStore *defaultStore;
 }
 
 
-- (BOOL)storeData
+-(void)storeData
 {
-    
-    // Daten zum Speichern auf dem Server an den NetworkStore übergeben
-    // [[NetworkStore defaultStore]syncObjects:[coreDataContext updatedObjects]];
-    
     NSError *error;
-    if ( ![coreDataContext save:&error])
-    {
-        NSLog(@"Error: %@", [error localizedFailureReason]);
-        return NO;
+    if ([coreDataContext hasChanges]) {
+        if (![coreDataContext save:&error])
+        {
+            NSLog(@"Error: %@", [error localizedFailureReason]);
+        }
     }
-    return YES;
 }
+
 - (void)deleteObject:(NSManagedObject *)object
 {
     [coreDataContext deleteObject:object];
@@ -231,6 +221,7 @@ static DataStore *defaultStore;
 
 -(NSArray *)subjectArray
 {
+    
     NSSortDescriptor *sDescriptor = [[NSSortDescriptor alloc]initWithKey:@"position" ascending:YES];
     NSArray *descriptors = @[sDescriptor];
     NSArray *subjects =[self performFetchForEntity:@"Subject" WithPredicate:nil AndSortDescriptor:descriptors];
@@ -251,6 +242,20 @@ static DataStore *defaultStore;
     NSSortDescriptor *sDescriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
     NSArray *descriptors = @[sDescriptor];
     return [self performFetchForEntity:@"Semester" WithPredicate:nil AndSortDescriptor:descriptors];
+}
+
+-(NSArray *)examArrayForSubject:(Subject *)subject
+{
+    NSArray *exams =[self performFetchForEntity:@"Exam" WithPredicate:nil AndSortDescriptor:nil];
+    NSMutableArray *examsForCurrentSubject = [[NSMutableArray alloc]init];
+    for (Exam  *exam in exams) {
+        if ([subject.exam containsObject:exam])
+        {
+            [examsForCurrentSubject addObject:exam];
+        }
+    }
+    
+    return examsForCurrentSubject;
 }
 
 

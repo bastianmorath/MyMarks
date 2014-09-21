@@ -1,8 +1,8 @@
 //
 //  Subject.m
-//  Notenapplikation
+//  MyMarks
 //
-//  Created by Bastian Morath on 31/08/14.
+//  Created by Bastian Morath on 21/09/14.
 //  Copyright (c) 2014 Bastian Morath. All rights reserved.
 //
 
@@ -19,8 +19,9 @@
 
 -(float)average{
     float  average;
-    if ([[self.exam allObjects]count]!=0)
-    {
+    
+    if ([self.exam count] !=0) {
+        
         float totalWeighting =0.0;     // Zählt alle Gewichtungen zusammen
         float smallestWeighting = 1.0; // Die kleinste eingegebene Gewichtung
         float totalMarks= 0.0;         // Alle Noten zusammengezählt
@@ -28,7 +29,7 @@
         // Kleinste Gewichtung suchen:
         for (Exam * eachExam in self.exam)
         {
-            if (eachExam.weighting.floatValue<smallestWeighting & !eachExam.weighting==0)
+            if (eachExam.weighting.floatValue<smallestWeighting && eachExam.weighting.floatValue!=0)
             {
                 smallestWeighting = eachExam.weighting.floatValue;
             }
@@ -37,17 +38,21 @@
         //Gesamtgewichtung und Gesamtnoten werden berechnet
         for (Exam * eachExam in self.exam)
         {
-            totalWeighting +=eachExam.weighting.floatValue/smallestWeighting;
-            totalMarks += eachExam.mark.floatValue * eachExam.weighting.floatValue/smallestWeighting;
+            if (eachExam.mark) {
+                
+                totalWeighting +=eachExam.weighting.floatValue/smallestWeighting;
+                totalMarks += eachExam.mark.floatValue * eachExam.weighting.floatValue/smallestWeighting;
+            }
         }
+        
         
         //Durchschnitt berechnen als Gesamtnoten dividiert durch Gesamtgewichtungen
         average = totalMarks / totalWeighting;
-        return average;
-    } else
-    { //Wenn noch keine Prüfungen hinzugefügt wurden, wird der Durchschnitt auf 0 gesetzt
-        return 0;
+    } else {
+        average = 0.0;
     }
+    
+    return average;
 }
 
 @end

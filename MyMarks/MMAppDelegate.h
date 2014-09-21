@@ -10,9 +10,10 @@
 
 
 #import "Subject.h"
+#import <MessageUI/MessageUI.h>
 
 
-@interface MMAppDelegate : UIResponder <UIApplicationDelegate>
+@interface MMAppDelegate : UIResponder <UIApplicationDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

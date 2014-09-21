@@ -78,7 +78,6 @@ const char MyConstantKey;
     self.semester = [[DataStore defaultStore] currentSemester];
     
     
-    [self updateSubjectArray];
 
     //Navigation Button initlialisieren
     self.navigationViewButton = [[MMNavigationViewButton alloc]initWithTarget:self];;
@@ -478,9 +477,9 @@ const char MyConstantKey;
              ] && buttonIndex ==1)
         {
             Subject *subject = objc_getAssociatedObject(alertView, MyConstantKey);
-            NSString *newSubejctName= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
+            NSString *newSubjectName= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
           
-            subject.name =newSubejctName;
+            subject.name =newSubjectName;
             [self updateSubjectArray];
             [self.tableView reloadData];
         }
@@ -489,6 +488,19 @@ const char MyConstantKey;
     }
 }
 
+//Wenn ein Semester-Name geändert wird, dann kann man ihn nur ändern, wenn etwas im TextField eingegeben wurde!
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
+{
+    if([[[alertView textFieldAtIndex:0] text] length] >= 1  )
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+    
+}
 
 #pragma  mark - Action Sheet
 

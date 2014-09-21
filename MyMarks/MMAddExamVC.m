@@ -155,6 +155,7 @@
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
+    textField.text = [textField.text stringByReplacingOccurrencesOfString:@"," withString:@"."];
     if ([textField isEqual:self.MarkTextField])
     {
         //Der Done-Button kann nur dann gedrückt werden, wenn im Noten-Feld eine Zahl eingetragen ist
@@ -175,6 +176,7 @@
 
     return YES;
 }
+
 
 #pragma mark - TextField delegates
 
@@ -298,14 +300,14 @@
     }
     
     NSNumber *weighting;
-    if ([self.WeightingTextField.text doubleValue]==0)
+
+    if (self.WeightingTextField.text.length==0 )
     {
         weighting =@1;
     } else
     {
-        weighting = [NSNumber numberWithDouble:[self.WeightingTextField.text doubleValue]];
+        weighting = @([self.WeightingTextField.text floatValue]);
     }
-    
     if ([self.subject.exam containsObject:self.exam])
     { //Exam wurde bearbeitet
         self.exam.mark = mark;

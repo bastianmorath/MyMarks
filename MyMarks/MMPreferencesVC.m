@@ -98,7 +98,7 @@
         {
             CellIdentifier = @"textCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-            cell.textLabel.text = NSLocalizedString(@"Send Mail To Developers", nil);
+            cell.textLabel.text = NSLocalizedString(@"Send a mail to developers", nil);
         }
             break;
             
@@ -106,7 +106,7 @@
         {
             CellIdentifier = @"textCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-            cell.textLabel.text = NSLocalizedString(@"Review MyMarks in the AppStore", nil);
+            cell.textLabel.text = NSLocalizedString(@"Write a review in the AppStore", nil);
         }
             break;
 
@@ -183,7 +183,7 @@
     [mailComposer.view setTintColor:[UIColor whiteColor]];
 
 
-    [mailComposer setSubject:@"MyMarks - Question"];
+    [mailComposer setSubject:@"MyMarks"];
     [mailComposer setToRecipients:@[@"bf.morath@gmail.com"]];
     [self presentViewController:mailComposer animated:YES completion:nil];
 }

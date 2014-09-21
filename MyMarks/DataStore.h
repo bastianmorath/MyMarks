@@ -25,14 +25,12 @@
 + (DataStore*)defaultStore;
 
 /* Speichert die Daten auf dem Gerät und auch wenn möglich remote. Liefert bei Erfolg TRUE zurück andernfalls FALSE */
-- (BOOL)storeData;
+- (void)storeData;
 
 /* ------------------ Allgemeine Funktionen ----------------------------------- */
 /* Liefert eine Array der "entityName"-Objekcte in der Datenbank zurück. Liefert bei einem Fehler nil zurück */
 - (NSArray*)performFetchForEntity:(NSString*)entityName;
 
-/* lösch ein ManagedObject aus der Datenbank */
-- (void)removeManagedObject:(id)object;
 
 /* fügt ein neues Objekt vom Typ <entityName> in die Datenbank ein und liefert es zurück */
 - (id)addObjectForName:(NSString*)entityName;
@@ -52,5 +50,6 @@
 
 -(NSArray *)subjectArray;
 -(NSArray *)semesterArray;
+-(NSArray *)examArrayForSubject:(Subject *)subject;
 
 @end

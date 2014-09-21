@@ -1,8 +1,8 @@
 //
 //  Semester.h
-//  Notenapplikation
+//  MyMarks
 //
-//  Created by Bastian Morath on 07/09/14.
+//  Created by Bastian Morath on 21/09/14.
 //  Copyright (c) 2014 Bastian Morath. All rights reserved.
 //
 
@@ -18,7 +18,6 @@
 
 -(float)average;
 -(float)plusPoints;
-
 @end
 
 @interface Semester (CoreDataGeneratedAccessors)

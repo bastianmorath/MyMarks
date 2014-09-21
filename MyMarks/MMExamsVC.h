@@ -18,8 +18,8 @@
 
 
 @property (strong, nonatomic) Subject *subject;
+@property (strong, nonatomic) NSArray *examArray;
 
--(NSArray *)exams;
 
 -(IBAction)editPressed:(id)sender;
 -(IBAction)donePressed:(id)sender;

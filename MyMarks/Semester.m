@@ -1,8 +1,8 @@
 //
 //  Semester.m
-//  Notenapplikation
+//  MyMarks
 //
-//  Created by Bastian Morath on 07/09/14.
+//  Created by Bastian Morath on 21/09/14.
 //  Copyright (c) 2014 Bastian Morath. All rights reserved.
 //
 
@@ -11,16 +11,15 @@
 
 
 @implementation Semester
-
 -(float)average{
-    if ([[[DataStore defaultStore]subjectArray]count]!=0)
+    NSArray *subjectArray= [[DataStore defaultStore] subjectArray];
+    if ([subjectArray count]!=0)
     {
         float countedSubjects=0;
         float tempCount = 0;
-        for (Subject *eachSubject in [[DataStore defaultStore]subjectArray])
+        for (Subject *eachSubject in subjectArray)
         {
-
-            if (eachSubject.average!=0 && ![eachSubject.weighting  isEqual:@0])
+            if (eachSubject.average!=0 && ![eachSubject.weighting  isEqualToNumber:@0] && eachSubject.average == eachSubject.average)
             {
                 countedSubjects++;
                 tempCount += eachSubject.average;
@@ -46,7 +45,7 @@
     {
         if ([eachSubject.weighting isEqualToNumber:[NSNumber numberWithInt:1]])
         {
-            if(eachSubject.average !=0)
+            if(eachSubject.average !=0 && eachSubject.average == eachSubject.average)
             {
                 if (round(eachSubject.average * 2) / 2<4) //Wenn der gerundete Durchscnitt kleiner als 4 ist, wird die if-Schlaufe durchlaufen
                 {

@@ -120,6 +120,9 @@
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
         }
+    } else {
+        cell.textLabel.text = @"";
+        cell.accessoryType = UITableViewCellAccessoryNone;
 
     }
     
@@ -253,6 +256,7 @@
     [alert show];
 }
 
+
 //Hinzufügen einer Prüfung
 -(void)showAlertViewToAddSemester
 {
@@ -280,12 +284,12 @@
     [alert show];
 }
 
+
 //Wenn ein Semester-Name geändert wird, dann kann man ihn nur ändern, wenn etwas im TextField eingegeben wurde!
 - (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
 {
-    if (alertView.alertViewStyle == UIAlertViewStylePlainTextInput && [alertView.title isEqualToString:    NSLocalizedString(@"Change name", nil)])
-    {
-        if([[[alertView textFieldAtIndex:0] text] length] >= 1 )
+    
+    if([[[alertView textFieldAtIndex:0] text] length] >= 1 || [alertView.title isEqualToString:NSLocalizedString(@"Confirmation", nil)] )
         {
             return YES;
         }
@@ -293,10 +297,7 @@
         {
             return NO;
         }
-    }else
-    {
-        return YES;
-    }
+    
 }
 
 //Methode, die aufgerufen wird, wenn ein Button des AlertViews gedrückt wird

@@ -29,7 +29,7 @@
             tapLabel = [[UILabel alloc] initWithFrame:CGRectMake(-50, 12, 200, 50)];
             [tapLabel setTextAlignment:NSTextAlignmentCenter];
             [tapLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
-            [tapLabel setText:@"Tap to change"];
+            [tapLabel setText:@"Tap to switch"];
             [tapLabel setTextColor:[UIColor whiteColor]];
             [self addSubview:tapLabel];
         } else
@@ -88,7 +88,7 @@
     {
         case 0:
         {
-            label.text = [NSString stringWithFormat:NSLocalizedString(@"Average: %0.2f", nil), [self.semester average]];
+                label.text = [NSString stringWithFormat:NSLocalizedString(@"Average: %0.2f", nil), [self.semester average]];
             
         }
             break;

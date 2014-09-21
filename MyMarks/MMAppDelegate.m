@@ -17,7 +17,8 @@
        
     //Diese Methode wird nur das aller erste Mal im "Lebenszyklus" der App durchlaufen. Es werden vordefinierte Fächer hinzugefügt.
     /*Dispatch once*/
-  
+    [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"tapCounter"];
+
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"Started"])
     {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Started"];
@@ -28,6 +29,7 @@
         [[DataStore defaultStore] createSemestertWithName:@"Semester 1"];
         [[NSUserDefaults standardUserDefaults] setObject:@"Semester 1" forKey:@"semester"];
 
+        [self showUpdateAlertView];
     }
 
 
@@ -52,7 +54,128 @@
     return YES;
 }
 
+#pragma mark - Alert View
 
+-(void)showUpdateAlertView{
+    NSString *message = @" Leider müssen deine Noten exportiert blablabla werden";
+    UIAlertView *alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Update 1.1", nil)
+                                                  message:message
+                                                 delegate:self
+                                        cancelButtonTitle:NSLocalizedString(@"Ok", nil)
+                                        otherButtonTitles:nil];
+    [alert setAlertViewStyle: UIAlertViewStyleDefault];
+       [alert show];
+
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    [self exportMarks];
+}
+
+
+#pragma mark - E-Mail
+
+- (void)exportMarks
+{
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[self dataFilePath]])
+    {
+        [[NSFileManager defaultManager] removeItemAtPath:[self dataFilePath] error:nil];
+    }
+    [[NSFileManager defaultManager] createFileAtPath: [self dataFilePath] contents:nil attributes:nil];
+    
+    //Alle Prüfungen werden in einem NSMtableString aufgelistet
+    NSMutableString *writeString = [[NSMutableString alloc]init];
+    writeString = [NSMutableString string];
+    [writeString appendString:@"MyMarks \n \n"];
+    
+    //Note, gewichtung, Datum und Notizen einer Prüfung werden dem NSMutableString angehängt
+    for (Semester *semester in [[DataStore defaultStore]semesterArray])
+    {
+        [writeString appendString:[NSString stringWithFormat:@"\n\n%@\n ",semester.name]];
+        
+        for (int i=0; i<[semester.subject count]; i++)
+        {
+            Subject *subject = [[semester.subject allObjects] objectAtIndex:i];
+            [writeString appendString:[NSString stringWithFormat:@"\n\n%@\n ",subject.name]];
+            
+            for (Exam *eachExam in [subject.exam allObjects])
+            {
+                [writeString appendString:[NSString stringWithFormat:
+                                           @"Note: \t%0.2f       Gewichtung: \t%0.2f       Datum:\t %@       Notizen:  \t%@ \n\n",
+                                           eachExam.mark.floatValue, eachExam.weighting.floatValue, eachExam.date, eachExam.notes]];
+            }
+            [writeString appendString:@"\t\n\n"];
+        }
+        
+    }
+    
+    
+    NSFileHandle *handle;
+    //Sagt, wo das File gelesen werden soll
+    handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
+    //Stellt den Cursor ans Ende des Files
+    [handle truncateFileAtOffset:[handle seekToEndOfFile]];
+    [handle writeData:[writeString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    //Ein Controller für das Mail-Programm wird erstellt und aufgerufen
+    MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+    [mailer.view setTintColor:[UIColor whiteColor]];
+    mailer.mailComposeDelegate = self;
+    [mailer setSubject:@"MyMarks"];
+    [mailer addAttachmentData:[NSData dataWithContentsOfFile:[self dataFilePath] ]
+                     mimeType:@"text/csv"
+                     fileName:@"MyMarks.csv"];
+    [self.window.rootViewController presentViewController:mailer animated:YES completion:nil];
+}
+
+
+//Exportieren einer csv-Datei
+-(NSString *)dataFilePath
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:@"myfile.csv"];
+}
+
+
+//Diese Methode kontrolliert das Resulat des Mail-Vorganges und gibt bei einem Error eine Meldung aus
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    
+    {
+        case MFMailComposeResultCancelled:
+            
+            NSLog(@"Mail abgebrochen");
+            
+            break;
+            
+        case MFMailComposeResultSaved:
+            
+            NSLog(@"Mail gespeichert");
+            
+            break;
+            
+        case MFMailComposeResultSent:
+            
+            NSLog(@"Mail gesendet");
+            
+            break;
+            
+        case MFMailComposeResultFailed:
+            
+            NSLog(@"Mail senden fehlgeschlagen: %@", [error localizedDescription]);
+            
+            break;
+            
+        default:
+            
+            break;
+    }
+    
+    // Schliesst den View des Mails
+    [self.window.rootViewController dismissViewControllerAnimated:YES completion:NULL];
+}
 
 
 @end

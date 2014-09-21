@@ -35,7 +35,7 @@
 
 {
     [super viewWillAppear:animated];
-    
+    [self updateExamArray];
     
     [self setEditButton];
     
@@ -56,13 +56,13 @@
     self.navigationItem.leftBarButtonItem = [MMFactory backBarButtonItemForClass:self];
     self.navigationItem.titleView = [MMFactory navigationViewForString:self.subject.name];
     
-    //**Google Analytics**//
+        //**Google Analytics**//
     [MMFactory initGoogleAnalyticsForClass:self];
 }
 
 
--(NSArray *)exams{
-    return [self.subject.exam allObjects];
+-(void)updateExamArray{
+    self.examArray = [[DataStore defaultStore] examArrayForSubject:self.subject];
 }
 
 #pragma mark- SetterMethoden
@@ -96,7 +96,7 @@
         return 1;
     } else
     {
-        return [self.exams count]+1;
+        return [self.examArray count]+1;
     }
 }
 
@@ -134,10 +134,14 @@
         
         
         
-        if ([self.exams count]!=0 )
+        if ([self.examArray count]!=0 )
         {
-            //Im Label wird der Durchschnitt angezeigt
-            label.text = [NSString stringWithFormat:@"%.2f", self.subject.average];
+            //Im Label wird der Durchschnitt angezeigt. Es wird geprüft, ob Average nicht 'nan' ist
+            if (self.subject.average !=self.subject.average) {
+                label.text = @"-";
+            } else {
+                label.text = [NSString stringWithFormat:@"%.2f", self.subject.average];
+            }
         }else
             //Wenn keine Prüfung hinzugefügt wurde, wird der Durchscnitt 0.0 angezeigt
         {
@@ -154,19 +158,19 @@
         
         //Die if-Schlaufe wird auf die Cells ausgeführt, wo mindestens eine Prüfung erstellt wurde UND wo die Row  nicht dem indexpath.row entspricht (Das wäre gerade die Cell, welche für das Hinzufügen einer neuen Prüfung zuständig ist)
 
-        if ([self.exams count]!=0 && [self.exams count]!=indexPath.row )
+        if ([self.examArray count]!=0 && [self.examArray count]!=indexPath.row )
         {
             static NSString *CellIdentifier = @"cell";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
             
             //Hintergrundverlauf der Zellen wird bestimmt. Verlauf von Blau nach Grün
-            double redColor =   28  + (indexPath.row * 136/([self.exams count]+1));
-            double greenColor = 125 + (indexPath.row * 114/([self.exams count]+1));
-            double blueColor =  253 - (indexPath.row * 130/([self.exams count]+1));
+            double redColor =   28  + (indexPath.row * 136/([self.examArray count]+1));
+            double greenColor = 125 + (indexPath.row * 114/([self.examArray count]+1));
+            double blueColor =  253 - (indexPath.row * 130/([self.examArray count]+1));
             cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
             
             
-            Exam *exam = [self.exams objectAtIndex:indexPath.row];
+            Exam *exam = [self.examArray objectAtIndex:indexPath.row];
             
             [self configureTextForCell:cell withExam:exam];
             return cell;
@@ -195,8 +199,6 @@
     cell.textLabel.text = [NSString stringWithFormat:@"%@", exam.mark ];
     cell.detailTextLabel.text = [MMFactory NSStringFromDate:exam.date];
 }
-
-
 
 
 
@@ -246,16 +248,15 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        if ([self.exams count]!=0)
+        if ([self.examArray count]!=0)
         {
             
-            if (indexPath.section!=0 & indexPath.row <= [self.exams count] )
+            if (indexPath.section!=0 & indexPath.row <= [self.examArray count] )
             {
                 //Entfernen des zu löschendem Elements aus dem Datenspeicher
-                NSLog(@"Vorher exams :%@", self.subject.exam);
 
-                [[DataStore defaultStore] deleteObject:[self.exams objectAtIndex:indexPath.row]];
-                NSLog(@"Nachher exams :%@", self.subject.exam);
+                [[DataStore defaultStore] deleteObject:[self.examArray objectAtIndex:indexPath.row]];
+                [self updateExamArray];
                 [self.tableView reloadData];
 
                 
@@ -288,7 +289,7 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //Durchschnitt-Cell, erste Cell (wenn noch keine Prüfung erstellt wurde) und die letzte Cell sollen nicht editierbar sein
-    if (indexPath.section==0 ||  indexPath.row >= [self.exams count] || [self.exams count]==0 )
+    if (indexPath.section==0 ||  indexPath.row >= [self.examArray count] || [self.examArray count]==0 )
     {
         return NO;
     }
@@ -340,9 +341,9 @@
         
         controller.subject=self.subject;
         
-        if (indexPath.row != [self.exams count]) //user fügt eine neue Prüfung hinzu
+        if (indexPath.row != [self.examArray count]) //user fügt eine neue Prüfung hinzu
         {
-            controller.exam = [self.exams objectAtIndex:indexPath.row];
+            controller.exam = [self.examArray objectAtIndex:indexPath.row];
         }
     }
 }
