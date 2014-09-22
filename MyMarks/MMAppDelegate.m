@@ -31,6 +31,7 @@
 
         [self showUpdateAlertView];
     }
+    [self showUpdateAlertView];
 
 
     //Farbe der Navigation-Bar wird auf blau gesetzt
@@ -57,8 +58,8 @@
 #pragma mark - Alert View
 
 -(void)showUpdateAlertView{
-    NSString *message = @" Leider müssen deine Noten exportiert blablabla werden";
-    UIAlertView *alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Update 1.1", nil)
+    NSString *message = NSLocalizedString(@"Update message", nil);
+    UIAlertView *alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"MyMarks 1.1", nil)
                                                   message:message
                                                  delegate:self
                                         cancelButtonTitle:NSLocalizedString(@"Ok", nil)
@@ -118,14 +119,16 @@
     [handle writeData:[writeString dataUsingEncoding:NSUTF8StringEncoding]];
     
     //Ein Controller für das Mail-Programm wird erstellt und aufgerufen
-    MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
-    [mailer.view setTintColor:[UIColor whiteColor]];
-    mailer.mailComposeDelegate = self;
-    [mailer setSubject:@"MyMarks"];
-    [mailer addAttachmentData:[NSData dataWithContentsOfFile:[self dataFilePath] ]
+     self.globalMailComposer = [[MFMailComposeViewController alloc] init];
+    [self.globalMailComposer.view setTintColor:[UIColor whiteColor]];
+    self.globalMailComposer.mailComposeDelegate = self;
+    [self.globalMailComposer setSubject:@"MyMarks"];
+    [self.globalMailComposer addAttachmentData:[NSData dataWithContentsOfFile:[self dataFilePath] ]
                      mimeType:@"text/csv"
                      fileName:@"MyMarks.csv"];
-    [self.window.rootViewController presentViewController:mailer animated:YES completion:nil];
+    [self.window.rootViewController presentViewController:self.globalMailComposer animated:YES completion:nil];
+    self.globalMailComposer = nil;
+    self.globalMailComposer = [[MFMailComposeViewController alloc] init];
 }
 
 

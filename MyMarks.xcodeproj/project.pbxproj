@@ -117,6 +117,7 @@
 		B68188B419B0CC3300F0532C /* MMFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMFactory.m; sourceTree = "<group>"; };
 		B681AF88180B46EB00A058CC /* EditIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EditIcon.png; sourceTree = "<group>"; };
 		B6850D9919C4BFA90077C133 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		B69ED98E19D0BC97008641A7 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		B6A444F819C5B31300B0C040 /* backArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backArrow.png; sourceTree = "<group>"; };
 		B6C1FD6D17DE33E000E8DC2F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B6C1FD6E17DE33E000E8DC2F /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
@@ -500,6 +501,7 @@
 				B6D6BDB617A31CBB00B3B09F /* Base */,
 				B6623C7619BCC60A00118153 /* Base */,
 				B6D9C5EF19BCCE16009E7D5D /* fr */,
+				B69ED98E19D0BC97008641A7 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

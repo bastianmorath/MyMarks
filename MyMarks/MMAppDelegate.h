@@ -16,5 +16,6 @@
 @interface MMAppDelegate : UIResponder <UIApplicationDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) MFMailComposeViewController *globalMailComposer;
 
 @end
