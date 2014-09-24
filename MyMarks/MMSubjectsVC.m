@@ -92,7 +92,7 @@ const char MyConstantKey;
     //Long Tap Gesture hinzufügen. Wird länger auf eine Cell gedrückt, kann sie editiert werden
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.minimumPressDuration = 1.0;
+    lpgr.minimumPressDuration = 0.6;
     lpgr.delegate = self;
     [self.tableView addGestureRecognizer:lpgr];
 }

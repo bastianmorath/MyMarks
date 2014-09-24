@@ -31,8 +31,6 @@
 
         [self showUpdateAlertView];
     }
-    [self showUpdateAlertView];
-
 
     //Farbe der Navigation-Bar wird auf blau gesetzt
     [[UINavigationBar appearance]setBarTintColor:[MMFactory blueColor]];

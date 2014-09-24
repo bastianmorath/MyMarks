@@ -13,7 +13,7 @@
     
     NSIndexPath *currentIndexPathToDelete;
     const char MyConstantKey;
-
+    
 }
 
 @end
@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
+    
     //Rechter Button erstellen
     self.navigationItem.rightBarButtonItem= [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showAlertViewToAddSemester)];
     
@@ -54,11 +54,11 @@
     //**Google Analytics**//
     [MMFactory initGoogleAnalyticsForClass:self];
     
-
+    
     //Long Tap Gesture hinzufügen. Wird länger auf eine Cell gedrückt, kann sie editiert werden
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.minimumPressDuration = 1.0; //seconds
+    lpgr.minimumPressDuration = 0.7; //seconds
     lpgr.delegate = self;
     [self.tableView addGestureRecognizer:lpgr];
     
@@ -86,7 +86,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     // Return the number of rows in the section.
-    return semesterArray.count >10 ?semesterArray.count : 10;
+    return semesterArray.count >10 ? semesterArray.count : 10;
     
 }
 
@@ -99,7 +99,7 @@
     
     static NSString *CellIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
+    
     //Cell konfigurieren
     if (indexPath.row<semesterArray.count)
     {
@@ -123,7 +123,7 @@
     } else {
         cell.textLabel.text = @"";
         cell.accessoryType = UITableViewCellAccessoryNone;
-
+        
     }
     
     //Farbverlauf bestimmen
@@ -150,14 +150,21 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     NSString *semesterName = cell.textLabel.text;
-
+    
     [[NSUserDefaults standardUserDefaults] setObject:semesterName forKey:@"semester"];
     [self.tableView reloadData];
 }
+
+#pragma mark - TableView Editing
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    
+    if (indexPath.row<semesterArray.count) {
+        return YES;
+    } else{
+        return NO;
+    }
 }
 
 
@@ -290,13 +297,13 @@
 {
     
     if([[[alertView textFieldAtIndex:0] text] length] >= 1 || [alertView.title isEqualToString:NSLocalizedString(@"Confirmation", nil)] )
-        {
-            return YES;
-        }
-        else
-        {
-            return NO;
-        }
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
     
 }
 
@@ -320,22 +327,19 @@
         }
     }
     
-        if ([alertView.title isEqualToString:NSLocalizedString(@"Confirmation", nil)])
+    if ([alertView.title isEqualToString:NSLocalizedString(@"Confirmation", nil)])
+    {
+        [self deleteSemesterAtIndexPath:currentIndexPathToDelete];
+        if  (buttonIndex == 0)
         {
-            [self deleteSemesterAtIndexPath:currentIndexPathToDelete];
-            if  (buttonIndex == 0)
-            {
-                
-                if ([alertView.title isEqualToString:NSLocalizedString(@"Confirmation", nil)])
-                {
-                    // User will Semester nicht löschen
-                    [self setEditing:NO animated:YES];
-                }
-            }
 
+                // User will Semester nicht löschen
+                [self setEditing:NO animated:YES];
         }
         
-        
+    }
+    
+    
     
     
     if ([alertView.title isEqualToString:    NSLocalizedString(@"Change name", nil)
@@ -351,9 +355,9 @@
         semester.name =newSemesterName;
         [self updateSemesterArray];
         [self.tableView reloadData];
-
+        
     }
-
+    
 }
 
 
