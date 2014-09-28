@@ -167,9 +167,6 @@
     }
 }
 
-
-
-
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete)
@@ -180,6 +177,7 @@
         currentIndexPathToDelete = indexPath;
     }
 }
+
 
 -(void)deleteSemesterAtIndexPath:(NSIndexPath*)indexPath
 {
@@ -258,7 +256,7 @@
                                      message:NSLocalizedString(@"confirmationMessage", nil)
                                     delegate:self
                            cancelButtonTitle:NSLocalizedString(@"Cancle", nil)
-                           otherButtonTitles:@"Okey", nil];
+                           otherButtonTitles:NSLocalizedString(@"Yes", nil), nil];
     [alert setAlertViewStyle: UIAlertViewStyleDefault];
     [alert show];
 }

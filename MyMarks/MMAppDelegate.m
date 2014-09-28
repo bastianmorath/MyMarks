@@ -14,7 +14,19 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-       
+    //**Google Analytics**//
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 30;
+    
+    // Optional: set Logger to VERBOSE for debug information.
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
+    
+    // Initialize tracker. Replace with your tracking ID.
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-54555153-1"];
+
     //Diese Methode wird nur das aller erste Mal im "Lebenszyklus" der App durchlaufen. Es werden vordefinierte Fächer hinzugefügt.
     /*Dispatch once*/
     [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"tapCounter"];
@@ -28,6 +40,7 @@
 
         [[DataStore defaultStore] createSemestertWithName:@"Semester 1"];
         [[NSUserDefaults standardUserDefaults] setObject:@"Semester 1" forKey:@"semester"];
+        [MMFactory initGoogleAnalyticsForClass:self];
 
         [self showUpdateAlertView];
     }
@@ -38,19 +51,7 @@
     //Zeigt die Statusbarsymbole in weisser Schrift an
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
-    //**Google Analytics**//
-    // Optional: automatically send uncaught exceptions to Google Analytics.
-    [GAI sharedInstance].trackUncaughtExceptions = YES;
-    
-    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
-    [GAI sharedInstance].dispatchInterval = 30;
-    
-    // Optional: set Logger to VERBOSE for debug information.
-    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
-    
-    // Initialize tracker. Replace with your tracking ID.
-    [[GAI sharedInstance] trackerWithTrackingId:@"UA-54555153-1"];
-    return YES;
+        return YES;
 }
 
 #pragma mark - Alert View

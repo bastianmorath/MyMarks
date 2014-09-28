@@ -22,12 +22,13 @@
 "Pluspoints" = "Pluspoints";
 "Exams" = "Examens";
 "Add exam" = "Ajouter un examen";
+"Yes" = "Oui";
 "Calculation Type" = "Type de compte";
-"Choose semester" = "Choisir semèstre";
+"Choose semester" = "Choisir semestre";
 "Error" = "Erreur";
-"Weighting Error" = "Il faut que la pondération soit 0 ou 1";
+"Weighting Error" = "Il faut que l'evaluation soit 0 ou 1";
 "Confirmation" = "Confirmation";
-"confirmationMessage" = "Êtes-vous sure de éteindre ce semèstre";
+"confirmationMessage" = "\n Êtes-vous sûr que vous voulez effacer ce semestre?";
 "Add semester" = "Ajoute semestre";
 "Enter the new name of the subject" = "Entre le nouveau nom de la matière";
 "Change name" = "Changer le nom";

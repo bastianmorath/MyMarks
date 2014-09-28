@@ -22,12 +22,13 @@
 "Pluspoints" = "Pluspoints";
 "Exams" = "Exams";
 "Add exam" = "Add exam";
+"Yes" = "Yes";
 "Calculation Type" = "Calculation Type";
 "Choose semester" = "Choose semester";
 "Error" = "Error";
 "Weighting Error" = "Make sure you type in for weighting 0 or 1";
 "Confirmation" = "Confirmation";
-"confirmationMessage" = "Are you sure you want to delete this semester?";
+"confirmationMessage" = "\n Are you sure you want to delete this semester?";
 "Add semester" = "Add semester";
 "Enter the new name of the subject" = "Enter the new name of the Subject";
 "Change name" = "Change name";
