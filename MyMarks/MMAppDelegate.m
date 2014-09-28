@@ -27,6 +27,7 @@
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-54555153-1"];
 
+    
     //Diese Methode wird nur das aller erste Mal im "Lebenszyklus" der App durchlaufen. Es werden vordefinierte Fächer hinzugefügt.
     /*Dispatch once*/
     [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"tapCounter"];
@@ -69,6 +70,8 @@
 
 }
 
+
+//Diese Methode überträgt die bisherigen Subjects (welche mit NSUserDefaults erstellt wurden) in das CoreDataModel
 -(void)updateDataModel{
     NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
     NSData *dataRepresentingSavedArray = [currentDefaults objectForKey:@"savedArray"];
@@ -81,6 +84,7 @@
             subjectArray= [[NSMutableArray alloc] initWithArray:oldSavedArray];
         }
     }
+    
     MMSemester *semester= [[DataStore defaultStore]createSemestertWithName:@"Old Semester"];
     for (Subject *subject in subjectArray) {
         MMSubject *newSubject = [[DataStore defaultStore]createSubjectWithName:subject.subjectName AndWeighting:@1 AndSemester:semester];
@@ -94,6 +98,5 @@
         }
     }
 }
-
 
 @end

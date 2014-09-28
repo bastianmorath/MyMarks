@@ -155,7 +155,7 @@ static DataStore *defaultStore;
 /* ------------------  Spezifische Funktionen ----------------------------------- */
 
 
--(MMSemester *)createSubjectWithName:(NSString *)name AndWeighting:(NSNumber*)weighting AndSemester:(MMSemester *)semester
+-(MMSubject *)createSubjectWithName:(NSString *)name AndWeighting:(NSNumber*)weighting AndSemester:(MMSemester *)semester
 {
     MMSubject *subject = [self addObjectForName:@"MMSubject"];
     subject.name= name;
@@ -166,7 +166,7 @@ static DataStore *defaultStore;
         subject.weighting = @1;
     }
     //Die Prüfung wird an letzter Position eingefügt
-    subject.position = [NSNumber numberWithInt:[[self subjectArray]count]-1];
+    subject.position = [NSNumber numberWithInt:[[self subjectArray]count]];
     
     //Die prüfung wird dem Semester hinzugefügt
     [semester addSubjectObject:subject];
@@ -211,7 +211,7 @@ static DataStore *defaultStore;
 -(void)addExamWithData:(NSDictionary *)data ToSubject:(MMSubject *)subject
 {
     
-    MMExam *exam = [self addObjectForName:@"Exam"];
+    MMExam *exam = [self addObjectForName:@"MMExam"];
     exam.mark = [data objectForKey:@"mark"];
     exam.weighting = [data objectForKey:@"weighting"];
     exam.date = [data objectForKey:@"date"];
