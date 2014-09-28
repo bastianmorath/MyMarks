@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Subject;
+@class MMSubject;
 
-@interface Semester : NSManagedObject
+@interface MMSemester : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSSet *subject;
@@ -20,10 +20,10 @@
 -(float)plusPoints;
 @end
 
-@interface Semester (CoreDataGeneratedAccessors)
+@interface MMSemester (CoreDataGeneratedAccessors)
 
-- (void)addSubjectObject:(Subject *)value;
-- (void)removeSubjectObject:(Subject *)value;
+- (void)addSubjectObject:(MMSubject *)value;
+- (void)removeSubjectObject:(MMSubject *)value;
 - (void)addSubject:(NSSet *)values;
 - (void)removeSubject:(NSSet *)values;
 

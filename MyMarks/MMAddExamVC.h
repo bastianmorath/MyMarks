@@ -9,7 +9,7 @@
 //  Diese Klasse verwaltet den Controller, welcher eine neue Prüfung erstellt.
 
 #import <QuartzCore/QuartzCore.h>
-#import "Exam.h"
+#import "MMExam.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -22,8 +22,8 @@
     UIDatePicker *datePicker;
 
 }
-@property (strong, nonatomic) Exam *exam; //Die Prüfung, die bearbeitet/erstellt wird
-@property (strong, nonatomic) Subject *subject; //Das Fach, zu welchem die Prüfung hinzugefügt wird
+@property (strong, nonatomic) MMExam *exam; //Die Prüfung, die bearbeitet/erstellt wird
+@property (strong, nonatomic) MMSubject *subject; //Das Fach, zu welchem die Prüfung hinzugefügt wird
 
 
 @property (strong, nonatomic) IBOutlet UITextField *MarkTextField;

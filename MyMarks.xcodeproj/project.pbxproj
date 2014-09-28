@@ -22,9 +22,9 @@
 		B617A715180F420D00189688 /* Launchimage_iPhone5.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A714180F420D00189688 /* Launchimage_iPhone5.png */; };
 		B617A717180F423E00189688 /* App Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A716180F423E00189688 /* App Icon.png */; };
 		B617A719180FE42B00189688 /* IPhone5_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A718180FE42B00189688 /* IPhone5_Background.png */; };
-		B61A3C6B19CF177400F3C190 /* Semester.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A3C6A19CF177400F3C190 /* Semester.m */; };
-		B61A3C6E19CF17B800F3C190 /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A3C6D19CF17B800F3C190 /* Exam.m */; };
-		B61A3C7119CF17CC00F3C190 /* Subject.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A3C7019CF17CC00F3C190 /* Subject.m */; };
+		B61A3C6B19CF177400F3C190 /* MMSemester.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A3C6A19CF177400F3C190 /* MMSemester.m */; };
+		B61A3C6E19CF17B800F3C190 /* MMExam.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A3C6D19CF17B800F3C190 /* MMExam.m */; };
+		B61A3C7119CF17CC00F3C190 /* MMSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A3C7019CF17CC00F3C190 /* MMSubject.m */; };
 		B6388A8519BB9DED00B3A92F /* MMChooseSemesterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B6388A8319BB9DED00B3A92F /* MMChooseSemesterVC.m */; };
 		B63E900E17A48D65003EC11D /* MMExamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B63E900D17A48D65003EC11D /* MMExamsVC.m */; };
 		B653E820180ADC79004C1D39 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B653E81F180ADC79004C1D39 /* libz.dylib */; };
@@ -39,6 +39,8 @@
 		B68188B519B0CC3300F0532C /* MMFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = B68188B419B0CC3300F0532C /* MMFactory.m */; };
 		B681AF89180B46EB00A058CC /* EditIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B681AF88180B46EB00A058CC /* EditIcon.png */; };
 		B6850D9A19C4BFA90077C133 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B6850D9919C4BFA90077C133 /* libGoogleAnalyticsServices.a */; };
+		B696961B19D896160043E09D /* Subject.m in Sources */ = {isa = PBXBuildFile; fileRef = B696961819D896160043E09D /* Subject.m */; };
+		B696961C19D896160043E09D /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = B696961A19D896160043E09D /* Exam.m */; };
 		B6A444F919C5B31300B0C040 /* backArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = B6A444F819C5B31300B0C040 /* backArrow.png */; };
 		B6C1FD6F17DE33E000E8DC2F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6C1FD6D17DE33E000E8DC2F /* AudioToolbox.framework */; };
 		B6C1FD7917DE341E00E8DC2F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6C1FD7117DE341E00E8DC2F /* CFNetwork.framework */; };
@@ -80,12 +82,12 @@
 		B617A714180F420D00189688 /* Launchimage_iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Launchimage_iPhone5.png; sourceTree = "<group>"; };
 		B617A716180F423E00189688 /* App Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App Icon.png"; sourceTree = "<group>"; };
 		B617A718180FE42B00189688 /* IPhone5_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IPhone5_Background.png; sourceTree = "<group>"; };
-		B61A3C6919CF177400F3C190 /* Semester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Semester.h; sourceTree = "<group>"; };
-		B61A3C6A19CF177400F3C190 /* Semester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Semester.m; sourceTree = "<group>"; };
-		B61A3C6C19CF17B800F3C190 /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
-		B61A3C6D19CF17B800F3C190 /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
-		B61A3C6F19CF17CC00F3C190 /* Subject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subject.h; sourceTree = "<group>"; };
-		B61A3C7019CF17CC00F3C190 /* Subject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subject.m; sourceTree = "<group>"; };
+		B61A3C6919CF177400F3C190 /* MMSemester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSemester.h; sourceTree = "<group>"; };
+		B61A3C6A19CF177400F3C190 /* MMSemester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSemester.m; sourceTree = "<group>"; };
+		B61A3C6C19CF17B800F3C190 /* MMExam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMExam.h; sourceTree = "<group>"; };
+		B61A3C6D19CF17B800F3C190 /* MMExam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMExam.m; sourceTree = "<group>"; };
+		B61A3C6F19CF17CC00F3C190 /* MMSubject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSubject.h; sourceTree = "<group>"; };
+		B61A3C7019CF17CC00F3C190 /* MMSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSubject.m; sourceTree = "<group>"; };
 		B6388A8219BB9DED00B3A92F /* MMChooseSemesterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMChooseSemesterVC.h; sourceTree = "<group>"; };
 		B6388A8319BB9DED00B3A92F /* MMChooseSemesterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMChooseSemesterVC.m; sourceTree = "<group>"; };
 		B63E900C17A48D65003EC11D /* MMExamsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMExamsVC.h; sourceTree = "<group>"; };
@@ -117,6 +119,10 @@
 		B68188B419B0CC3300F0532C /* MMFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMFactory.m; sourceTree = "<group>"; };
 		B681AF88180B46EB00A058CC /* EditIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EditIcon.png; sourceTree = "<group>"; };
 		B6850D9919C4BFA90077C133 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		B696961719D896160043E09D /* Subject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subject.h; sourceTree = "<group>"; };
+		B696961819D896160043E09D /* Subject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subject.m; sourceTree = "<group>"; };
+		B696961919D896160043E09D /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
+		B696961A19D896160043E09D /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
 		B69ED98E19D0BC97008641A7 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		B6A444F819C5B31300B0C040 /* backArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backArrow.png; sourceTree = "<group>"; };
 		B6C1FD6D17DE33E000E8DC2F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -200,12 +206,16 @@
 			isa = PBXGroup;
 			children = (
 				B681889619B0AFA200F0532C /* Model.xcdatamodeld */,
-				B61A3C6F19CF17CC00F3C190 /* Subject.h */,
-				B61A3C7019CF17CC00F3C190 /* Subject.m */,
-				B61A3C6C19CF17B800F3C190 /* Exam.h */,
-				B61A3C6D19CF17B800F3C190 /* Exam.m */,
-				B61A3C6919CF177400F3C190 /* Semester.h */,
-				B61A3C6A19CF177400F3C190 /* Semester.m */,
+				B61A3C6F19CF17CC00F3C190 /* MMSubject.h */,
+				B61A3C7019CF17CC00F3C190 /* MMSubject.m */,
+				B61A3C6C19CF17B800F3C190 /* MMExam.h */,
+				B61A3C6D19CF17B800F3C190 /* MMExam.m */,
+				B61A3C6919CF177400F3C190 /* MMSemester.h */,
+				B61A3C6A19CF177400F3C190 /* MMSemester.m */,
+				B696961719D896160043E09D /* Subject.h */,
+				B696961819D896160043E09D /* Subject.m */,
+				B696961919D896160043E09D /* Exam.h */,
+				B696961A19D896160043E09D /* Exam.m */,
 				B681889C19B0BEF700F0532C /* DataStore.h */,
 				B681889D19B0BEF700F0532C /* DataStore.m */,
 			);
@@ -457,16 +467,18 @@
 				B6D6BDDA17A31D1000B3B09F /* MMSubjectsVC.m in Sources */,
 				B665A54A17A7550900CC5A74 /* MMAddExamVC.m in Sources */,
 				B672498319BB363800FAA1D0 /* MMNavigationViewButton.m in Sources */,
-				B61A3C7119CF17CC00F3C190 /* Subject.m in Sources */,
+				B61A3C7119CF17CC00F3C190 /* MMSubject.m in Sources */,
 				B681889E19B0BEF700F0532C /* DataStore.m in Sources */,
+				B696961C19D896160043E09D /* Exam.m in Sources */,
+				B696961B19D896160043E09D /* Subject.m in Sources */,
 				B681889819B0AFA200F0532C /* Model.xcdatamodeld in Sources */,
 				B6E8C8B919BB9D54004B7514 /* MMPreferencesVC.m in Sources */,
 				B6388A8519BB9DED00B3A92F /* MMChooseSemesterVC.m in Sources */,
 				B6072AAE19BAD5C300052C59 /* MMEnumerations.m in Sources */,
 				B6072AAF19BAD5C300052C59 /* MMBarButtonItem.m in Sources */,
 				B68188B519B0CC3300F0532C /* MMFactory.m in Sources */,
-				B61A3C6E19CF17B800F3C190 /* Exam.m in Sources */,
-				B61A3C6B19CF177400F3C190 /* Semester.m in Sources */,
+				B61A3C6E19CF17B800F3C190 /* MMExam.m in Sources */,
+				B61A3C6B19CF177400F3C190 /* MMSemester.m in Sources */,
 				B6D6BDB017A31CBB00B3B09F /* main.m in Sources */,
 				B63E900E17A48D65003EC11D /* MMExamsVC.m in Sources */,
 			);

@@ -10,6 +10,7 @@
 
 
 #import "Subject.h"
+#import "Exam.h"
 #import <MessageUI/MessageUI.h>
 
 

@@ -13,7 +13,7 @@
 
 #import <MessageUI/MessageUI.h>
 #import "MMExamsVC.h"
-#import "Subject.h"
+#import "MMSubject.h"
 #import "MMNavigationViewButton.h"
 
 
@@ -22,7 +22,7 @@
 
 
 @property (nonatomic, strong) MMNavigationViewButton *navigationViewButton;
-@property (nonatomic, strong) Semester *semester;
+@property (nonatomic, strong) MMSemester *semester;
 
 @property (nonatomic, strong) NSArray *subjectArray;
 -(void)updateSubjectArray;

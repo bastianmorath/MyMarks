@@ -170,7 +170,7 @@ const char MyConstantKey;
     //Die Cells, in welche ein Fach eingetragen werden soll, werden mit Fachnamen und Durchschnitt kofiguriert
     if ([self.subjectArray count]>indexPath.row)
     {
-        Subject *subject = [self.subjectArray objectAtIndex:indexPath.row];
+        MMSubject *subject = [self.subjectArray objectAtIndex:indexPath.row];
         //Die Labels der Cells werden konfiguriert und der Hintergrund transparent gemacht
         cell.textLabel.text = subject.name;
 
@@ -232,7 +232,7 @@ const char MyConstantKey;
 -(void)updatePositions{
     int counter=0;
     
-    for (Subject *subject in self.subjectArray)
+    for (MMSubject *subject in self.subjectArray)
     {
         subject.position= @(counter);
         counter++;
@@ -269,11 +269,11 @@ const char MyConstantKey;
 
 -(void)changePosition:(int)sourceIndex WithPosition:(int)destinationIndex
 {
-    for (Subject *sourceSubject in self.subjectArray)
+    for (MMSubject *sourceSubject in self.subjectArray)
     {
         if ([sourceSubject.position intValue] == sourceIndex)
         {
-            for (Subject *destinationSubject in self.subjectArray)
+            for (MMSubject *destinationSubject in self.subjectArray)
             {
                 if ([destinationSubject.position intValue] == destinationIndex)
                 {
@@ -403,7 +403,7 @@ const char MyConstantKey;
         NSIndexPath *indexPath = sender;
         
         //Der String des Faches wird als Titel in der NavigationBar angezeigt
-        Subject *subject = [self.subjectArray objectAtIndex:indexPath.row];
+        MMSubject *subject = [self.subjectArray objectAtIndex:indexPath.row];
         dvc.title = [NSString stringWithFormat:@"%@",subject.name];
         
         //Das angeklickte Fach wird im DetailViewController unter "Subject" gespeichert
@@ -476,7 +476,7 @@ const char MyConstantKey;
         if ([alertView.title isEqualToString:    NSLocalizedString(@"Change name", nil)
              ] && buttonIndex ==1)
         {
-            Subject *subject = objc_getAssociatedObject(alertView, MyConstantKey);
+            MMSubject *subject = objc_getAssociatedObject(alertView, MyConstantKey);
             NSString *newSubjectName= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
           
             subject.name =newSubjectName;

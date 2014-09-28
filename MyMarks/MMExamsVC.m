@@ -170,7 +170,7 @@
             cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
             
             
-            Exam *exam = [self.examArray objectAtIndex:indexPath.row];
+            MMExam *exam = [self.examArray objectAtIndex:indexPath.row];
             
             [self configureTextForCell:cell withExam:exam];
             return cell;
@@ -194,7 +194,7 @@
 
 
 //Diese Methode konfiguriert eine Zelle mit Note und Datum der Prüfung
--(void)configureTextForCell:(UITableViewCell *)cell withExam:(Exam *)exam
+-(void)configureTextForCell:(UITableViewCell *)cell withExam:(MMExam *)exam
 {
     cell.textLabel.text = [NSString stringWithFormat:@"%@", exam.mark ];
     cell.detailTextLabel.text = [MMFactory NSStringFromDate:exam.date];

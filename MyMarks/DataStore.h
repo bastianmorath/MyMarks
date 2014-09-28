@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Subject.h"
-#import "Exam.h"
-#import "Semester.h"
+#import "MMSubject.h"
+#import "MMExam.h"
+#import "MMSemester.h"
 /*
  Die Klasse DataStore verwaltet die CoreData Funktionen des Apps. Sie bietet Möglichkeiten, um Entitys hinzuzufügen und zu löschen.
 
@@ -40,16 +40,16 @@
 
 /* ------------------  Spezifische Funktionen ----------------------------------- */
 
--(void)createSubjectWithName:(NSString *)name AndWeighting:(NSNumber*)weighting AndSemester:(Semester *)semester;
+-(MMSubject *)createSubjectWithName:(NSString *)name AndWeighting:(NSNumber*)weighting AndSemester:(MMSemester *)semester;
 
--(Semester *)createSemestertWithName:(NSString *)name;
--(Semester *)currentSemester;
+-(MMSemester *)createSemestertWithName:(NSString *)name;
+-(MMSemester *)currentSemester;
 //-(Semester *)semesterWithName:(NSString *)name;
 
--(void)addExamWithData:(NSDictionary *)data ToSubject:(Subject *)subject;
+-(void)addExamWithData:(NSDictionary *)data ToSubject:(MMSubject *)subject;
 
 -(NSArray *)subjectArray;
 -(NSArray *)semesterArray;
--(NSArray *)examArrayForSubject:(Subject *)subject;
+-(NSArray *)examArrayForSubject:(MMSubject *)subject;
 
 @end

@@ -103,7 +103,7 @@
     //Cell konfigurieren
     if (indexPath.row<semesterArray.count)
     {
-        Semester *semester =[semesterArray objectAtIndex:indexPath.row];
+        MMSemester *semester =[semesterArray objectAtIndex:indexPath.row];
         cell.textLabel.text = semester.name;
         
         //Wenn nur ein Semester hinzugefügt wurde, dann klicke es automatisch an
@@ -195,13 +195,13 @@
         
         //Wenn gerade das Semester gelöscht wird, das ausgewählt ist, dann wird das erste Semester als das Neue verwendet
         
-    } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"] isEqualToString:((Semester *)[semesterArray objectAtIndex:indexPath.row]).name])
+    } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"] isEqualToString:((MMSemester *)[semesterArray objectAtIndex:indexPath.row]).name])
     {
         
         [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
         
         [self updateSemesterArray];
-        [[NSUserDefaults standardUserDefaults]setObject:((Semester *)[semesterArray objectAtIndex:0]).name forKey:@"semester"];
+        [[NSUserDefaults standardUserDefaults]setObject:((MMSemester *)[semesterArray objectAtIndex:0]).name forKey:@"semester"];
     } else {
         //Sonst wird einfach das Semester aus dem DataStore gelöscht
         [[DataStore defaultStore] deleteObject:[semesterArray objectAtIndex:indexPath.row]];
@@ -343,7 +343,7 @@
     if ([alertView.title isEqualToString:    NSLocalizedString(@"Change name", nil)
          ] && buttonIndex ==1)
     {
-        Semester *semester = objc_getAssociatedObject(alertView, MyConstantKey);
+        MMSemester *semester = objc_getAssociatedObject(alertView, MyConstantKey);
         NSString *newSemesterName= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
         if ([semester.name isEqualToString:[[NSUserDefaults standardUserDefaults]objectForKey:@"semester"]])
         {

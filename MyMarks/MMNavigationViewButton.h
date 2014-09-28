@@ -25,7 +25,7 @@
 
 
 //Das Semester, welches der Button repräsentiert
-@property (nonatomic, assign) Semester *semester;
+@property (nonatomic, assign) MMSemester *semester;
 -(instancetype)initWithTarget:(id)class;
 
 @end

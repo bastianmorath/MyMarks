@@ -6,18 +6,18 @@
 //  Copyright (c) 2014 Bastian Morath. All rights reserved.
 //
 
-#import "Semester.h"
-#import "Subject.h"
+#import "MMSemester.h"
+#import "MMSubject.h"
 
 
-@implementation Semester
+@implementation MMSemester
 -(float)average{
     NSArray *subjectArray= [[DataStore defaultStore] subjectArray];
     if ([subjectArray count]!=0)
     {
         float countedSubjects=0;
         float tempCount = 0;
-        for (Subject *eachSubject in subjectArray)
+        for (MMSubject *eachSubject in subjectArray)
         {
             if (eachSubject.average!=0 && ![eachSubject.weighting  isEqualToNumber:@0] && eachSubject.average == eachSubject.average)
             {
@@ -41,7 +41,7 @@
 
 -(float)plusPoints{
     float plusPoints =0;
-    for (Subject *eachSubject in [[DataStore defaultStore]subjectArray])
+    for (MMSubject *eachSubject in [[DataStore defaultStore]subjectArray])
     {
         if ([eachSubject.weighting isEqualToNumber:[NSNumber numberWithInt:1]])
         {

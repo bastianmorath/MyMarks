@@ -155,9 +155,9 @@ static DataStore *defaultStore;
 /* ------------------  Spezifische Funktionen ----------------------------------- */
 
 
--(void)createSubjectWithName:(NSString *)name AndWeighting:(NSNumber*)weighting AndSemester:(Semester *)semester
+-(MMSemester *)createSubjectWithName:(NSString *)name AndWeighting:(NSNumber*)weighting AndSemester:(MMSemester *)semester
 {
-    Subject *subject = [self addObjectForName:@"Subject"];
+    MMSubject *subject = [self addObjectForName:@"MMSubject"];
     subject.name= name;
     if (weighting)
     {
@@ -171,11 +171,13 @@ static DataStore *defaultStore;
     //Die prüfung wird dem Semester hinzugefügt
     [semester addSubjectObject:subject];
     [self storeData];
+    
+    return subject;
 }
 
--(Semester *)createSemestertWithName:(NSString *)name
+-(MMSemester *)createSemestertWithName:(NSString *)name
 {
-    Semester *semester = [self addObjectForName:@"Semester"];
+    MMSemester *semester = [self addObjectForName:@"MMSemester"];
     semester.name = name;
     
     [[NSUserDefaults standardUserDefaults]setObject:name forKey:@"semester"];
@@ -185,14 +187,14 @@ static DataStore *defaultStore;
     return semester;
 }
 
--(Semester *)semesterWithName:(NSString *)name{
+-(MMSemester *)semesterWithName:(NSString *)name{
     
     return nil;
 }
 
--(Semester *)currentSemester
+-(MMSemester *)currentSemester
 {
-    for (Semester *semester in [self semesterArray])
+    for (MMSemester *semester in [self semesterArray])
     {
         if ([semester.name isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"semester"]])
         {
@@ -206,10 +208,10 @@ static DataStore *defaultStore;
 }
 
 
--(void)addExamWithData:(NSDictionary *)data ToSubject:(Subject *)subject
+-(void)addExamWithData:(NSDictionary *)data ToSubject:(MMSubject *)subject
 {
     
-    Exam *exam = [self addObjectForName:@"Exam"];
+    MMExam *exam = [self addObjectForName:@"Exam"];
     exam.mark = [data objectForKey:@"mark"];
     exam.weighting = [data objectForKey:@"weighting"];
     exam.date = [data objectForKey:@"date"];
@@ -224,10 +226,10 @@ static DataStore *defaultStore;
     
     NSSortDescriptor *sDescriptor = [[NSSortDescriptor alloc]initWithKey:@"position" ascending:YES];
     NSArray *descriptors = @[sDescriptor];
-    NSArray *subjects =[self performFetchForEntity:@"Subject" WithPredicate:nil AndSortDescriptor:descriptors];
-    Semester *currentSemester= [self currentSemester];
+    NSArray *subjects =[self performFetchForEntity:@"MMSubject" WithPredicate:nil AndSortDescriptor:descriptors];
+    MMSemester *currentSemester= [self currentSemester];
     NSMutableArray *subjectsForCurrentSemester = [[NSMutableArray alloc]init];
-    for (Subject *subject in subjects) {
+    for (MMSubject *subject in subjects) {
         if ([currentSemester.subject containsObject:subject])
         {
             [subjectsForCurrentSemester addObject:subject];
@@ -241,14 +243,14 @@ static DataStore *defaultStore;
 {
     NSSortDescriptor *sDescriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
     NSArray *descriptors = @[sDescriptor];
-    return [self performFetchForEntity:@"Semester" WithPredicate:nil AndSortDescriptor:descriptors];
+    return [self performFetchForEntity:@"MMSemester" WithPredicate:nil AndSortDescriptor:descriptors];
 }
 
--(NSArray *)examArrayForSubject:(Subject *)subject
+-(NSArray *)examArrayForSubject:(MMSubject *)subject
 {
-    NSArray *exams =[self performFetchForEntity:@"Exam" WithPredicate:nil AndSortDescriptor:nil];
+    NSArray *exams =[self performFetchForEntity:@"MMExam" WithPredicate:nil AndSortDescriptor:nil];
     NSMutableArray *examsForCurrentSubject = [[NSMutableArray alloc]init];
-    for (Exam  *exam in exams) {
+    for (MMExam  *exam in exams) {
         if ([subject.exam containsObject:exam])
         {
             [examsForCurrentSubject addObject:exam];

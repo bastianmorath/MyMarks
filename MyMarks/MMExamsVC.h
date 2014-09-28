@@ -10,14 +10,14 @@
 //  Dieser Controller verwaltet die Pruefungen und der Durchschnitt eines faches in einem TableView
 
 
-#import "Exam.h"
+#import "MMExam.h"
 #import "MMAddExamVC.h"
-#import "Subject.h"
+#import "MMSubject.h"
 
 @interface MMExamsVC : UITableViewController
 
 
-@property (strong, nonatomic) Subject *subject;
+@property (strong, nonatomic) MMSubject *subject;
 @property (strong, nonatomic) NSArray *examArray;
 
 
