@@ -17,7 +17,7 @@
     if ((self)) {
         self.mark = 0.0;
         self.weighting = 0.0;
-        self.date = [[NSDate alloc]init];
+        self.date = [[NSString alloc]init];
         self.notes = [[NSString alloc]init];
     }
     return self;

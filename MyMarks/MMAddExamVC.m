@@ -12,14 +12,9 @@
 
 
 
-
-
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"Begin");
     //Für alle TextFields jeweils: transparenter Background, weisser Rand und Keyboard translucent machen
     self.MarkTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
     self.MarkTextField.layer.borderColor = [[UIColor whiteColor]CGColor];
@@ -83,7 +78,6 @@
     
     //**Google Analytics**//
     [MMFactory initGoogleAnalyticsForClass:self];
-    NSLog(@"End");
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -249,38 +243,14 @@
 //Gibt die Anzahl Rows in Abhängigkeit von der Displaygrösse zurück
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    bool isiPhone5 = CGSizeEqualToSize([[UIScreen mainScreen] preferredMode].size,CGSizeMake(640, 1136));
-    if (isiPhone5)
-    {
-        return 9;
-    } else
-    {
-        return 8;
-    }
-}
+    return [MMFactory numberOfRows];
+  }
 
 
 //Gibt die Höhe einer Row in Abhängigkeit von der Displaygrösse zurück
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    bool isiPhone5 = CGSizeEqualToSize([[UIScreen mainScreen] preferredMode].size,CGSizeMake(640, 1136));
-    if (!isiPhone5)
-    {
-        //Höhe wird so gesetzt, dass gerade 10 Rows Platz haben
-        if (indexPath.row ==3)
-        {
-            return 2*[[UIScreen mainScreen] bounds].size.height/10-1.3;
-        }
-        return [[UIScreen mainScreen] bounds].size.height/10-1.0;
-    }else
-    {
-    //Höhe wird so gesetzt, dass gerade 10 Rows Platz haben
-        if (indexPath.row ==3)
-        {
-            return 2*[[UIScreen mainScreen] bounds].size.height/11-1.3;
-        }
-    return [[UIScreen mainScreen] bounds].size.height/11-1.0;
-    }
+    return [MMFactory heightForIndexPath:indexPath];
 }
 
 

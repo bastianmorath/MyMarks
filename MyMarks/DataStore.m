@@ -168,7 +168,7 @@ static DataStore *defaultStore;
     //Die Prüfung wird an letzter Position eingefügt
     subject.position = [NSNumber numberWithInt:[[self subjectArray]count]];
     
-    //Die prüfung wird dem Semester hinzugefügt
+    //Die Prüfung wird dem Semester hinzugefügt
     [semester addSubjectObject:subject];
     [self storeData];
     
@@ -210,7 +210,8 @@ static DataStore *defaultStore;
 
 -(void)addExamWithData:(NSDictionary *)data ToSubject:(MMSubject *)subject
 {
-    
+ 
+    NSLog(@"date: %@", [data objectForKey:@"date"]);
     MMExam *exam = [self addObjectForName:@"MMExam"];
     exam.mark = [data objectForKey:@"mark"];
     exam.weighting = [data objectForKey:@"weighting"];
@@ -218,12 +219,12 @@ static DataStore *defaultStore;
     exam.notes = [data objectForKey:@"notes"];
     
     [subject addExamObject:exam];
+    
     [self storeData];
 }
 
 -(NSArray *)subjectArray
 {
-    
     NSSortDescriptor *sDescriptor = [[NSSortDescriptor alloc]initWithKey:@"position" ascending:YES];
     NSArray *descriptors = @[sDescriptor];
     NSArray *subjects =[self performFetchForEntity:@"MMSubject" WithPredicate:nil AndSortDescriptor:descriptors];

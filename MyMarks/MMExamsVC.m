@@ -108,14 +108,14 @@
         return 90;
     } else
     {
-        return 46;
+        return [MMFactory heightForIndexPath:indexPath];
     }
 }
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 46;
+    return 45;
 }
 
 

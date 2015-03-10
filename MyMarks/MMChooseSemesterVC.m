@@ -327,12 +327,15 @@
     
     if ([alertView.title isEqualToString:NSLocalizedString(@"Confirmation", nil)])
     {
-        [self deleteSemesterAtIndexPath:currentIndexPathToDelete];
         if  (buttonIndex == 0)
         {
 
                 // User will Semester nicht löschen
+            
                 [self setEditing:NO animated:YES];
+        } else {
+            [self deleteSemesterAtIndexPath:currentIndexPathToDelete];
+
         }
         
     }

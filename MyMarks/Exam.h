@@ -14,7 +14,7 @@
 
 @property (nonatomic, assign) double mark;        // Dieser Double speichert die Note
 @property (nonatomic, assign) double weighting;   // Dieser Double speichert die Gewichtung
-@property (nonatomic, strong) NSDate *date;       // Dieses Datum speichert den Zeitpunkt, wann die Prüfung geschrieben wurde
+@property (nonatomic, strong) NSString *date;       // Dieses Datum speichert den Zeitpunkt, wann die Prüfung geschrieben wurde
 @property (nonatomic, strong) NSString *notes;    // Dieser String speichert die Notizen zu eienr Prüfung
 
 @end

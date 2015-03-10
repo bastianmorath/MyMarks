@@ -42,6 +42,7 @@ const char MyConstantKey;
     [self updateSubjectArray];
     [self.navigationViewButton update];
     [self.tableView reloadData];
+
 }
 
 
@@ -73,9 +74,6 @@ const char MyConstantKey;
     
     //Background auf eine Grundfarbe setzen, damit zum Beispiel beim Zeilen-Verschieben kein weisser Hintergrund zu sehen ist
     self.view.backgroundColor = [MMFactory blueColor];
-
-    //Semester setzen
-    self.semester = [[DataStore defaultStore] currentSemester];
     
     
 
@@ -107,9 +105,6 @@ const char MyConstantKey;
 {
     self.subjectArray =  [[DataStore defaultStore] subjectArray];
 }
-
-
-
 
 
 #pragma mark - Table view data source
@@ -167,14 +162,14 @@ const char MyConstantKey;
         cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
     }
 
-    //Die Cells, in welche ein Fach eingetragen werden soll, werden mit Fachnamen und Durchschnitt kofiguriert
+    //Die Cells, in welche ein Fach eingetragen werden soll, werden mit Fachnamen und Durchschnitt konfiguriert
     if ([self.subjectArray count]>indexPath.row)
     {
         MMSubject *subject = [self.subjectArray objectAtIndex:indexPath.row];
         //Die Labels der Cells werden konfiguriert und der Hintergrund transparent gemacht
         cell.textLabel.text = subject.name;
 
-        [cell.detailTextLabel setFrame:CGRectMake(280, 15, 24, 20.5)];
+        [cell.detailTextLabel setFrame:CGRectMake(254, 15, 50, 20.5)];
         cell.detailTextLabel.text = subject.average>0 ? [NSString stringWithFormat:@"%.2f", subject.average] : [NSString stringWithFormat:@"0.0"];
     } else //Wenn kein Fach eingetragen wurde
     {
@@ -258,8 +253,7 @@ const char MyConstantKey;
     
     //Die Verschiebung der Zellen wird auch im Datenspeicher  geändert
     
-    [self changePosition:sourceIndex WithPosition:destinationIndex];
-    
+    [self insertSubjectFromPosition:sourceIndex ToPosition:destinationIndex];
     //Der Table View wird nach 0.3 Sekunden neu geladen, damit es dynamischer aussieht
     [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(breakBeforeReload) userInfo:nil repeats:NO];
     
@@ -267,30 +261,22 @@ const char MyConstantKey;
     
 }
 
--(void)changePosition:(int)sourceIndex WithPosition:(int)destinationIndex
-{
-    for (MMSubject *sourceSubject in self.subjectArray)
-    {
-        if ([sourceSubject.position intValue] == sourceIndex)
-        {
-            for (MMSubject *destinationSubject in self.subjectArray)
-            {
-                if ([destinationSubject.position intValue] == destinationIndex)
-                {
-                    //Change positions
-                    sourceSubject.position = [NSNumber numberWithInt:destinationIndex];
-                    destinationSubject.position = [NSNumber numberWithInt:sourceIndex];
-                    
-                    //SubjectArray updaten
-                    [self updateSubjectArray];
-                    return;
-                }
-            }
-        }
-    }
+-(void)insertSubjectFromPosition:(int)sourceIndex ToPosition:(int)destinationIndex{
+    //Temporärer Array erstellen, um die Veschiebung einfacher zu machen. Am Schluss werden die 'Positions' wieder updated
+    NSMutableArray *array = [[NSMutableArray alloc]initWithArray:self.subjectArray];
     
-    //SubjectArrays updaten
+    MMSubject *tempSubject = [array objectAtIndex:sourceIndex];
+    [array removeObjectAtIndex:sourceIndex];
+    [array insertObject:tempSubject atIndex:destinationIndex];
+    
+    //Positions updaten
+    for (int i =0; i<[array count]; i++) {
+        MMSubject *subject = [array objectAtIndex:i];
+        subject.position= @(i);
+    }
+    [self updateSubjectArray];
 }
+
 
 -(void)breakBeforeReload{
     [self.tableView reloadData];
@@ -328,14 +314,17 @@ const char MyConstantKey;
     }
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return ![self.tableView isEditing];
+}
 
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
     CGPoint p = [gestureRecognizer locationInView:self.tableView];
     
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
-    
-    
+
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
     {
         //AlertView, um Namen des Faches zu ändern
@@ -350,9 +339,7 @@ const char MyConstantKey;
         
         //Übergebe dem AlertView das Fach
         objc_setAssociatedObject(alert, MyConstantKey, [self.subjectArray objectAtIndex:indexPath.row], OBJC_ASSOCIATION_RETAIN);
-        
     }
-    
 }
 
 #pragma mark - Buttons
@@ -456,7 +443,7 @@ const char MyConstantKey;
                                                                   message:NSLocalizedString(@"Weighting Error", nil)
                                                                  delegate:self
                                                         cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                                        otherButtonTitles:@"Okey", nil];
+                                                        otherButtonTitles:@"Ok", nil];
                     [alert setAlertViewStyle: UIAlertViewStyleDefault];
                     [alert show];
                 }
@@ -491,14 +478,22 @@ const char MyConstantKey;
 //Wenn ein Semester-Name geändert wird, dann kann man ihn nur ändern, wenn etwas im TextField eingegeben wurde!
 - (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
 {
-    if([[[alertView textFieldAtIndex:0] text] length] >= 1  )
+    if ([alertView.title isEqualToString:NSLocalizedString(@"Add subject", nil)])
     {
+        //Prüfe, dass im Gewichtung-TextField nur Ziffern vorkommen + name-TextField nicht leer ist
+        if([[[alertView textFieldAtIndex:0] text] length] >= 1  && [[[alertView textFieldAtIndex:1] text]  rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location != NSNotFound )
+        {
+            return YES;
+        }
+        else
+        {
+            return NO;
+        }
+
+    } else {
         return YES;
     }
-    else
-    {
-        return NO;
-    }
+    
     
 }
 
@@ -506,15 +501,15 @@ const char MyConstantKey;
 
 -(void)showActionSheet
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Add new subject", nil), NSLocalizedString(@"Edit subjects", nil), NSLocalizedString(@"Preferences", nil), nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Add new subject", nil), NSLocalizedString(@"Edit subjects", nil), NSLocalizedString(@"Export marks", nil), NSLocalizedString(@"Preferences", nil), nil];
                                   
     [actionSheet showInView:self.view];
     
 }
 
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+
+-(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if(buttonIndex == 0)
     {
         [self addSubject];
@@ -527,8 +522,117 @@ const char MyConstantKey;
     
     if(buttonIndex == 2)
     {
+        [self exportMarks];
+    }
+    
+    if(buttonIndex == 3)
+    {
         [self openPreferences];
     }
+}
+
+
+# pragma mark - Export marks
+
+- (void)exportMarks
+{
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[self dataFilePath]])
+    {
+        [[NSFileManager defaultManager] removeItemAtPath:[self dataFilePath] error:nil];
+    }
+    [[NSFileManager defaultManager] createFileAtPath: [self dataFilePath] contents:nil attributes:nil];
+    
+    //Alle Prüfungen werden in einem NSMtableString aufgelistet
+    NSMutableString *writeString = [[NSMutableString alloc]init];
+    writeString = [NSMutableString string];
+    [writeString appendString:@"MyMarks \r\r"];
+    
+    //Note, Gewichtung, Datum und Notizen einer Prüfung werden dem NSMutableString angehängt
+    for (MMSemester *semester in [[DataStore defaultStore]semesterArray])
+    {
+        [writeString appendString:@"\r\r"];
+        [writeString appendString:[NSString stringWithFormat:@"%@: Pluspunkte: %0.2f  Durchschnitt: %0.2f \n ",semester.name, semester.plusPoints, semester.average]];
+        
+        for (MMSubject *subject in semester.subject)
+        {
+            [writeString appendString:[NSString stringWithFormat:@"\r%@\r ",subject.name]];
+            
+            for (MMExam *eachExam in [subject.exam allObjects])
+            {
+                [writeString appendString:[NSString stringWithFormat:
+                                           @"\tNote: \t%0.2f       Gewichtung: \t%0.2f       Datum:\t %@       Notizen:  \t%@ \r",
+                                           eachExam.mark.floatValue, eachExam.weighting.floatValue, [MMFactory NSStringFromDate:eachExam.date], eachExam.notes]];
+            }
+            [writeString appendString:@"\n"];
+        }
+        [writeString appendString:@"\r\r"];
+    }
+    
+    
+    NSFileHandle *handle;
+    //Sagt, wo das File gelesen werden soll
+    handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
+    //Stellt den Cursor ans Ende des Files
+    [handle truncateFileAtOffset:[handle seekToEndOfFile]];
+    [handle writeData:[writeString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    //Ein Controller für das Mail-Programm wird erstellt und aufgerufen
+    MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+    [mailer.view setTintColor:[UIColor whiteColor]];
+    mailer.mailComposeDelegate = self;
+    [mailer setSubject:@"MyMarks"];
+    [mailer addAttachmentData:[NSData dataWithContentsOfFile:[self dataFilePath] ]
+                     mimeType:@"text/csv"
+                     fileName:@"MyMarks.csv"];
+    [self presentViewController:mailer animated:YES completion:nil];
+}
+
+//Exportieren einer csv-Datei
+-(NSString *)dataFilePath
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:@"myfile.csv"];
+}
+
+
+//Diese Methode kontrolliert das Resulat des Mail-Vorganges und gibt bei einem Error eine Meldung aus
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    
+    {
+        case MFMailComposeResultCancelled:
+            
+            NSLog(@"Mail abgebrochen");
+            
+            break;
+            
+        case MFMailComposeResultSaved:
+            
+            NSLog(@"Mail gespeichert");
+            
+            break;
+            
+        case MFMailComposeResultSent:
+            
+            NSLog(@"Mail gesendet");
+            
+            break;
+            
+        case MFMailComposeResultFailed:
+            
+            NSLog(@"Mail senden fehlgeschlagen: %@", [error localizedDescription]);
+            
+            break;
+            
+        default:
+            
+            break;
+    }
+    
+    // Schliesst den View des Mails
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

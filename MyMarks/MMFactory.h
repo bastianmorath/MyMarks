@@ -18,4 +18,6 @@
 +(UIBarButtonItem *)backBarButtonItemForClass:(id)class;
 +(void)initGoogleAnalyticsForClass:(id)class;
 +(UIColor *)blueColor;
++(float)heightForIndexPath:(NSIndexPath *)indexPath;
++(int)numberOfRows;
 @end

@@ -11,8 +11,9 @@
 
 
 @implementation MMSemester
+
 -(float)average{
-    NSArray *subjectArray= [[DataStore defaultStore] subjectArray];
+    NSArray *subjectArray= [[NSArray alloc]initWithArray:[self.subject allObjects]];
     if ([subjectArray count]!=0)
     {
         float countedSubjects=0;
@@ -38,10 +39,9 @@
     }
 }
 
-
 -(float)plusPoints{
     float plusPoints =0;
-    for (MMSubject *eachSubject in [[DataStore defaultStore]subjectArray])
+    for (MMSubject *eachSubject in self.subject)
     {
         if ([eachSubject.weighting isEqualToNumber:[NSNumber numberWithInt:1]])
         {

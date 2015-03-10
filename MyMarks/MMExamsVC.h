@@ -7,7 +7,7 @@
 
 //  Dieses Header-File der DetailViewController-Klasse wurde gemeinsam erstellt. Das heisst, wir haben uns zusammen überlegt, welche Methoden und Properties nötig sind, haben sie aber gemischt implementiert (siehe DetailViewController.m)
 
-//  Dieser Controller verwaltet die Pruefungen und der Durchschnitt eines faches in einem TableView
+//  Dieser Controller verwaltet die Pruefungen und der Durchschnitt eines Faches in einem TableView
 
 
 #import "MMExam.h"
@@ -22,7 +22,5 @@
 
 
 -(IBAction)editPressed:(id)sender;
--(IBAction)donePressed:(id)sender;
-
 
 @end
