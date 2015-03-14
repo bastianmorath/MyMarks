@@ -15,31 +15,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //Für alle TextFields jeweils: transparenter Background, weisser Rand und Keyboard translucent machen
-    self.MarkTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
-    self.MarkTextField.layer.borderColor = [[UIColor whiteColor]CGColor];
-    self.MarkTextField.layer.borderWidth = 0.8;
-    self.MarkTextField.layer.cornerRadius = 0.0f;
     
-    self.DateTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
-    self.DateTextField.layer.borderColor = [[UIColor whiteColor]CGColor];
-    self.DateTextField.layer.borderWidth = 0.8;
-    self.DateTextField.layer.cornerRadius = 0.0f;
-    
-    //Aktueller Tag als Default-Date einsetzen
-    self.DateTextField.text = [MMFactory NSStringFromDate:[NSDate date]];
+    [[UIFloatLabelTextField appearance] setBackgroundColor:[UIColor whiteColor]];
     
     
-    self.WeightingTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
-    self.WeightingTextField.layer.borderColor = [[UIColor whiteColor]CGColor];
-    self.WeightingTextField.layer.borderWidth = 0.8;
-    self.WeightingTextField.layer.cornerRadius = 0.0f;
-    
-    //Notizen-Field wird initialisiert mit einem Border und runden Ecken
-    self.NotesTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
-    self.NotesTextField.layer.borderWidth = 0.8;
-    self.NotesTextField.layer.cornerRadius = 0.0f;
-    self.NotesTextField.layer.borderColor =[[UIColor whiteColor] CGColor];
     
     //Navigation-Title auf weisse Schrift setzen
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
@@ -51,17 +30,19 @@
     
     //Linkes BarButtonItem setzen
     [self.navigationItem setLeftBarButtonItem:[[MMBarButtonItem alloc]initWithText:NSLocalizedString(@"Cancel", nil)  target:self Position:PTLeft] animated:YES];
-
+    
     //Rechtes BarButtonItem setzen
     self.doneBarButton = [[MMBarButtonItem alloc]initWithText:NSLocalizedString(@"Done", nil) target:self Position:PTRight];
     [self.navigationItem setRightBarButtonItem:self.doneBarButton animated:YES];
     
     self.navigationItem.titleView = [MMFactory navigationViewForString:NSLocalizedString(@"Add exam", nil)];
-
+    
     //Schwarzer Strich am unteren Ende der Navigationbar entfernen
     [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
-
+    
+    // TextFields
+    [self setupTextFields];
     
     //Wenn  im DetailViewController auf eine bereits vorhandene Prüfung gedrückt wird, um sie zu editieren, werden hier die TextFields entsprechend ausgefüllt
     if (self.exam)
@@ -78,6 +59,25 @@
     
     //**Google Analytics**//
     [MMFactory initGoogleAnalyticsForClass:self];
+}
+
+-(void)setupTextFields{
+    self.MarkTextField = [UIFloatLabelTextField new];
+    self.MarkTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
+    self.MarkTextField.keyboardType = UIKeyboardTypeDecimalPad;
+    self.MarkTextField.delegate = self;
+    
+    self.WeightingTextField = [UIFloatLabelTextField new];
+    self.WeightingTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
+    self.WeightingTextField.keyboardType = UIKeyboardTypeDecimalPad;
+    self.WeightingTextField.delegate = self;
+    
+    self.DateTextField = [UIFloatLabelTextField new];
+    self.DateTextField.keyboardAppearance = UIKeyboardAppearanceAlert;
+    self.DateTextField.delegate = self;
+    
+    self.NotesTextField = [UIFloatLabelTextView new];
+        self.NotesTextField.delegate = self;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -100,9 +100,8 @@
     {
         self.doneBarButton.enabled = NO;
         self.doneBarButton.textLabel.textColor =  [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1];
-        
     }
-
+    
 }
 #pragma mark - DatePicker
 
@@ -123,7 +122,6 @@
     [self.view viewWithTag:10].frame = datePickerTargetFrame;
     [self.view viewWithTag:11].frame = toolbarTargetFrame;
     [UIView setAnimationDelegate:self];
-    [UIView setAnimationDidStopSelector:@selector(removeViews:)];
     
     [UIView commitAnimations];
 }
@@ -144,7 +142,7 @@
         self.DateTextField.inputView = datePicker;
     }
     
- 
+    
 }
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -165,9 +163,9 @@
             self.doneBarButton.textLabel.textColor =  [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1];
             
         }
-
+        
     }
-
+    
     return YES;
 }
 
@@ -202,37 +200,51 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-
+    
     //Einen Farbverlauf von Blau nach Grün wird erstellt
-    double redColor =   41  + (indexPath.row * 116/9);
-    double greenColor = 135 + (indexPath.row * 94/9);
-    double blueColor =  241 - (indexPath.row * 110/9);
+    double redColor =   41  + (indexPath.row * 116/([MMFactory numberOfRows]-1));
+    double greenColor = 135 + (indexPath.row * 94/([MMFactory numberOfRows]-1));
+    double blueColor =  241 - (indexPath.row * 110/([MMFactory numberOfRows]-1));
     cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
     
-    if (indexPath.row ==1)
+    UIColor *color = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
+    
+    if (indexPath.row == 0)
     {
-        color1 = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
+        self.MarkTextField.backgroundColor = color;
+        self.MarkTextField.placeholder = @"Mark";
+        [cell.contentView addSubview:self.MarkTextField];
+        [self.MarkTextField addConstraints];
     }
     
-    if (indexPath.row ==2)
+    if (indexPath.row == 1)
     {
-        color2 = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
+        self.WeightingTextField.backgroundColor = color;
+        self.WeightingTextField.placeholder = @"Weighting";
+        self.WeightingTextField.text = @"1.0";
+        [cell.contentView addSubview:self.WeightingTextField];
+        [self.WeightingTextField addConstraints];
     }
     
-    if (indexPath.row ==3)
+    if (indexPath.row == 2)
     {
-        color3 = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
+        self.DateTextField.backgroundColor = color;
+        self.DateTextField.placeholder = @"Date";
+        self.DateTextField.text = [MMFactory NSStringFromDate:[NSDate date]];
+        [cell.contentView addSubview:self.DateTextField];
+        [self.DateTextField addConstraints];
     }
     
-    if (indexPath.row ==4)
+    if (indexPath.row == 3)
     {
-        color4 = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
+        self.NotesTextField.backgroundColor = color;
+        self.NotesTextField.placeholder = @"Notes";
+        self.NotesTextField.floatLabelActiveColor = [UIColor colorWithRed:157/255.0f green:229/255.0f blue:131/255.0f alpha:1];
+        self.NotesTextField.floatLabelPassiveColor = [UIColor colorWithRed:128/255.0f green:205/255.0f blue:159/255.0f alpha:1];
+       
+        [cell.contentView addSubview:self.NotesTextField];
+        [self.NotesTextField addConstraints];
     }
-    
-    self.MarkTextField.backgroundColor = color1;
-    self.WeightingTextField.backgroundColor = color2;
-    self.DateTextField.backgroundColor =color3;
-    self.NotesTextField.backgroundColor = color4;
     
     return cell;
 }
@@ -244,7 +256,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [MMFactory numberOfRows];
-  }
+}
 
 
 //Gibt die Höhe einer Row in Abhängigkeit von der Displaygrösse zurück
@@ -270,7 +282,7 @@
     }
     
     NSNumber *weighting;
-
+    
     if (self.WeightingTextField.text.length==0 )
     {
         weighting =@1;
@@ -291,7 +303,7 @@
                                @"date" : date,
                                @"notes":self.NotesTextField.text
                                };
-
+        
         [[DataStore defaultStore] addExamWithData:dict ToSubject:self.subject];
     }
     [self dismissViewControllerAnimated:YES completion:nil];

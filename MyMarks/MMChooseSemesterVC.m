@@ -86,12 +86,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     // Return the number of rows in the section.
-    return semesterArray.count >10 ? semesterArray.count : 10;
+    return semesterArray.count >[MMFactory numberOfRows] ? semesterArray.count : [MMFactory numberOfRows];
     
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return ([[UIScreen mainScreen] bounds].size.height-64)/10;
+    return [MMFactory heightOfRow];
 }
 
 
@@ -128,11 +128,11 @@
     
     //Farbverlauf bestimmen
     //Je nach dem, ob weniger/gleich oder mehr als 10 Fächer eingetragen wurden(bei über 10 verlassen die untersten Zellen den Screen), wird der Farbverlauf der Zellen anderst konfiguriert
-    if ([semesterArray count]<=10)
+    if ([semesterArray count]<=[MMFactory numberOfRows])
     {
-        double redColor =   41  + (indexPath.row * 116/9);
-        double greenColor = 135 + (indexPath.row * 94/9);
-        double blueColor =  241 - (indexPath.row * 110/9);
+        double redColor =   41  + (indexPath.row * 116/([MMFactory numberOfRows]-1));
+        double greenColor = 135 + (indexPath.row * 94/([MMFactory numberOfRows]-1));
+        double blueColor =  241 - (indexPath.row * 110/([MMFactory numberOfRows]-1));
         
         cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
     } else

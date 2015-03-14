@@ -105,17 +105,17 @@
 {
     if (indexPath.section==0)
     {
-        return 90;
+        return 2*[MMFactory heightOfRow];
     } else
     {
-        return [MMFactory heightForIndexPath:indexPath];
+        return [MMFactory heightOfRow];
     }
 }
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 45;
+    return [MMFactory heightOfRow];
 }
 
 

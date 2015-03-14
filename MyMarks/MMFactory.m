@@ -38,7 +38,7 @@ const int NumberOfRowsForIPad = 11;
     UIBarButtonItem *editBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:addButton];
     
     return editBarButtonItem;
-
+    
 }
 
 +(NSString *)NSStringFromDate:(NSDate*)date{
@@ -49,7 +49,7 @@ const int NumberOfRowsForIPad = 11;
     df.dateFormat = dateString;
     
     
-
+    
     return [NSString stringWithFormat: @"%@", [df stringFromDate:date]] ;
 }
 
@@ -86,7 +86,7 @@ const int NumberOfRowsForIPad = 11;
 +(UIBarButtonItem *)backBarButtonItemForClass:(id)class{
     UIButton *arrowButton = [[UIButton alloc] initWithFrame:CGRectMake(-3, 0, 40, 40)];
     [arrowButton addTarget:class action:@selector(backPressed)
-        forControlEvents:UIControlEventTouchUpInside];
+          forControlEvents:UIControlEventTouchUpInside];
     [arrowButton setShowsTouchWhenHighlighted:YES];
     
     UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(-7, 3, 30, 30)];
@@ -113,112 +113,35 @@ const int NumberOfRowsForIPad = 11;
     [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
-+(UIColor *)blueColor{
-    return [UIColor colorWithRed:29/255.0f green:125/255.0f blue:253/255.0f alpha:1];
-}
 
-//+(float)heightForIndexPath:(NSIndexPath *)indexPath AndViewHeight:(float)height{
-//    float tableViewHeight = height;
-//    
-//    if IS_IPHONE_4_OR_LESS{
-//        if (indexPath.row ==3)
-//        {
-//            return 2*tableViewHeight/(NumberOfRowsForIPhone4+1);
-//        }
-//        NSLog(@"%f", tableViewHeight/(NumberOfRowsForIPhone4+1));
-//        return tableViewHeight/(NumberOfRowsForIPhone4+1);
-//    }
-//    
-//    if IS_IPHONE_5{
-//        if (indexPath.row ==3)
-//        {
-//            return 2*tableViewHeight/(NumberOfRowsForIPhone5+1);
-//        }
-//        NSLog(@"%f", tableViewHeight/(NumberOfRowsForIPhone5+1));
-//
-//        return tableViewHeight/(NumberOfRowsForIPhone5+1);
-//    }
-//    
-//    if IS_IPHONE_6{
-//        if (indexPath.row ==3)
-//        {
-//            return 2*tableViewHeight/(NumberOfRowsForIPhone6+1);
-//        }
-//        NSLog(@"%f", tableViewHeight/(NumberOfRowsForIPhone6+1));
-//
-//        return tableViewHeight/(NumberOfRowsForIPhone6+1);    }
-//    
-//    if IS_IPHONE_6P{
-//        if (indexPath.row ==3)
-//        {
-//            return 2*tableViewHeight/(NumberOfRowsForIPhone6P+1);
-//        }
-//        NSLog(@"%f", tableViewHeight/(NumberOfRowsForIPhone6P+1));
-//
-//        return tableViewHeight/(NumberOfRowsForIPhone6P+1);
-//    }
-//    if IS_IPAD{
-//        if (indexPath.row ==3)
-//        {
-//            return 2*tableViewHeight/(NumberOfRowsForIPad+1);
-//        }
-//        NSLog(@"%f", tableViewHeight/(NumberOfRowsForIPad+1));
-//
-//        return tableViewHeight/(NumberOfRowsForIPad+1);
-//    } else { // Default value
-//        if (indexPath.row ==3)
-//        {
-//            return 2*tableViewHeight/(NumberOfRowsForIPhone5+1);
-//        }
-//        return tableViewHeight/(NumberOfRowsForIPhone5+1);
-//    }
-//
-//}
 
 +(float)heightForIndexPath:(NSIndexPath *)indexPath{
-    
+    if (indexPath.row ==3)
+    {
+        return 2 * [self heightOfRow];
+    }
+    return [self heightOfRow];
+}
+
++(float)heightOfRow{
     if IS_IPHONE_4_OR_LESS{
-        if (indexPath.row ==3)
-        {
-            return 2 * HeightOfRowForIPhone4;
-        }
-        return HeightOfRowForIPhone4;
+        return [self viewHeight]/NumberOfRowsForIPhone4;
     }
     
     if IS_IPHONE_5{
-        if (indexPath.row ==3)
-        {
-            return 2 * HeightOfRowForIPhone5;
-        }
-        return HeightOfRowForIPhone5;
+        return [self viewHeight]/NumberOfRowsForIPhone5;
     }
     
     if IS_IPHONE_6{
-        if (indexPath.row ==3)
-        {
-            return 2 * HeightOfRowForIPhone6;
-        }
-        return HeightOfRowForIPhone6;
+        return [self viewHeight]/NumberOfRowsForIPhone6;
     }
     if IS_IPHONE_6P{
-        if (indexPath.row ==3)
-        {
-            return 2 * HeightOfRowForIPhone6P;
-        }
-        return HeightOfRowForIPhone6P;
+        return [self viewHeight]/NumberOfRowsForIPhone6P;
     }
     if IS_IPAD{
-        if (indexPath.row ==3)
-        {
-            return 2 * HeightOfRowForIPad;
-        }
-        return HeightOfRowForIPad;
+        return [self viewHeight]/NumberOfRowsForIPad;
     } else { // Default value
-        if (indexPath.row ==3)
-        {
-            return 2 * HeightOfRowForIPhone4;
-        }
-        return HeightOfRowForIPhone4;
+        return [self viewHeight]/NumberOfRowsForIPhone5;
     }
 }
 
@@ -238,5 +161,23 @@ const int NumberOfRowsForIPad = 11;
     }
 }
 
++(float)viewHeight{
+    return [[UIApplication sharedApplication] keyWindow].frame.size.height - 64;
+}
+
++(UIColor *)greenColor{
+    return [UIColor colorWithRed:157/255.0f green:229/255.0f blue:131/255.0f alpha:1];
+}
+
++(UIColor *)blueColor{
+    return [UIColor colorWithRed:28/255.0f green:125/255.0f blue:253/255.0f alpha:1];
+}
++(UIColor *)placeholderBlueColor{
+    return [UIColor lightGrayColor];
+}
+
++(UIColor *)darkGreenColor{
+    return [UIColor colorWithRed:128/255.0f green:205/255.0f blue:159/255.0f alpha:1];
+}
 
 @end

@@ -68,11 +68,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [MMFactory numberOfRows];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return ([[UIScreen mainScreen] bounds].size.height-64)/10;
+    return [MMFactory heightOfRow];
 }
 
 
@@ -121,9 +121,9 @@
     }
     
     //Farbverlauf bestimmen
-    double redColor =   41  + (indexPath.row * 116/9);
-    double greenColor = 135 + (indexPath.row * 94/9);
-    double blueColor =  241 - (indexPath.row * 110/9);
+    double redColor =   41  + (indexPath.row * 116/([MMFactory numberOfRows]-1));
+    double greenColor = 135 + (indexPath.row * 94/([MMFactory numberOfRows]-1));
+    double blueColor =  241 - (indexPath.row * 110/([MMFactory numberOfRows]-1));
 
     cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
     

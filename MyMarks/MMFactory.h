@@ -17,7 +17,13 @@
 +(UIView *)navigationViewForString:(NSString *)string;
 +(UIBarButtonItem *)backBarButtonItemForClass:(id)class;
 +(void)initGoogleAnalyticsForClass:(id)class;
-+(UIColor *)blueColor;
 +(float)heightForIndexPath:(NSIndexPath *)indexPath;
++(float)heightOfRow;
 +(int)numberOfRows;
+/// Height of View without status- + navigationbar
++(float)viewHeight;
++(UIColor *)greenColor;
++(UIColor *)blueColor;
++(UIColor *)placeholderBlueColor;
++(UIColor *)darkGreenColor;
 @end

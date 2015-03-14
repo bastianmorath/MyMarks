@@ -118,14 +118,14 @@ const char MyConstantKey;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    int numberOfRows=0;
+    int numberOfRows = 0;
     //Es hat immer so viele Cells wie der SubjectArray Elemente hat, aber mindestens 10, damit der ganze Bildschirm ausgefüllt ist
-    if ([self.subjectArray count]<10)
+    if ([self.subjectArray count]<([MMFactory numberOfRows]))
     {
-        numberOfRows = 10;
+        numberOfRows = [MMFactory numberOfRows];
     } else
     {
-        numberOfRows = [self.subjectArray count];
+        numberOfRows = (int)[self.subjectArray count];
     }
     return numberOfRows;
 }
@@ -133,8 +133,8 @@ const char MyConstantKey;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //Höhe wird so gesetzt, dass gerade 10 Rows Platz haben
-    return ([[UIScreen mainScreen] bounds].size.height-64)/10;
+    //Höhe wird so gesetzt, dass gerade x Rows Platz haben
+    return [MMFactory heightOfRow];
 }
 
 
@@ -147,11 +147,11 @@ const char MyConstantKey;
 
     
         //Je nach dem, ob weniger/gleich oder mehr als 10 Fächer eingetragen wurden(bei über 10 verlassen die untersten Zellen den Screen), wird der Farbverlauf der Zellen anderst konfiguriert
-    if ([self.subjectArray count]<=10)
+    if ([self.subjectArray count]<=[MMFactory numberOfRows])
     {
-        double redColor =   41  + (indexPath.row * 116/9);
-        double greenColor = 135 + (indexPath.row * 94/9);
-        double blueColor =  241 - (indexPath.row * 110/9);
+        double redColor =   41  + (indexPath.row * 116/([MMFactory numberOfRows]-1));
+        double greenColor = 135 + (indexPath.row * 94/([MMFactory numberOfRows]-1));
+        double blueColor =  241 - (indexPath.row * 110/([MMFactory numberOfRows]-1));
 
         cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
     } else
@@ -412,8 +412,8 @@ const char MyConstantKey;
                                         otherButtonTitles:NSLocalizedString(@"Add", nil), nil];
     [alert setAlertViewStyle: UIAlertViewStyleLoginAndPasswordInput];
     [[alert textFieldAtIndex:1] setSecureTextEntry:NO];
-    [[alert textFieldAtIndex:0] setPlaceholder:@"Name"];
-    [[alert textFieldAtIndex:1] setPlaceholder:@"Gewichtung: 0/1"];
+    [[alert textFieldAtIndex:0] setPlaceholder:NSLocalizedString(@"Name", nil)];
+    [[alert textFieldAtIndex:1] setPlaceholder:NSLocalizedString(@"Weighting: 0/1", nil)];
     [alert show];
 }
 
@@ -448,8 +448,7 @@ const char MyConstantKey;
                     [alert show];
                 }
                 
-                [self updateSubjectArray];
-                [self.tableView reloadData];
+                [self viewWillAppear:YES];
             }
         }
         // Alert-View with Title-Error: When User Accepted Error

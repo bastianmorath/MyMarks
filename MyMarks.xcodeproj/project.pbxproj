@@ -27,6 +27,7 @@
 		B61A3C7119CF17CC00F3C190 /* MMSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A3C7019CF17CC00F3C190 /* MMSubject.m */; };
 		B6388A8519BB9DED00B3A92F /* MMChooseSemesterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B6388A8319BB9DED00B3A92F /* MMChooseSemesterVC.m */; };
 		B63E900E17A48D65003EC11D /* MMExamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B63E900D17A48D65003EC11D /* MMExamsVC.m */; };
+		B644BB051AB4A63C00747285 /* UIFloatLabelTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B644BB041AB4A63C00747285 /* UIFloatLabelTextView.m */; };
 		B653E820180ADC79004C1D39 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B653E81F180ADC79004C1D39 /* libz.dylib */; };
 		B665A54A17A7550900CC5A74 /* MMAddExamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B665A54917A7550900CC5A74 /* MMAddExamVC.m */; };
 		B670EA4619BD3DAE009211F2 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B670EA4519BD3DAE009211F2 /* AdSupport.framework */; };
@@ -60,6 +61,7 @@
 		B6D6BDBC17A31CBC00B3B09F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6D6BDBB17A31CBC00B3B09F /* Images.xcassets */; };
 		B6D6BDDA17A31D1000B3B09F /* MMSubjectsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D6BDD917A31D1000B3B09F /* MMSubjectsVC.m */; };
 		B6E8C8B919BB9D54004B7514 /* MMPreferencesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E8C8B819BB9D54004B7514 /* MMPreferencesVC.m */; };
+		B6ECE5E91AB3500E00B9C10C /* UIFloatLabelTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B6ECE5E81AB3500E00B9C10C /* UIFloatLabelTextField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +94,8 @@
 		B6388A8319BB9DED00B3A92F /* MMChooseSemesterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMChooseSemesterVC.m; sourceTree = "<group>"; };
 		B63E900C17A48D65003EC11D /* MMExamsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMExamsVC.h; sourceTree = "<group>"; };
 		B63E900D17A48D65003EC11D /* MMExamsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMExamsVC.m; sourceTree = "<group>"; };
+		B644BB011AB4064400747285 /* UIFloatLabelTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIFloatLabelTextView.h; sourceTree = "<group>"; };
+		B644BB041AB4A63C00747285 /* UIFloatLabelTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIFloatLabelTextView.m; sourceTree = "<group>"; };
 		B653E81F180ADC79004C1D39 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		B6623C7619BCC60A00118153 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Main.strings; sourceTree = "<group>"; };
 		B665A54817A7550900CC5A74 /* MMAddExamVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAddExamVC.h; sourceTree = "<group>"; };
@@ -154,6 +158,8 @@
 		B6D9C5F119BCCE17009E7D5D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B6E8C8B719BB9D54004B7514 /* MMPreferencesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPreferencesVC.h; sourceTree = "<group>"; };
 		B6E8C8B819BB9D54004B7514 /* MMPreferencesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPreferencesVC.m; sourceTree = "<group>"; };
+		B6ECE5E71AB3500E00B9C10C /* UIFloatLabelTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIFloatLabelTextField.h; sourceTree = "<group>"; };
+		B6ECE5E81AB3500E00B9C10C /* UIFloatLabelTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIFloatLabelTextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,10 +167,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B670EA4619BD3DAE009211F2 /* AdSupport.framework in Frameworks */,
 				B670EA4C19BD4122009211F2 /* libsqlite3.0.dylib in Frameworks */,
 				B670EA4A19BD410A009211F2 /* libGoogleAnalyticsServices.a in Frameworks */,
 				B653E820180ADC79004C1D39 /* libz.dylib in Frameworks */,
-				B670EA4619BD3DAE009211F2 /* AdSupport.framework in Frameworks */,
 				B681889519B0AF7800F0532C /* CoreData.framework in Frameworks */,
 				B6C2012A17E207CC007F32B3 /* MessageUI.framework in Frameworks */,
 				B6C1FD7917DE341E00E8DC2F /* CFNetwork.framework in Frameworks */,
@@ -343,6 +349,10 @@
 				B6072AAD19BAD5C300052C59 /* MMBarButtonItem.m */,
 				B672498119BB363800FAA1D0 /* MMNavigationViewButton.h */,
 				B672498219BB363800FAA1D0 /* MMNavigationViewButton.m */,
+				B6ECE5E71AB3500E00B9C10C /* UIFloatLabelTextField.h */,
+				B6ECE5E81AB3500E00B9C10C /* UIFloatLabelTextField.m */,
+				B644BB011AB4064400747285 /* UIFloatLabelTextView.h */,
+				B644BB041AB4A63C00747285 /* UIFloatLabelTextView.m */,
 			);
 			name = MMBaukasten;
 			sourceTree = "<group>";
@@ -468,6 +478,7 @@
 				B665A54A17A7550900CC5A74 /* MMAddExamVC.m in Sources */,
 				B672498319BB363800FAA1D0 /* MMNavigationViewButton.m in Sources */,
 				B61A3C7119CF17CC00F3C190 /* MMSubject.m in Sources */,
+				B644BB051AB4A63C00747285 /* UIFloatLabelTextView.m in Sources */,
 				B681889E19B0BEF700F0532C /* DataStore.m in Sources */,
 				B696961C19D896160043E09D /* Exam.m in Sources */,
 				B696961B19D896160043E09D /* Subject.m in Sources */,
@@ -477,6 +488,7 @@
 				B6072AAE19BAD5C300052C59 /* MMEnumerations.m in Sources */,
 				B6072AAF19BAD5C300052C59 /* MMBarButtonItem.m in Sources */,
 				B68188B519B0CC3300F0532C /* MMFactory.m in Sources */,
+				B6ECE5E91AB3500E00B9C10C /* UIFloatLabelTextField.m in Sources */,
 				B61A3C6E19CF17B800F3C190 /* MMExam.m in Sources */,
 				B61A3C6B19CF177400F3C190 /* MMSemester.m in Sources */,
 				B6D6BDB017A31CBB00B3B09F /* main.m in Sources */,

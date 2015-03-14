@@ -9,6 +9,8 @@
 //  Diese Klasse verwaltet den Controller, welcher eine neue Prüfung erstellt.
 
 #import <QuartzCore/QuartzCore.h>
+#import "UIFloatLabelTextField.h"
+#import "UIFloatLabelTextView.h"
 #import "MMExam.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -26,10 +28,10 @@
 @property (strong, nonatomic) MMSubject *subject; //Das Fach, zu welchem die Prüfung hinzugefügt wird
 
 
-@property (strong, nonatomic) IBOutlet UITextField *MarkTextField;
-@property (strong, nonatomic) IBOutlet UITextField *WeightingTextField;
-@property (strong, nonatomic) IBOutlet UITextField *DateTextField;
-@property (strong, nonatomic) IBOutlet UITextView  *NotesTextField;
+@property  UIFloatLabelTextField *MarkTextField;
+@property  UIFloatLabelTextField *WeightingTextField;
+@property  UIFloatLabelTextField *DateTextField;
+@property  UIFloatLabelTextView  *NotesTextField;
 
 @property (strong, nonatomic)  MMBarButtonItem *doneBarButton;
 

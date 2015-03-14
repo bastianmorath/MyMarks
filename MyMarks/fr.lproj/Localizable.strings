@@ -9,6 +9,8 @@
 "Pluspoints: %0.1f" = "Pluspoints: %0.1f";
 "Minuspoints: %0.1f" = "Minuspoints: %0.1f";
 "Average: %0.2f" = "Moyenne: %0.2f" ;
+"Weighting: 0/1" = "Evaluation: 0/1";
+"Name" = "Nom";
 "Add new subject" = "Ajouter une nouvelle matière";
 "Edit subjects" = "Editer matières";
 "Export marks" = "Exporter les notes";
@@ -35,4 +37,4 @@
 "Semester" = "Semestre";
 "Send a mail to developers" = "Envoie un e-mail aux developers";
 "Write a review in the AppStore" = "Évalue MyMarks sur le AppStore";
-"Update message" = "\nWir entschuldigen uns für das Löschen der Noten und danken Euch für das Feedback! \n \n+ Die alten Prüfungen sollten jetzt, falls vorhanden, im Semester 'Backup' gespeichert sein. Drücke lange drauf, um seinen Namen zu ändern. \n \n + Die Prüfungen werden jetzt auch richtig gespeichert. \n \n + Die Exportfunktion der Noten ist temporär wieder verfügbar, wird aber in einem kommenden Update verbessert \n\nBei Kritik und Fedback sende bitte eine Mail an bf.morath@gmail.com, wir lesen jede Bewertung und freuen uns auf jeden Kommentar!";
+"Update message" = "\n+ MyMarks est maintenant optimisé pour tous les iPhones et iPads ! \n\nPour questions, envoie-nous une email  à bf.morath@gmail.com.";

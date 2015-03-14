@@ -7,10 +7,11 @@
 //  Dieses Implementation-File der AppDelegate-Klasse wurde von Florian erstellt
 
 #import "MMAppDelegate.h"
-
+#
 @implementation MMAppDelegate
 
-NSString * const Version_String = @"1.1.1";
+NSString * const Version_1_1_1 = @"1.1.1";
+NSString * const Version_1_1_2 = @"1.1.2";
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -33,7 +34,6 @@ NSString * const Version_String = @"1.1.1";
     
     //Diese Methode wird nur das aller erste Mal im "Lebenszyklus" der App durchlaufen. Es werden vordefinierte Fächer hinzugefügt.
     /*Dispatch once*/
-    [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"tapCounter"];
 
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"Started"])
     {
@@ -53,7 +53,8 @@ NSString * const Version_String = @"1.1.1";
         // May return nil if a tracker has not already been initialized with a
         // property ID.
         id tracker = [[GAI sharedInstance] defaultTracker];
-        
+      
+        [tracker setAllowIDFACollection:YES];
         // This screen name value will remain set on the tracker and sent with
         // hits until it is set to a new value or to nil.
         [tracker set:kGAIScreenName
@@ -61,16 +62,21 @@ NSString * const Version_String = @"1.1.1";
         
         // New SDK versions
         [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+        
+        
+        // Wenn der User die App geupdatet hat, weise ihn auf die neuen Funktionen hin. Wenn ein User die App das erste Mal herunterladet, zeige kein AlertView
+        if([[NSUserDefaults standardUserDefaults] boolForKey:Version_1_1_1] == YES && ![[NSUserDefaults standardUserDefaults] boolForKey:Version_1_1_2]){
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:Version_1_1_2];
+            [self showUpdateAlertView];
+        }
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:Version_1_1_1];
+
     }
 
     
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:Version_String]){
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:Version_String];
-        [self showUpdateAlertView];
-        
-        [self updateDataModel];
-    }
+    
 
+    
     //Farbe der Navigation-Bar wird auf blau gesetzt
     [[UINavigationBar appearance]setBarTintColor:[MMFactory blueColor]];
     
@@ -84,7 +90,7 @@ NSString * const Version_String = @"1.1.1";
 
 -(void)showUpdateAlertView{
     NSString *message = NSLocalizedString(@"Update message", nil);
-    UIAlertView *alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"MyMarks 1.1.1", nil)
+    UIAlertView *alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"MyMarks 1.1.2", nil)
                                                   message:message
                                                  delegate:self
                                         cancelButtonTitle:NSLocalizedString(@"Ok", nil)
