@@ -32,8 +32,8 @@
 "Confirmation" = "Confirmation";
 "confirmationMessage" = "\n Are you sure you want to delete this semester?";
 "Add semester" = "Add semester";
-"Enter the new name of the subject" = "Enter the new name of the Subject";
-"Change name" = "Change name";
+"Enter the new name and weighting of the subject" = "Enter the new name and weighting of the Subject";
+"Change subject" = "Change subject";
 "Semester" = "Semester";
 "Send a mail to developers" = "Send a mail to developers";
 "Write a review in the AppStore" = "Write a review in the AppStore";

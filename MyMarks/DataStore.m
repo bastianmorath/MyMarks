@@ -210,8 +210,6 @@ static DataStore *defaultStore;
 
 -(void)addExamWithData:(NSDictionary *)data ToSubject:(MMSubject *)subject
 {
- 
-    NSLog(@"date: %@", [data objectForKey:@"date"]);
     MMExam *exam = [self addObjectForName:@"MMExam"];
     exam.mark = [data objectForKey:@"mark"];
     exam.weighting = [data objectForKey:@"weighting"];

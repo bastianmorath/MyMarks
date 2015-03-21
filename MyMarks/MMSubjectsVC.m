@@ -168,7 +168,6 @@ const char MyConstantKey;
         MMSubject *subject = [self.subjectArray objectAtIndex:indexPath.row];
         //Die Labels der Cells werden konfiguriert und der Hintergrund transparent gemacht
         cell.textLabel.text = subject.name;
-
         [cell.detailTextLabel setFrame:CGRectMake(254, 15, 50, 20.5)];
         cell.detailTextLabel.text = subject.average>0 ? [NSString stringWithFormat:@"%.2f", subject.average] : [NSString stringWithFormat:@"0.0"];
     } else //Wenn kein Fach eingetragen wurde
@@ -328,17 +327,24 @@ const char MyConstantKey;
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
     {
         //AlertView, um Namen des Faches zu ändern
+        MMSubject *subject = [self.subjectArray objectAtIndex:indexPath.row];
         UIAlertView *alert;
-        alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Change name", nil)
-                                         message:NSLocalizedString(@"Enter the new name of the Subject", nil)
+        alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Change subject", nil)
+                                         message:NSLocalizedString(@"Enter the new name and weighting of the Subject", nil)
                                         delegate:self
                                cancelButtonTitle:NSLocalizedString(@"Cancle", nil)
                                otherButtonTitles:@"Done", nil];
-        [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
+        [alert setAlertViewStyle: UIAlertViewStyleLoginAndPasswordInput];
+        [[alert textFieldAtIndex:1] setSecureTextEntry:NO];
+        [[alert textFieldAtIndex:0] setPlaceholder:NSLocalizedString(@"Name", nil)];
+        [[alert textFieldAtIndex:1] setPlaceholder:NSLocalizedString(@"Weighting: 0/1", nil)];
+
+        [[alert textFieldAtIndex:0] setText:subject.name];
+        [[alert textFieldAtIndex:1] setText:[NSString stringWithFormat:@"%.2f", subject.weighting.floatValue]];
         [alert show];
         
         //Übergebe dem AlertView das Fach
-        objc_setAssociatedObject(alert, MyConstantKey, [self.subjectArray objectAtIndex:indexPath.row], OBJC_ASSOCIATION_RETAIN);
+        objc_setAssociatedObject(alert, MyConstantKey, subject, OBJC_ASSOCIATION_RETAIN);
     }
 }
 
@@ -459,14 +465,33 @@ const char MyConstantKey;
         
         
         //Änderung des Subjectsnamens bei längerem Drücken einer Cell
-        if ([alertView.title isEqualToString:    NSLocalizedString(@"Change name", nil)
+        if ([alertView.title isEqualToString:    NSLocalizedString(@"Change subject", nil)
              ] && buttonIndex ==1)
         {
             MMSubject *subject = objc_getAssociatedObject(alertView, MyConstantKey);
             NSString *newSubjectName= [NSString stringWithFormat:@"%@",[alertView textFieldAtIndex:0].text].capitalizedString;
-          
-            subject.name =newSubjectName;
+            NSNumber *weighting = [NSNumber numberWithFloat:[[alertView textFieldAtIndex:1].text floatValue]];
+
+            if ([[alertView textFieldAtIndex:1].text isEqualToString:@""])
+            {
+                subject.name = newSubjectName;
+                subject.weighting = @0;
+            } else if ( ([weighting isEqualToNumber:@1]) || [weighting isEqualToNumber:@0])
+            {
+                subject.name = newSubjectName;
+                subject.weighting = weighting;
+            } else {
+                // Gewichtung wurde falsch eingegeben
+                UIAlertView *alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Error", nil)
+                                                              message:NSLocalizedString(@"Weighting Error", nil)
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                    otherButtonTitles:@"Ok", nil];
+                [alert setAlertViewStyle: UIAlertViewStyleDefault];
+                [alert show];
+            }
             [self updateSubjectArray];
+            [self.navigationViewButton update];
             [self.tableView reloadData];
         }
 
@@ -477,8 +502,7 @@ const char MyConstantKey;
 //Wenn ein Semester-Name geändert wird, dann kann man ihn nur ändern, wenn etwas im TextField eingegeben wurde!
 - (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
 {
-    if ([alertView.title isEqualToString:NSLocalizedString(@"Add subject", nil)])
-    {
+    
         //Prüfe, dass im Gewichtung-TextField nur Ziffern vorkommen + name-TextField nicht leer ist
         if([[[alertView textFieldAtIndex:0] text] length] >= 1  && [[[alertView textFieldAtIndex:1] text]  rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location != NSNotFound )
         {
@@ -488,12 +512,6 @@ const char MyConstantKey;
         {
             return NO;
         }
-
-    } else {
-        return YES;
-    }
-    
-    
 }
 
 #pragma  mark - Action Sheet

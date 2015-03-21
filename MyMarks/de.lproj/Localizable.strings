@@ -32,8 +32,8 @@
 "Confirmation" = "Bestätigung";
 "confirmationMessage" = "\n Sind sie sicher, dass Sie dieses Semester löschen wollen?";
 "Add semester" = "Semester hinzufügen";
-"Enter the new name of the subject" = "Neuer Name des Faches eingeben";
-"Change name" = "Name ändern";
+"Enter the new name and weighting of the subject" = "Neuer Name und Gewichtung des Faches eingeben";
+"Change subject" = "Fach ändern";
 "Semester" = "Semester";
 "Send a mail to developers" = "Sende eine Mail an die Entwickler";
 "Write a review in the AppStore" = "MyMarks im AppStore bewerten";

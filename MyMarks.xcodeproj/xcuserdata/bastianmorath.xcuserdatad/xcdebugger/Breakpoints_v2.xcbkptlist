@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyMarks/MMSubjectsVC.m"
-            timestampString = "447884895.315993"
+            timestampString = "448658158.898278"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "567"
-            endingLineNumber = "567"
+            startingLineNumber = "585"
+            endingLineNumber = "585"
             landmarkName = "-exportMarks"
             landmarkType = "5">
             <Locations>
@@ -78,22 +78,6 @@
             startingLineNumber = "69"
             endingLineNumber = "69"
             landmarkName = "-application:didFinishLaunchingWithOptions:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyMarks/MMExamsVC.m"
-            timestampString = "448652415.351112"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
-            landmarkName = "-configureTextForCell:withExam:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
