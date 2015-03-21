@@ -170,6 +170,7 @@
                                                  name:UITextViewTextDidEndEditingNotification object:nil];
 }
 
+
 #pragma mark - Animation
 - (void)toggleFloatLabel:(UIFloatLabelAnimationType)animationType
 {
@@ -199,6 +200,7 @@
 - (void)toggleFloatLabelProperties:(UIFloatLabelAnimationType)animationType
 {
     _floatLabel.alpha = (animationType == UIFloatLabelAnimationTypeShow) ? 1.0f : 0.0f;
+
     CGFloat yOrigin = (animationType == UIFloatLabelAnimationTypeShow) ? -UI_FLOAT_LABEL_VERTICAL_INSET_OFFSET : 0.0f;
     _floatLabel.frame = CGRectMake(_xOrigin,
                                    yOrigin,
@@ -248,7 +250,6 @@
         if ([_floatLabel alpha]) {
             [self toggleFloatLabel:UIFloatLabelAnimationTypeHide];
         }
-        
         _storedText = @"";
     }
 }
@@ -377,6 +378,6 @@
     self.floatLabelPassiveColor = [MMFactory darkGreenColor];
     
     self.textContainerInset = UIEdgeInsetsMake(8, 16, 0, 0);
-    self.placeholderTextColor = [MMFactory placeholderBlueColor];
+    self.placeholderTextColor = [UIColor lightGrayColor];
 }
 @end

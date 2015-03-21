@@ -82,7 +82,8 @@
     _horizontalPadding = 21.0f;
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
     self.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17];
-    self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName: [MMFactory placeholderBlueColor]}];
+    self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor]}];
+    
     // Text Alignment
     [self setTextAlignment:NSTextAlignmentLeft];
     

@@ -49,6 +49,8 @@
     {
         self.MarkTextField.text = [NSString stringWithFormat:@"%.2f", self.exam.mark.floatValue];
         self.WeightingTextField.text = [NSString stringWithFormat:@"%.2f", self.exam.weighting.floatValue];
+        
+        
         self.DateTextField.text = [MMFactory NSStringFromDate:self.exam.date];
         self.NotesTextField.text = [NSString stringWithFormat:@"%@", self.exam.notes];
         self.doneBarButton.enabled = YES;
@@ -148,6 +150,8 @@
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     textField.text = [textField.text stringByReplacingOccurrencesOfString:@"," withString:@"."];
+    
+    
     if ([textField isEqual:self.MarkTextField])
     {
         //Der Done-Button kann nur dann gedrückt werden, wenn im Noten-Feld eine Zahl eingetragen ist
@@ -163,10 +167,14 @@
             self.doneBarButton.textLabel.textColor =  [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1];
             
         }
-        
+    }
+    // Überprüfe, ob schon ein Punkt gesetzt wurde
+    if (([string isEqualToString:@"."] || [string isEqualToString:@","]) && [textField.text containsString:@"."]){
+        return NO;
     }
     
-    return YES;
+    NSCharacterSet *nonNumberSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    return ([string stringByTrimmingCharactersInSet:nonNumberSet].length > 0) || [string isEqualToString:@""] || [string isEqualToString:@","] || [string isEqualToString:@"."];
 }
 
 
@@ -221,7 +229,7 @@
     {
         self.WeightingTextField.backgroundColor = color;
         self.WeightingTextField.placeholder = @"Weighting";
-        self.WeightingTextField.text = @"1.0";
+        //self.WeightingTextField.text = @"1.0";
         [cell.contentView addSubview:self.WeightingTextField];
         [self.WeightingTextField addConstraints];
     }
@@ -230,7 +238,7 @@
     {
         self.DateTextField.backgroundColor = color;
         self.DateTextField.placeholder = @"Date";
-        self.DateTextField.text = [MMFactory NSStringFromDate:[NSDate date]];
+        //self.DateTextField.text = [MMFactory NSStringFromDate:[NSDate date]];
         [cell.contentView addSubview:self.DateTextField];
         [self.DateTextField addConstraints];
     }
@@ -255,7 +263,7 @@
 //Gibt die Anzahl Rows in Abhängigkeit von der Displaygrösse zurück
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [MMFactory numberOfRows];
+    return [MMFactory numberOfRows]-1;
 }
 
 
@@ -278,7 +286,11 @@
     {
         date = datePicker.date;
     } else {
-        date = [MMFactory NSDateFromString:self.DateTextField.text];
+        if ([self.DateTextField.text isEqualToString:@""]){
+            date = [NSDate date];
+        } else {
+            date = [MMFactory NSDateFromString:self.DateTextField.text];
+        }
     }
     
     NSNumber *weighting;
