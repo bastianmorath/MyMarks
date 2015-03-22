@@ -79,7 +79,8 @@
     self.DateTextField.delegate = self;
     
     self.NotesTextField = [UIFloatLabelTextView new];
-        self.NotesTextField.delegate = self;
+    self.NotesTextField.placeholderTextColor = [UIColor colorWithRed:55/255.0f green:130/255.f blue:200/255.0f alpha:1];
+    self.NotesTextField.delegate = self;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -238,7 +239,7 @@
     {
         self.DateTextField.backgroundColor = color;
         self.DateTextField.placeholder = @"Date";
-        //self.DateTextField.text = [MMFactory NSStringFromDate:[NSDate date]];
+        self.DateTextField.text = [MMFactory NSStringFromDate:[NSDate date]];
         [cell.contentView addSubview:self.DateTextField];
         [self.DateTextField addConstraints];
     }
@@ -247,11 +248,10 @@
     {
         self.NotesTextField.backgroundColor = color;
         self.NotesTextField.placeholder = @"Notes";
-        self.NotesTextField.floatLabelActiveColor = [UIColor colorWithRed:157/255.0f green:229/255.0f blue:131/255.0f alpha:1];
-        self.NotesTextField.floatLabelPassiveColor = [UIColor colorWithRed:128/255.0f green:205/255.0f blue:159/255.0f alpha:1];
-       
+        
         [cell.contentView addSubview:self.NotesTextField];
         [self.NotesTextField addConstraints];
+        
     }
     
     return cell;

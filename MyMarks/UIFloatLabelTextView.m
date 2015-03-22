@@ -89,6 +89,7 @@
     
     // Custom setup for MyMarks
     [self myMarksSetup];
+    self.textColor =[UIColor colorWithRed:55/255.0f green:130/255.f blue:200/255.0f alpha:1];;
 }
 
 - (void)setupTextView
@@ -126,6 +127,7 @@
     [self.superview addConstraints:constraint_V];
     [self.superview addConstraints:constraint_height];
     [self.superview addConstraints:constraint_width];
+    
 }
 
 - (void)setupFloatLabel
@@ -134,7 +136,8 @@
     _floatLabel = [UILabel new];
     _floatLabel.textColor = [UIColor blackColor];
     _floatLabel.textAlignment = NSTextAlignmentLeft;
-    _floatLabel.font =[UIFont boldSystemFontOfSize:12.0f];
+    _floatLabel.font =[UIFont fontWithName:@"HelveticaNeue-Light" size:12];
+
     _floatLabel.alpha = 0.0f;
     [_floatLabel setCenter:CGPointMake(_xOrigin, 0.0f)];
     [self addSubview:_floatLabel];
@@ -378,6 +381,5 @@
     self.floatLabelPassiveColor = [MMFactory darkGreenColor];
     
     self.textContainerInset = UIEdgeInsetsMake(8, 16, 0, 0);
-    self.placeholderTextColor = [UIColor lightGrayColor];
 }
 @end
