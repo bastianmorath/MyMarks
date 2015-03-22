@@ -251,7 +251,6 @@
         
         [cell.contentView addSubview:self.NotesTextField];
         [self.NotesTextField addConstraints];
-        
     }
     
     return cell;

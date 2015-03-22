@@ -89,13 +89,13 @@
     
     // Custom setup for MyMarks
     [self myMarksSetup];
-    self.textColor =[UIColor colorWithRed:55/255.0f green:130/255.f blue:200/255.0f alpha:1];;
+    self.textColor =[UIColor colorWithRed:55/255.0f green:130/255.f blue:200/255.0f alpha:1];
 }
 
 - (void)setupTextView
 {
     // TextView Padding
-    _horizontalPadding = 21.0f;
+    _horizontalPadding = 5.0f;
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
 
     self.contentInset = UIEdgeInsetsMake(UI_FLOAT_LABEL_VERTICAL_INSET_OFFSET,
@@ -121,7 +121,7 @@
     NSArray *constraint_height = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[view(height)]" options:0 metrics:metrics views:viewsDictionary];
     NSArray *constraint_width = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(width)]" options:0 metrics:metrics views:viewsDictionary];
     NSArray *constraint_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[view]" options:0 metrics:nil views:viewsDictionary];
-    NSArray *constraint_H = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[view]-20-|" options:0 metrics:nil views:viewsDictionary];
+    NSArray *constraint_H = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[view]" options:0 metrics:nil views:viewsDictionary];
     
     [self.superview addConstraints:constraint_H];
     [self.superview addConstraints:constraint_V];
@@ -147,6 +147,9 @@
     
     // animationDuration
     _floatLabelAnimationDuration = @0.25;
+    
+   
+
 }
 
 - (void)setupMenuController
@@ -380,6 +383,6 @@
     self.floatLabelActiveColor = [MMFactory greenColor];
     self.floatLabelPassiveColor = [MMFactory darkGreenColor];
     
-    self.textContainerInset = UIEdgeInsetsMake(8, 16, 0, 0);
+    self.textContainerInset = UIEdgeInsetsMake(8, 0, 0, 0);
 }
 @end
