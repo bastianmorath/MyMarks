@@ -10,7 +10,7 @@
 
 #import "MMPreferencesVC.h"
 
-@interface MMPreferencesVC ()
+@interface MMPreferencesVC () <ABXPromptViewDelegate>
 
 @end
 
@@ -47,6 +47,17 @@
     
     //**Google Analytics**//
     [MMFactory initGoogleAnalyticsForClass:self];
+    
+//    // The prompt view is an example workflow using AppbotX
+//    // It's also good to only show it after a positive interaction
+//    // or a number of usages of the app
+//    if (![ABXPromptView hasHadInteractionForCurrentVersion]) {
+//        self.promptView = [[ABXPromptView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 160, CGRectGetWidth(self.view.bounds), 100)];
+//        self.promptView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+//        [self.tableView addSubview:self.promptView];
+//        self.promptView.delegate = self;
+//    }
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -68,10 +79,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (self.promptView){
+        return [MMFactory numberOfRows]-1;
+    }
+
     return [MMFactory numberOfRows];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.promptView && indexPath.row == [MMFactory numberOfRows]-2){
+        return [MMFactory heightOfRow]*2;
+    }
     return [MMFactory heightOfRow];
 }
 
@@ -169,23 +187,25 @@
 
 }
 
--(void) reviewAppInAppstore
+-(void)reviewAppInAppstore
 {
-    NSString *url = @"https://itunes.apple.com/de/app/mymarks/id736015615?mt=8"; 
+    NSString *url = @"https://itunes.apple.com/de/app/mymarks/id736015615?mt=8";
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
 
 
 -(void) sendMailToDevelopers
 {
-    MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc]init];
-    mailComposer.mailComposeDelegate = self;
-    [mailComposer.view setTintColor:[UIColor whiteColor]];
-
-
-    [mailComposer setSubject:@"MyMarks"];
-    [mailComposer setToRecipients:@[@"bf.morath@gmail.com"]];
-    [self presentViewController:mailComposer animated:YES completion:nil];
+//    MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc]init];
+//    mailComposer.mailComposeDelegate = self;
+//    [mailComposer.view setTintColor:[UIColor whiteColor]];
+//
+//
+//    [mailComposer setSubject:@"MyMarks"];
+//    [mailComposer setToRecipients:@[@"bf.morath@gmail.com"]];
+//    [self presentViewController:mailComposer animated:YES completion:nil];
+    ABXFeedbackViewController *controller = [[ABXFeedbackViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
      
 #pragma mark - mail compose delegate
@@ -205,6 +225,28 @@
 
 
 
+- (void)appbotPromptForReview
+{
+    NSString *url = @"https://itunes.apple.com/de/app/mymarks/id736015615?mt=8";
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    self.promptView = nil;
+    self.promptView.hidden = YES;
+}
+
+- (void)appbotPromptForFeedback
+{
+    [ABXFeedbackViewController showFromController:self placeholder:nil];
+    self.promptView = nil;
+    self.promptView.hidden = YES;
+
+}
+
+- (void)appbotPromptClose
+{
+    self.promptView = nil;
+    self.promptView.hidden = YES;
+
+}
 
 
 

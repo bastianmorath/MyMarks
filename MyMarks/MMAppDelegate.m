@@ -31,6 +31,9 @@ NSString * const Version_1_1_2 = @"1.1.2";
 
     [MMFactory initGoogleAnalyticsForClass:self];
 
+    // initialize AppbotX
+    [[ABXApiClient instance] setApiKey:@"45882cbaa8578c8a77dd93a1ee2ae33652348a24"];
+
     
     //Diese Methode wird nur das aller erste Mal im "Lebenszyklus" der App durchlaufen. Es werden vordefinierte Fächer hinzugefügt.
     /*Dispatch once*/
