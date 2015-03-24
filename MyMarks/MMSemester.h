@@ -18,6 +18,7 @@
 
 -(float)average;
 -(float)plusPoints;
+-(NSString *)USAGrade;
 @end
 
 @interface MMSemester (CoreDataGeneratedAccessors)

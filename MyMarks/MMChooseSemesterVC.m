@@ -148,11 +148,13 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    NSString *semesterName = cell.textLabel.text;
-    
-    [[NSUserDefaults standardUserDefaults] setObject:semesterName forKey:@"semester"];
-    [self.tableView reloadData];
+    if (indexPath.row < semesterArray.count){
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        NSString *semesterName = cell.textLabel.text;
+        
+        [[NSUserDefaults standardUserDefaults] setObject:semesterName forKey:@"semester"];
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark - TableView Editing

@@ -60,6 +60,42 @@
     return plusPoints;
 }
 
+-(NSString *)USAGrade{
+    NSString *string = @"";
+    float average = self.average;
+    
+    if (average >= 5*0.97) {
+        string = @"A+";
+    }else if (average >= 5*0.93) {
+        string = @"A";
+    }else if (average >= 5*0.90) {
+        string = @"A-";
+    }else if (average >= 5*0.87) {
+        string = @"B+";
+    }else if (average >= 5*0.83) {
+        string = @"B";
+    }else if (average >= 5*80) {
+        string = @"B-";
+    }else if (average >= 5*77) {
+        string = @"C+";
+    }else if (average >= 5*73) {
+        string = @"C";
+    }else if (average >= 5*0.70) {
+        string = @"C-";
+    }else if (average >= 5*0.67) {
+        string = @"D+";
+    }else if (average >= 5*0.63) {
+        string = @"D";
+    }else if (average >= 5*0.6) {
+        string = @"D-";
+    }else {
+        string = @"F";
+    }
+    
+    return string;
+
+}
+
 @dynamic name;
 @dynamic subject;
 

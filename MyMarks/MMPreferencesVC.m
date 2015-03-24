@@ -111,19 +111,25 @@
         }
             break;
     
-            
         case 1:
+        {
+            CellIdentifier = @"gradingCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"grading"];
+            cell.textLabel.text = NSLocalizedString(@"Grading", nil);
+            [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f]];
+        }
+            break;
+        case 2:
         {
             CellIdentifier = @"textCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.text = NSLocalizedString(@"Version history", nil);
-
-            
         }
             break;
             
-        case 2:
+        case 3:
         {
             CellIdentifier = @"textCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -131,7 +137,7 @@
                    }
             break;
         
-        case 3:
+        case 4:
         {
             CellIdentifier = @"textCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -171,20 +177,20 @@
     {
             
             
-        case 1:
+        case 2:
         {
             ABXVersionsViewController *controller = [[ABXVersionsViewController alloc] init];
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
             
-        case 2:
+        case 3:
         {
             [self sendMailToDevelopers];
         }
             break;
             
-        case 3:
+        case 4:
         {
             [self reviewAppInAppstore];
         }

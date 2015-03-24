@@ -23,7 +23,7 @@
         [label setTextColor:[UIColor whiteColor]];
         [self addSubview:label];
         NSNumber *counter = ((NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"tapCounter"]);
-
+        
         if (counter)
         {
             tapLabel = [[UILabel alloc] initWithFrame:CGRectMake(-50, 12, 200, 50)];
@@ -36,32 +36,82 @@
         {
             [label setFrame:CGRectMake(-50, 0, 200, 50)];
         }
-        
-            if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"calcType"] isEqualToNumber:@0])
-            {
-                self.type = BTAverage;
-            } else
-            {
-                self.type = BTPluspoints;
-            }
+        // status speichert '0' oder '1' (Soll Variante 1 (zB. Average) oder Variante 2 (zB. Pluspoints) gezeigt werden)
+        // grading speichert integer der 'GradingType-Enumeration', welche der User ausgewählt hat
+        if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"status"] isEqualToNumber:@0])
+        {
+            self.status = 0;
+        } else
+        {
+            self.status = 1;
+        }
         self.semester = [[DataStore defaultStore] currentSemester];
         [self addTarget:class action:@selector(navigationButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
 }
 
+-(int)currentFirstType{
+    int grading = (int)[[NSUserDefaults standardUserDefaults]objectForKey:@"grading"];
+    switch (grading) {
+        case kAverage:
+            return BTAverage;
+            break;
+            
+        case kAverageAndPluspoints:
+            return BTAverage;
+            break;
+            
+        case kAverageAndUSA:
+            return BTAverage;
+            
+            break;
+            
+        case kAverageAndGPA:
+            return BTAverage;
+            break;
+        default:
+            return BTAverage;
+            break;
+    }
+}
+
+-(int)currentSecondType{
+    int grading = [[[NSUserDefaults standardUserDefaults]objectForKey:@"grading"] intValue];
+    switch (grading) {
+        case kAverage:
+            return BTAverage;
+            break;
+            
+        case kAverageAndPluspoints:
+            return BTPluspoints;
+            break;
+            
+        case kAverageAndUSA:
+            return BTUSA;
+            
+            break;
+            
+        case kAverageAndGPA:
+            return BTGPA;
+            break;
+        default:
+            return BTAverage;
+            break;
+    }
+}
 
 -(void)update{
     self.semester = [[DataStore defaultStore] currentSemester];
-
+    
     [self updateText];
 }
 
 
 -(void)changeType{
-    self.type = self.type == 0 ? 1 :0;
+    self.status = self.status == 0 ? 1 :0;
     
-    [[NSUserDefaults standardUserDefaults] setObject:@(self.type)  forKey:@"calcType"];
+    [[NSUserDefaults standardUserDefaults] setObject:@(self.status)  forKey:@"status"];
     
     //Prüfen, ob der User mehr als 10 mal auf den Button gedrückt hat. Wenn ja, wird das tapLabel entfernt und der counter auf nil
     NSNumber *counter = [[NSUserDefaults standardUserDefaults] objectForKey:@"tapCounter"];
@@ -75,40 +125,129 @@
             [label setFrame:CGRectMake(-50, 0, 200, 50)];
         } else
         {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:(counter.intValue+1)] forKey:@"tapCounter"];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:(counter.intValue+1)] forKey:@"tapCounter"];
         }
     }
- 
-
+    
+    
     [self updateText];
 }
 
 -(void)updateText{
-    switch (self.type)
+    switch (self.status)
     {
+            //Show first type (zB. Average)
         case 0:
         {
-                label.text = [NSString stringWithFormat:NSLocalizedString(@"Average: %0.2f", nil), [self.semester average]];
-            
+            switch ([self currentFirstType])
+            {
+                case BTAverage:
+                    label.text = [self averageString];
+                    break;
+                    
+                default:
+                    label.text = [self averageString];
+                    break;
+            }
         }
             break;
             
+            
+            
+            // Show second Type(zB. Pluspoints, USA, GPA)
         case 1:
         {
-            //Plus-/Minuspunkte anzeigen
-            float pluspoints =[self.semester plusPoints];
-            if (pluspoints>=0)
+            switch ([self currentSecondType])
             {
-                label.text = [NSString stringWithFormat:NSLocalizedString(@"Pluspoints: %0.1f", nil), pluspoints];
-            } else {
-                label.text = [NSString stringWithFormat:NSLocalizedString(@"Minuspoints: %0.1f", nil), -pluspoints];
+                case BTAverage:
+                    label.text = [self averageString];
+                    break;
+                    
+                case BTPluspoints:
+                    label.text = [self plusPointsString];
+                    break;
+                    
+                case BTUSA:
+                    label.text = [self USAString];
+                    break;
+                    
+                case BTGPA:
+                    label.text = [self GPAString];
+                    break;
+                    
+                default:
+                    label.text = [self averageString];
+                    break;
             }
         }
+            //Plus-/Minuspunkte anzeigen
             break;
         default:
             break;
     }
     
+}
+
+
+-(NSString *)averageString{
+    return [NSString stringWithFormat:NSLocalizedString(@"Average: %0.2f", nil), [self.semester average]];
+}
+
+-(NSString *)plusPointsString{
+    float pluspoints =[self.semester plusPoints];
+    if (pluspoints>=0)
+    {
+        return [NSString stringWithFormat:NSLocalizedString(@"Pluspoints: %0.1f", nil), pluspoints];
+    } else {
+        return [NSString stringWithFormat:NSLocalizedString(@"Minuspoints: %0.1f", nil), -pluspoints];
+    }
+    
+}
+
+-(NSString *)USAString{
+    NSLog(@"USA Grade: %@", self.semester.USAGrade);
+    return self.semester.USAGrade;
+}
+
+-(NSString *)GPAString{
+    float GPASum = 0.0;
+    int numberOfCountedSubjects = 0;
+    for (MMSubject *subject in self.semester.subject){
+        float average = subject.average;
+        if ([subject.weighting isEqualToNumber:@0]){
+            break;
+        }
+        numberOfCountedSubjects++;
+        if (average >= 5*0.97) {
+            GPASum+= 4.0;
+        }else if (average >= 5*0.93) {
+            GPASum+= 4.0;
+        }else if (average >= 5*0.90) {
+            GPASum+= 3.7;
+        }else if (average >= 5*0.87) {
+            GPASum+= 3.3;
+        }else if (average >= 5*0.83) {
+            GPASum+= 3.0;
+        }else  if (average >= 5*80) {
+            GPASum+= 2.7;
+        }else  if (average >= 5*77) {
+            GPASum+= 2.3;
+        }else if (average >= 5*73) {
+            GPASum+= 2.0;
+        }else if (average >= 5*0.70) {
+            GPASum+= 1.7;
+        }else  if (average >= 5*0.67) {
+            GPASum+= 1.3;
+        }else if (average >= 5*0.63) {
+            GPASum+= 1.0;
+        }else if (average >= 5*0.6) {
+            GPASum+= 0.7;
+        }else {
+            GPASum+= 0.0;
+        }
+    }
+    
+    return [NSString stringWithFormat:@"%.2f", GPASum/numberOfCountedSubjects];
 }
 
 @end

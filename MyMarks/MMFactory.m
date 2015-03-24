@@ -182,26 +182,22 @@ const int NumberOfRowsForIPad = 11;
     return [UIColor colorWithRed:128/255.0f green:205/255.0f blue:159/255.0f alpha:1];
 }
 
-+(NSString*)formatTypeToString:(GradingType)formatType {
++(NSString*)formatTypeToString:(int)formatType {
     NSString *result = nil;
     
     switch(formatType) {
-        case k1to6:
-            result = @"1 to 6";
+        case kAverage:
+            result = @"Average";
             break;
-        case k6to1:
-            result = @"6 to 1";
+        case kAverageAndPluspoints:
+            result = @"Show average and Pluspoints";
             break;
-        case kUSA:
-            result = @"USA (+A, A, A-, ...)";
+        case kAverageAndUSA:
+            result = @"Show average and US-letter grade (5 max.)";
             break;
-        case k1to5:
-            result = @"1 to 5";
+        case kAverageAndGPA:
+            result = @"Show average and GPA";
             break;
-        case k1to20:
-            result = @"1 to 20";
-            break;
-
         default:
             [NSException raise:NSGenericException format:@"Unexpected FormatType."];
     }

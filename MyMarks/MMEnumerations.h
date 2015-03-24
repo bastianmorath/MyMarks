@@ -14,7 +14,9 @@
 /*ButtonType*/
 typedef enum buttonType {
     BTAverage,
-    BTPluspoints
+    BTPluspoints,
+    BTUSA,
+    BTGPA
 };
 
 typedef enum ATPosition{
@@ -22,5 +24,11 @@ typedef enum ATPosition{
     PTRight
 };
 
-
+typedef enum GradingType{
+    kAverage,
+    kAverageAndPluspoints,
+    kAverageAndUSA,
+    kAverageAndGPA,
+    kNumberOfObjects
+};
 @end

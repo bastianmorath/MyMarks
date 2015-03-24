@@ -13,7 +13,8 @@
     UILabel *label;
     UILabel *tapLabel;
 }
-@property (nonatomic) enum buttonType type;
+// First (0, zB. Average) or second (1, zB. Pluspoints, USA, GPA) type of grading-system
+@property (nonatomic)  int status;
 
 //Updatet den View, wird aufgerufen, wenn neue Prüfungen oder Fächer hinzugefügt werden
 -(void)update;

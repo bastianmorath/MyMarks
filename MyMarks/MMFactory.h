@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 @interface MMFactory : NSObject
 
 +(UIBarButtonItem *)appIconItem;
@@ -27,17 +26,14 @@
 +(UIColor *)placeholderBlueColor;
 +(UIColor *)darkGreenColor;
 
-
-typedef enum GradingType : NSUInteger {
-    k1to6,
-    k6to1,
-    kUSA,
-    k1to5,
-    k1to20,
-    kNumberOfObjects
-} GradingType;
-
-+(NSString*)formatTypeToString:(GradingType)formatType;
+//typedef enum GradingType{
+//    kAverage,
+//    kAverageAndPluspoints,
+//    kAverageAndUSA,
+//    kAverageAndGPA,
+//    kNumberOfObjects
+//};
++(NSString*)formatTypeToString:(int)formatType;
 
 
 @end
