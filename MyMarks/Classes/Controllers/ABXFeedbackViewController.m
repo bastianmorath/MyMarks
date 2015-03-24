@@ -130,7 +130,9 @@ static NSInteger const kCloseAlert = 1;
     
     // Title
     self.title = [@"Contact" localizedString];
-    
+    self.navigationItem.leftBarButtonItem = [MMFactory backBarButtonItemForClass:self];
+    self.navigationItem.titleView = [MMFactory navigationViewForString:@"Feedback"];
+
     // Buttons
     [self showButtons];
     
@@ -603,6 +605,10 @@ static NSInteger const kCloseAlert = 1;
             }
         }
     }];
+}
+
+-(void)backPressed{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

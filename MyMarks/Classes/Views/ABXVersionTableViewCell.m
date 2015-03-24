@@ -51,6 +51,19 @@
         self.textDetailsLabel.numberOfLines = 0;
         self.textDetailsLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self.contentView addSubview:self.textDetailsLabel];
+        
+        //Colors
+        self.backgroundColor = [UIColor clearColor];
+       
+        self.versionLabel.textColor = [UIColor whiteColor];
+        self.versionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17];
+        
+        self.dateLabel.textColor = [UIColor whiteColor];
+        self.dateLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
+        
+        self.textDetailsLabel.textColor = [UIColor whiteColor];
+        self.textDetailsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
+
     }
     return self;
 }

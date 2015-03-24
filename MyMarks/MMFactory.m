@@ -16,13 +16,15 @@ const int NumberOfRowsForIPhone6 = 9;
 const int NumberOfRowsForIPhone6P = 9;
 const int NumberOfRowsForIPad = 11;
 
+
+
+
 +(UIBarButtonItem *)appIconItem{
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     UIImage* appImage = [UIImage imageNamed:@"App Icon.png"];
     [imageView setImage:appImage];
     
     UIBarButtonItem *showIcon =[[UIBarButtonItem alloc] initWithCustomView:imageView];
-    
     return showIcon;
 }
 
@@ -180,4 +182,30 @@ const int NumberOfRowsForIPad = 11;
     return [UIColor colorWithRed:128/255.0f green:205/255.0f blue:159/255.0f alpha:1];
 }
 
++(NSString*)formatTypeToString:(GradingType)formatType {
+    NSString *result = nil;
+    
+    switch(formatType) {
+        case k1to6:
+            result = @"1 to 6";
+            break;
+        case k6to1:
+            result = @"6 to 1";
+            break;
+        case kUSA:
+            result = @"USA (+A, A, A-, ...)";
+            break;
+        case k1to5:
+            result = @"1 to 5";
+            break;
+        case k1to20:
+            result = @"1 to 20";
+            break;
+
+        default:
+            [NSException raise:NSGenericException format:@"Unexpected FormatType."];
+    }
+    
+    return result;
+}
 @end

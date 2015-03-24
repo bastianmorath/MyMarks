@@ -116,7 +116,10 @@
         {
             CellIdentifier = @"textCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-            cell.textLabel.text = NSLocalizedString(@"Send a mail to developers", nil);
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.text = NSLocalizedString(@"Version history", nil);
+
+            
         }
             break;
             
@@ -124,10 +127,17 @@
         {
             CellIdentifier = @"textCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            cell.textLabel.text = NSLocalizedString(@"Send a mail to developers", nil);
+                   }
+            break;
+        
+        case 3:
+        {
+            CellIdentifier = @"textCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
             cell.textLabel.text = NSLocalizedString(@"Write a review in the AppStore", nil);
         }
             break;
-
 
             
         default:
@@ -152,13 +162,7 @@
 -(void)rightBarButtonItemPressed{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"chooseCalculationType"])
-    {
-        NSLog(@"Type");
-    }
-}
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -169,14 +173,19 @@
             
         case 1:
         {
-            
-            [self sendMailToDevelopers];
+            ABXVersionsViewController *controller = [[ABXVersionsViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
         }
             break;
             
         case 2:
         {
+            [self sendMailToDevelopers];
+        }
+            break;
             
+        case 3:
+        {
             [self reviewAppInAppstore];
         }
             break;
@@ -222,7 +231,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void)chooseGrading{
 
+}
 
 
 - (void)appbotPromptForReview

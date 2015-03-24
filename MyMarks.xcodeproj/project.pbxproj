@@ -22,6 +22,7 @@
 		B617A715180F420D00189688 /* Launchimage_iPhone5.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A714180F420D00189688 /* Launchimage_iPhone5.png */; };
 		B617A717180F423E00189688 /* App Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A716180F423E00189688 /* App Icon.png */; };
 		B617A719180FE42B00189688 /* IPhone5_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = B617A718180FE42B00189688 /* IPhone5_Background.png */; };
+		B61A29241AC0D26000AC1D28 /* MMChooseGradingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A29231AC0D26000AC1D28 /* MMChooseGradingVC.m */; };
 		B61A3C6B19CF177400F3C190 /* MMSemester.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A3C6A19CF177400F3C190 /* MMSemester.m */; };
 		B61A3C6E19CF17B800F3C190 /* MMExam.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A3C6D19CF17B800F3C190 /* MMExam.m */; };
 		B61A3C7119CF17CC00F3C190 /* MMSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = B61A3C7019CF17CC00F3C190 /* MMSubject.m */; };
@@ -114,6 +115,8 @@
 		B617A714180F420D00189688 /* Launchimage_iPhone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Launchimage_iPhone5.png; sourceTree = "<group>"; };
 		B617A716180F423E00189688 /* App Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App Icon.png"; sourceTree = "<group>"; };
 		B617A718180FE42B00189688 /* IPhone5_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IPhone5_Background.png; sourceTree = "<group>"; };
+		B61A29221AC0D26000AC1D28 /* MMChooseGradingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMChooseGradingVC.h; sourceTree = "<group>"; };
+		B61A29231AC0D26000AC1D28 /* MMChooseGradingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMChooseGradingVC.m; sourceTree = "<group>"; };
 		B61A3C6919CF177400F3C190 /* MMSemester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSemester.h; sourceTree = "<group>"; };
 		B61A3C6A19CF177400F3C190 /* MMSemester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSemester.m; sourceTree = "<group>"; };
 		B61A3C6C19CF17B800F3C190 /* MMExam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMExam.h; sourceTree = "<group>"; };
@@ -435,6 +438,8 @@
 				B6E8C8B819BB9D54004B7514 /* MMPreferencesVC.m */,
 				B6388A8219BB9DED00B3A92F /* MMChooseSemesterVC.h */,
 				B6388A8319BB9DED00B3A92F /* MMChooseSemesterVC.m */,
+				B61A29221AC0D26000AC1D28 /* MMChooseGradingVC.h */,
+				B61A29231AC0D26000AC1D28 /* MMChooseGradingVC.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -666,6 +671,7 @@
 			files = (
 				B6AB499B1AC085C700E6E94F /* ABXVersionTableViewCell.m in Sources */,
 				B6D6BDB417A31CBB00B3B09F /* MMAppDelegate.m in Sources */,
+				B61A29241AC0D26000AC1D28 /* MMChooseGradingVC.m in Sources */,
 				B6AB49921AC085C700E6E94F /* ABXModel.m in Sources */,
 				B6AB498B1AC085C700E6E94F /* ABXFeedbackViewController.m in Sources */,
 				B6D6BDDA17A31D1000B3B09F /* MMSubjectsVC.m in Sources */,

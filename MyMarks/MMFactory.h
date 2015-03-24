@@ -26,4 +26,18 @@
 +(UIColor *)blueColor;
 +(UIColor *)placeholderBlueColor;
 +(UIColor *)darkGreenColor;
+
+
+typedef enum GradingType : NSUInteger {
+    k1to6,
+    k6to1,
+    kUSA,
+    k1to5,
+    k1to20,
+    kNumberOfObjects
+} GradingType;
+
++(NSString*)formatTypeToString:(GradingType)formatType;
+
+
 @end

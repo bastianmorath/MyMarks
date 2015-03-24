@@ -44,7 +44,7 @@
     
     
     
-    //Wenn noch kein Semester hinzugefügt wurde, öfne direkt den AlertView
+    //Wenn noch kein Semester hinzugefügt wurde, öffne direkt den AlertView
     
     if ([semesterArray count] == 0)
     {

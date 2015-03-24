@@ -24,7 +24,11 @@
     [super viewDidLoad];
     
     self.title = [@"Versions" localizedString];
+    self.navigationItem.leftBarButtonItem = [MMFactory backBarButtonItemForClass:self];
+    self.navigationItem.titleView = [MMFactory navigationViewForString:@"Versions"];
     
+    self.tableView.backgroundView =  [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
+
     if (![ABXApiClient isInternetReachable]) {
         [self.activityView stopAnimating];
         [self showError:[@"No Internet" localizedString]];
@@ -86,7 +90,7 @@
     ABXVersionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[ABXVersionTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
+           }
     
     if (indexPath.row < self.versions.count) {
         [cell setVersion:self.versions[indexPath.row]];
@@ -104,5 +108,8 @@
     return 0;
 }
 
+-(void)backPressed{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end
