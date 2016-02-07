@@ -439,8 +439,8 @@ const char MyConstantKey;
                     UIAlertView *alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Error", nil)
                                                                   message:NSLocalizedString(@"Weighting Error", nil)
                                                                  delegate:self
-                                                        cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                                        otherButtonTitles:@"Ok", nil];
+                                                        cancelButtonTitle:@"OK"
+                                                        otherButtonTitles:nil];
                     [alert setAlertViewStyle: UIAlertViewStyleDefault];
                     [alert show];
                 }
@@ -476,8 +476,8 @@ const char MyConstantKey;
                 UIAlertView *alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Error", nil)
                                                               message:NSLocalizedString(@"Weighting Error", nil)
                                                              delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                                    otherButtonTitles:@"Ok", nil];
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil];
                 [alert setAlertViewStyle: UIAlertViewStyleDefault];
                 [alert show];
             }
