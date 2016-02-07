@@ -10,7 +10,7 @@
 
 #import "MMPreferencesVC.h"
 
-@interface MMPreferencesVC () <ABXPromptViewDelegate>
+@interface MMPreferencesVC () <UIScrollViewDelegate>
 
 @end
 
@@ -46,18 +46,7 @@
 
     
     //**Google Analytics**//
-    [MMFactory initGoogleAnalyticsForClass:self];
-    
-//    // The prompt view is an example workflow using AppbotX
-//    // It's also good to only show it after a positive interaction
-//    // or a number of usages of the app
-//    if (![ABXPromptView hasHadInteractionForCurrentVersion]) {
-//        self.promptView = [[ABXPromptView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - 160, CGRectGetWidth(self.view.bounds), 100)];
-//        self.promptView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-//        [self.tableView addSubview:self.promptView];
-//        self.promptView.delegate = self;
-//    }
-
+//    [MMFactory initGoogleAnalyticsForClass:self];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -79,18 +68,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.promptView){
-        return [MMFactory numberOfRows]-1;
-    }
-
+   
     return [MMFactory numberOfRows];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.promptView && indexPath.row == [MMFactory numberOfRows]-2){
-        return [MMFactory heightOfRow]*2;
-    }
-    return [MMFactory heightOfRow];
+       return [MMFactory heightOfRow];
 }
 
 
@@ -120,24 +103,8 @@
             [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f]];
         }
             break;
-        case 2:
-        {
-            CellIdentifier = @"textCell";
-            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.text = NSLocalizedString(@"Version history", nil);
-        }
-            break;
-            
-        case 3:
-        {
-            CellIdentifier = @"textCell";
-            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-            cell.textLabel.text = NSLocalizedString(@"Send a mail to developers", nil);
-                   }
-            break;
         
-        case 4:
+        case 2:
         {
             CellIdentifier = @"textCell";
             cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -172,100 +139,18 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    switch (indexPath.row)
-    {
-            
-            
-        case 2:
-        {
-            ABXVersionsViewController *controller = [[ABXVersionsViewController alloc] init];
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-            break;
-            
-        case 3:
-        {
-            [self sendMailToDevelopers];
-        }
-            break;
-            
-        case 4:
+if (indexPath.row == 2)
         {
             [self reviewAppInAppstore];
         }
-            break;
-            
-    }
-            
-    
-
 }
 
 -(void)reviewAppInAppstore
 {
+    // FIXME: itunes aktualisieren
     NSString *url = @"https://itunes.apple.com/de/app/mymarks/id736015615?mt=8";
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
-
-
--(void) sendMailToDevelopers
-{
-//    MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc]init];
-//    mailComposer.mailComposeDelegate = self;
-//    [mailComposer.view setTintColor:[UIColor whiteColor]];
-//
-//
-//    [mailComposer setSubject:@"MyMarks"];
-//    [mailComposer setToRecipients:@[@"bf.morath@gmail.com"]];
-//    [self presentViewController:mailComposer animated:YES completion:nil];
-    ABXFeedbackViewController *controller = [[ABXFeedbackViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
-}
-     
-#pragma mark - mail compose delegate
-
--(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
-    if (result)
-    {
-        NSLog(@"Result : %d",result);
-    }
-    if (error)
-    {
-        NSLog(@"Error : %@",error);
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
--(void)chooseGrading{
-
-}
-
-
-- (void)appbotPromptForReview
-{
-    NSString *url = @"https://itunes.apple.com/de/app/mymarks/id736015615?mt=8";
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-    self.promptView = nil;
-    self.promptView.hidden = YES;
-}
-
-- (void)appbotPromptForFeedback
-{
-    [ABXFeedbackViewController showFromController:self placeholder:nil];
-    self.promptView = nil;
-    self.promptView.hidden = YES;
-
-}
-
-- (void)appbotPromptClose
-{
-    self.promptView = nil;
-    self.promptView.hidden = YES;
-
-}
-
-
 
 @end
 

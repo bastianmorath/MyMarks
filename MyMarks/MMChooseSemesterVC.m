@@ -51,8 +51,8 @@
         [self showAlertViewToAddSemester];
     }
     
-    //**Google Analytics**//
-    [MMFactory initGoogleAnalyticsForClass:self];
+//    //**Google Analytics**//
+//    [MMFactory initGoogleAnalyticsForClass:self];
     
     
     //Long Tap Gesture hinzufügen. Wird länger auf eine Cell gedrückt, kann sie editiert werden
@@ -72,7 +72,6 @@
 -(void)backPressed{
     [self.navigationController popViewControllerAnimated:YES];
 }
-
 
 
 #pragma mark - Table view data source

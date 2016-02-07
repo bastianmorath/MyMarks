@@ -15,7 +15,7 @@
 +(NSDate *)NSDateFromString:(NSString*)string;
 +(UIView *)navigationViewForString:(NSString *)string;
 +(UIBarButtonItem *)backBarButtonItemForClass:(id)class;
-+(void)initGoogleAnalyticsForClass:(id)class;
+//+(void)initGoogleAnalyticsForClass:(id)class;
 +(float)heightForIndexPath:(NSIndexPath *)indexPath;
 +(float)heightOfRow;
 +(int)numberOfRows;
@@ -25,14 +25,6 @@
 +(UIColor *)blueColor;
 +(UIColor *)placeholderBlueColor;
 +(UIColor *)darkGreenColor;
-
-//typedef enum GradingType{
-//    kAverage,
-//    kAverageAndPluspoints,
-//    kAverageAndUSA,
-//    kAverageAndGPA,
-//    kNumberOfObjects
-//};
 +(NSString*)formatTypeToString:(int)formatType;
 
 

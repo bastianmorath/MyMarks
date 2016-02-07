@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:MyMarks.xcodeproj">
+      location = "self:/Users/bastianmorath/Documents/Programmieren/iOS/MyMarks/MyMarks Xcode/MyMarks Reloaded/MyMarks.xcodeproj">
    </FileRef>
 </Workspace>

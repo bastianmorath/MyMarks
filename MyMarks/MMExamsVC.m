@@ -57,7 +57,7 @@
     self.navigationItem.titleView = [MMFactory navigationViewForString:self.subject.name];
     
         //**Google Analytics**//
-    [MMFactory initGoogleAnalyticsForClass:self];
+//    [MMFactory initGoogleAnalyticsForClass:self];
 }
 
 

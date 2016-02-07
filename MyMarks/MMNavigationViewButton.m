@@ -61,15 +61,7 @@
         case kAverageAndPluspoints:
             return BTAverage;
             break;
-            
-        case kAverageAndUSA:
-            return BTAverage;
-            
-            break;
-            
-        case kAverageAndGPA:
-            return BTAverage;
-            break;
+
         default:
             return BTAverage;
             break;
@@ -87,14 +79,6 @@
             return BTPluspoints;
             break;
             
-        case kAverageAndUSA:
-            return BTUSA;
-            
-            break;
-            
-        case kAverageAndGPA:
-            return BTGPA;
-            break;
         default:
             return BTAverage;
             break;
@@ -167,14 +151,6 @@
                     label.text = [self plusPointsString];
                     break;
                     
-                case BTUSA:
-                    label.text = [self USAString];
-                    break;
-                    
-                case BTGPA:
-                    label.text = [self GPAString];
-                    break;
-                    
                 default:
                     label.text = [self averageString];
                     break;
@@ -202,52 +178,6 @@
         return [NSString stringWithFormat:NSLocalizedString(@"Minuspoints: %0.1f", nil), -pluspoints];
     }
     
-}
-
--(NSString *)USAString{
-    NSLog(@"USA Grade: %@", self.semester.USAGrade);
-    return self.semester.USAGrade;
-}
-
--(NSString *)GPAString{
-    float GPASum = 0.0;
-    int numberOfCountedSubjects = 0;
-    for (MMSubject *subject in self.semester.subject){
-        float average = subject.average;
-        if ([subject.weighting isEqualToNumber:@0]){
-            break;
-        }
-        numberOfCountedSubjects++;
-        if (average >= 5*0.97) {
-            GPASum+= 4.0;
-        }else if (average >= 5*0.93) {
-            GPASum+= 4.0;
-        }else if (average >= 5*0.90) {
-            GPASum+= 3.7;
-        }else if (average >= 5*0.87) {
-            GPASum+= 3.3;
-        }else if (average >= 5*0.83) {
-            GPASum+= 3.0;
-        }else  if (average >= 5*80) {
-            GPASum+= 2.7;
-        }else  if (average >= 5*77) {
-            GPASum+= 2.3;
-        }else if (average >= 5*73) {
-            GPASum+= 2.0;
-        }else if (average >= 5*0.70) {
-            GPASum+= 1.7;
-        }else  if (average >= 5*0.67) {
-            GPASum+= 1.3;
-        }else if (average >= 5*0.63) {
-            GPASum+= 1.0;
-        }else if (average >= 5*0.6) {
-            GPASum+= 0.7;
-        }else {
-            GPASum+= 0.0;
-        }
-    }
-    
-    return [NSString stringWithFormat:@"%.2f", GPASum/numberOfCountedSubjects];
 }
 
 @end

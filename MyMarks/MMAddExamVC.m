@@ -60,7 +60,7 @@
     [self updateDoneBarButton];
     
     //**Google Analytics**//
-    [MMFactory initGoogleAnalyticsForClass:self];
+//    [MMFactory initGoogleAnalyticsForClass:self];
 }
 
 -(void)setupTextFields{

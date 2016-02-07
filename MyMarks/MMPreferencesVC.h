@@ -8,12 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
-#import "ABXPromptView.h"
 
 @interface MMPreferencesVC : UITableViewController<MFMailComposeViewControllerDelegate>
 
 
-@property ABXPromptView *promptView;
 
 
 @end

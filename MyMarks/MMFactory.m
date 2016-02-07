@@ -40,7 +40,6 @@ const int NumberOfRowsForIPad = 11;
     UIBarButtonItem *editBarButtonItem =[[UIBarButtonItem alloc] initWithCustomView:addButton];
     
     return editBarButtonItem;
-    
 }
 
 +(NSString *)NSStringFromDate:(NSDate*)date{
@@ -99,21 +98,21 @@ const int NumberOfRowsForIPad = 11;
     return backBarButtonItem;
 }
 
-+(void)initGoogleAnalyticsForClass:(id)class{
-    //**Google Analytics**//
-    
-    // May return nil if a tracker has not already been initialized with a
-    // property ID.
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    
-    // This screen name value will remain set on the tracker and sent with
-    // hits until it is set to a new value or to nil.
-    [tracker set:kGAIScreenName
-           value:NSStringFromClass([class class])];
-    
-    // New SDK versions
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-}
+//+(void)initGoogleAnalyticsForClass:(id)class{
+//    //**Google Analytics**//
+//    
+//    // May return nil if a tracker has not already been initialized with a
+//    // property ID.
+//    id tracker = [[GAI sharedInstance] defaultTracker];
+//    
+//    // This screen name value will remain set on the tracker and sent with
+//    // hits until it is set to a new value or to nil.
+//    [tracker set:kGAIScreenName
+//           value:NSStringFromClass([class class])];
+//    
+//    // New SDK versions
+//    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+//}
 
 
 
@@ -190,13 +189,7 @@ const int NumberOfRowsForIPad = 11;
             result = @"Average";
             break;
         case kAverageAndPluspoints:
-            result = @"Show average and Pluspoints";
-            break;
-        case kAverageAndUSA:
-            result = @"Show average and US-letter grade (5 max.)";
-            break;
-        case kAverageAndGPA:
-            result = @"Show average and GPA";
+            result = @"Average and Pluspoints";
             break;
         default:
             [NSException raise:NSGenericException format:@"Unexpected FormatType."];

@@ -44,13 +44,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return self.gradingArray.count+1 >[MMFactory numberOfRows] ? self.gradingArray.count+1 : [MMFactory numberOfRows];
+    return self.gradingArray.count+1 >[MMFactory numberOfRows] ? self.gradingArray.count+1 : [MMFactory numberOfRows]-1;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if (indexPath.row == 0) {
-//        return 2*[MMFactory heightOfRow];
-//    }
+    if (indexPath.row == 0) {
+        return 2*[MMFactory heightOfRow];
+    }
     return [MMFactory heightOfRow];
 }
 
@@ -65,8 +65,8 @@
         cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f];
         cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f];
         
-        cell.textLabel.text = @"Description";
-        cell.detailTextLabel.text = @"Check the grading system you want!";
+        //cell.textLabel.text = @"Description";
+        cell.detailTextLabel.text = @"Check the grading system you want! Switch between them by press on the top of your home screen.";
     }else if (indexPath.row<self.gradingArray.count+1)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];

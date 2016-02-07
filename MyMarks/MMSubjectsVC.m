@@ -17,7 +17,6 @@
 
 #import "MMSubjectsVC.h"
 
-
 @implementation MMSubjectsVC
 
 const char MyConstantKey;
@@ -33,7 +32,6 @@ const char MyConstantKey;
     return self;
 }
 
-
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
@@ -44,7 +42,6 @@ const char MyConstantKey;
     [self.tableView reloadData];
 
 }
-
 
 -(void)viewDidLoad
 {
@@ -74,18 +71,14 @@ const char MyConstantKey;
     
     //Background auf eine Grundfarbe setzen, damit zum Beispiel beim Zeilen-Verschieben kein weisser Hintergrund zu sehen ist
     self.view.backgroundColor = [MMFactory blueColor];
-    
-    
 
     //Navigation Button initlialisieren
     self.navigationViewButton = [[MMNavigationViewButton alloc]initWithTarget:self];;
     self.navigationItem.titleView = self.navigationViewButton;
-    
-
 
     //**Google Analytics**//
-    [MMFactory initGoogleAnalyticsForClass:self];
-       
+//    [MMFactory initGoogleAnalyticsForClass:self];
+    
     
     //Long Tap Gesture hinzufügen. Wird länger auf eine Cell gedrückt, kann sie editiert werden
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
@@ -152,7 +145,6 @@ const char MyConstantKey;
         double redColor =   41  + (indexPath.row * 116/([MMFactory numberOfRows]-1));
         double greenColor = 135 + (indexPath.row * 94/([MMFactory numberOfRows]-1));
         double blueColor =  241 - (indexPath.row * 110/([MMFactory numberOfRows]-1));
-
         cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
     } else
     {
@@ -187,7 +179,6 @@ const char MyConstantKey;
 //Diese Methode wird aufgerufen, wenn eine Cell gedrückt wird
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     if ([self.subjectArray count]>=indexPath.row+1)
     {
         //Segue wird gestartet
@@ -518,7 +509,7 @@ const char MyConstantKey;
 
 -(void)showActionSheet
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Add new subject", nil), NSLocalizedString(@"Edit subjects", nil), NSLocalizedString(@"Export marks", nil), NSLocalizedString(@"Preferences", nil), nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Add new subject", nil), NSLocalizedString(@"Edit subjects", nil), NSLocalizedString(@"Preferences", nil), nil];
                                   
     [actionSheet showInView:self.view];
     
@@ -539,118 +530,8 @@ const char MyConstantKey;
     
     if(buttonIndex == 2)
     {
-        [self exportMarks];
-    }
-    
-    if(buttonIndex == 3)
-    {
         [self openPreferences];
     }
 }
-
-
-# pragma mark - Export marks
-
-- (void)exportMarks
-{
-    if ([[NSFileManager defaultManager] fileExistsAtPath:[self dataFilePath]])
-    {
-        [[NSFileManager defaultManager] removeItemAtPath:[self dataFilePath] error:nil];
-    }
-    [[NSFileManager defaultManager] createFileAtPath: [self dataFilePath] contents:nil attributes:nil];
-    
-    //Alle Prüfungen werden in einem NSMtableString aufgelistet
-    NSMutableString *writeString = [[NSMutableString alloc]init];
-    writeString = [NSMutableString string];
-    [writeString appendString:@"MyMarks \r\r"];
-    
-    //Note, Gewichtung, Datum und Notizen einer Prüfung werden dem NSMutableString angehängt
-    for (MMSemester *semester in [[DataStore defaultStore]semesterArray])
-    {
-        [writeString appendString:@"\r\r"];
-        [writeString appendString:[NSString stringWithFormat:@"%@: Pluspunkte: %0.2f  Durchschnitt: %0.2f \n ",semester.name, semester.plusPoints, semester.average]];
-        
-        for (MMSubject *subject in semester.subject)
-        {
-            [writeString appendString:[NSString stringWithFormat:@"\r%@\r ",subject.name]];
-            
-            for (MMExam *eachExam in [subject.exam allObjects])
-            {
-                [writeString appendString:[NSString stringWithFormat:
-                                           @"\tNote: \t%0.2f       Gewichtung: \t%0.2f       Datum:\t %@       Notizen:  \t%@ \r",
-                                           eachExam.mark.floatValue, eachExam.weighting.floatValue, [MMFactory NSStringFromDate:eachExam.date], eachExam.notes]];
-            }
-            [writeString appendString:@"\n"];
-        }
-        [writeString appendString:@"\r\r"];
-    }
-    
-    
-    NSFileHandle *handle;
-    //Sagt, wo das File gelesen werden soll
-    handle = [NSFileHandle fileHandleForWritingAtPath: [self dataFilePath] ];
-    //Stellt den Cursor ans Ende des Files
-    [handle truncateFileAtOffset:[handle seekToEndOfFile]];
-    [handle writeData:[writeString dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    //Ein Controller für das Mail-Programm wird erstellt und aufgerufen
-    MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
-    [mailer.view setTintColor:[UIColor whiteColor]];
-    mailer.mailComposeDelegate = self;
-    [mailer setSubject:@"MyMarks"];
-    [mailer addAttachmentData:[NSData dataWithContentsOfFile:[self dataFilePath] ]
-                     mimeType:@"text/csv"
-                     fileName:@"MyMarks.csv"];
-    [self presentViewController:mailer animated:YES completion:nil];
-}
-
-//Exportieren einer csv-Datei
--(NSString *)dataFilePath
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    return [documentsDirectory stringByAppendingPathComponent:@"myfile.csv"];
-}
-
-
-//Diese Methode kontrolliert das Resulat des Mail-Vorganges und gibt bei einem Error eine Meldung aus
-- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
-{
-    switch (result)
-    
-    {
-        case MFMailComposeResultCancelled:
-            
-            NSLog(@"Mail abgebrochen");
-            
-            break;
-            
-        case MFMailComposeResultSaved:
-            
-            NSLog(@"Mail gespeichert");
-            
-            break;
-            
-        case MFMailComposeResultSent:
-            
-            NSLog(@"Mail gesendet");
-            
-            break;
-            
-        case MFMailComposeResultFailed:
-            
-            NSLog(@"Mail senden fehlgeschlagen: %@", [error localizedDescription]);
-            
-            break;
-            
-        default:
-            
-            break;
-    }
-    
-    // Schliesst den View des Mails
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
 @end
 
