@@ -6,8 +6,8 @@
   Copyright (c) 2014 Bastian Morath. All rights reserved.
 */
 
-"Pluspoints: %0.1f" = "Pluspoints: %0.1f";
-"Minuspoints: %0.1f" = "Minuspoints: %0.1f";
+"Pluspoints: %0.1f" = "Plus: %0.1f";
+"Minuspoints: %0.1f" = "Minus: %0.1f";
 "Average: %0.2f" = "Average: %0.2f" ;
 "Weighting: 0/1" =  "Weighting: 0/1";
 "Name" = "Name";
@@ -38,3 +38,6 @@
 "Send Feedback" = "Send Feedback";
 "Write a review in the AppStore" = "Write a review in the AppStore";
 "Update message" = "\n MyMarks in now optimized for all iPhones and iPads! Enjoy it! \n\n We read every review and email and will try our best to update the app with your suggestions. We would love to hear your questions and comments; just send us an email at bf.morath@gmail.com";
+"Average (Default)" = "Average (Default)";
+"Average and Pluspoints (Swiss)" = "Average and Pluspoints (Swiss)";
+"Check grading" = "Choose the grading system you want!";

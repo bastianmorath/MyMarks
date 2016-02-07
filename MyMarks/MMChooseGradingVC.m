@@ -69,7 +69,7 @@
         cell.subtitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f];
         
        //  cell.titleLabel.text = @"Description";
-        cell.subtitleLabel.text = @"Check the grading system you want! \nThen switch between them by press on the top of your home screen.";
+        cell.subtitleLabel.text = NSLocalizedString(@"Check grading", nil);
         [self setColorOfCell:cell andIndexPath:indexPath];
         return cell;
 
