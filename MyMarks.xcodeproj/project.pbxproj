@@ -50,6 +50,8 @@
 		B696961B19D896160043E09D /* Subject.m in Sources */ = {isa = PBXBuildFile; fileRef = B696961819D896160043E09D /* Subject.m */; };
 		B696961C19D896160043E09D /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = B696961A19D896160043E09D /* Exam.m */; };
 		B6A444F919C5B31300B0C040 /* backArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = B6A444F819C5B31300B0C040 /* backArrow.png */; };
+		B6A9907D1C67A631003B72A9 /* MMSubtitleCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A9907B1C67A631003B72A9 /* MMSubtitleCellTableViewCell.m */; };
+		B6A9907E1C67A631003B72A9 /* MMSubtitleCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6A9907C1C67A631003B72A9 /* MMSubtitleCellTableViewCell.xib */; };
 		B6C1FD6F17DE33E000E8DC2F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6C1FD6D17DE33E000E8DC2F /* AudioToolbox.framework */; };
 		B6C1FD7917DE341E00E8DC2F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6C1FD7117DE341E00E8DC2F /* CFNetwork.framework */; };
 		B6C1FD7A17DE341E00E8DC2F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6C1FD7217DE341E00E8DC2F /* CoreLocation.framework */; };
@@ -133,6 +135,9 @@
 		B696961A19D896160043E09D /* Exam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exam.m; sourceTree = "<group>"; };
 		B69ED98E19D0BC97008641A7 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		B6A444F819C5B31300B0C040 /* backArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backArrow.png; sourceTree = "<group>"; };
+		B6A9907A1C67A631003B72A9 /* MMSubtitleCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSubtitleCellTableViewCell.h; sourceTree = "<group>"; };
+		B6A9907B1C67A631003B72A9 /* MMSubtitleCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSubtitleCellTableViewCell.m; sourceTree = "<group>"; };
+		B6A9907C1C67A631003B72A9 /* MMSubtitleCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MMSubtitleCellTableViewCell.xib; sourceTree = "<group>"; };
 		B6C1FD6D17DE33E000E8DC2F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B6C1FD6E17DE33E000E8DC2F /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		B6C1FD7117DE341E00E8DC2F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -228,6 +233,9 @@
 				B6388A8319BB9DED00B3A92F /* MMChooseSemesterVC.m */,
 				B61A29221AC0D26000AC1D28 /* MMChooseGradingVC.h */,
 				B61A29231AC0D26000AC1D28 /* MMChooseGradingVC.m */,
+				B6A9907A1C67A631003B72A9 /* MMSubtitleCellTableViewCell.h */,
+				B6A9907B1C67A631003B72A9 /* MMSubtitleCellTableViewCell.m */,
+				B6A9907C1C67A631003B72A9 /* MMSubtitleCellTableViewCell.xib */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -436,6 +444,7 @@
 				B687CA0E1AFE9EBD0086B5EC /* Icon@2x.png in Resources */,
 				B687CA021AFE9EBD0086B5EC /* Icon-72@2x.png in Resources */,
 				B6D6BDBC17A31CBC00B3B09F /* Images.xcassets in Resources */,
+				B6A9907E1C67A631003B72A9 /* MMSubtitleCellTableViewCell.xib in Resources */,
 				B687CA011AFE9EBD0086B5EC /* Icon-72.png in Resources */,
 				B687CA071AFE9EBD0086B5EC /* Icon-Small-40@3x.png in Resources */,
 				B6D6BDAE17A31CBB00B3B09F /* InfoPlist.strings in Resources */,
@@ -477,6 +486,7 @@
 				B672498319BB363800FAA1D0 /* MMNavigationViewButton.m in Sources */,
 				B61A3C7119CF17CC00F3C190 /* MMSubject.m in Sources */,
 				B644BB051AB4A63C00747285 /* UIFloatLabelTextView.m in Sources */,
+				B6A9907D1C67A631003B72A9 /* MMSubtitleCellTableViewCell.m in Sources */,
 				B681889E19B0BEF700F0532C /* DataStore.m in Sources */,
 				B696961C19D896160043E09D /* Exam.m in Sources */,
 				B696961B19D896160043E09D /* Subject.m in Sources */,

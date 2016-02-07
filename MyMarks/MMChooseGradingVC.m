@@ -56,19 +56,27 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [[UITableViewCell alloc]init];
-
     //Cell konfigurieren
     if (indexPath.row == 0){
         // Description Cell
-        cell = [tableView dequeueReusableCellWithIdentifier:@"descriptionCell" forIndexPath:indexPath];
-        cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f];
-        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f];
+        MMSubtitleCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"subtitleCell"];
+        if (cell == nil)
+        {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"MMSubtitleCellTableViewCell" owner:self options:nil];
+            cell = [nib objectAtIndex:0];
+        }
+        cell.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f];
+        cell.subtitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f];
         
-        //cell.textLabel.text = @"Description";
-        cell.detailTextLabel.text = @"Check the grading system you want! Switch between them by press on the top of your home screen.";
+       //  cell.titleLabel.text = @"Description";
+        cell.subtitleLabel.text = @"Check the grading system you want! \nThen switch between them by press on the top of your home screen.";
+        [self setColorOfCell:cell andIndexPath:indexPath];
+        return cell;
+
     }else if (indexPath.row<self.gradingArray.count+1)
     {
+        UITableViewCell *cell = [[UITableViewCell alloc]init];
+
         cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         
         cell.userInteractionEnabled = YES;
@@ -83,13 +91,24 @@
         {
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
-        
+        [self setColorOfCell:cell andIndexPath:indexPath];
+
+        return cell;
+
     } else {
+        UITableViewCell *cell = [[UITableViewCell alloc]init];
+
         cell.textLabel.text = @"";
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.userInteractionEnabled = NO;
+        [self setColorOfCell:cell andIndexPath:indexPath];
+        return cell;
+
     }
     
+}
+
+-(void)setColorOfCell:(UITableViewCell *)cell andIndexPath:(NSIndexPath *)indexPath {
     //Farbverlauf bestimmen
     //Je nach dem, ob weniger/gleich oder mehr als 10 Fächer eingetragen wurden(bei über 10 verlassen die untersten Zellen den Screen), wird der Farbverlauf der Zellen anderst konfiguriert
     double redColor =   41  + (indexPath.row * 116/([MMFactory numberOfRows]-1));
@@ -97,7 +116,7 @@
     double blueColor =  241 - (indexPath.row * 110/([MMFactory numberOfRows]-1));
     
     cell.backgroundColor = [UIColor colorWithRed:redColor/255.0f green:greenColor/255.0f blue:blueColor/255.0f alpha:1];
-    return cell;
+
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

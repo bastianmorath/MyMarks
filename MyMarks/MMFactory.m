@@ -183,10 +183,10 @@ const int NumberOfRowsForIPad = 11;
 
 +(NSString*)formatTypeToString:(int)formatType {
     NSString *result = nil;
-    
+    // FIXME: Localize strings
     switch(formatType) {
         case kAverage:
-            result = @"Average";
+            result = @"Average (Default)";
             break;
         case kAverageAndPluspoints:
             result = @"Average and Pluspoints";

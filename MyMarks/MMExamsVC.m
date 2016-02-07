@@ -40,7 +40,6 @@
     [self setEditButton];
     
     [self.tableView reloadData];
-    
 }
 
 
@@ -69,7 +68,8 @@
 
 -(void)setEditButton
 {
-    if (self.subject.average==0)
+    NSLog(@"%lu", (unsigned long)self.examArray.count);
+    if (self.examArray.count == 0)
     { // Wenn der Durchschnitt des Faches gleich 0 ist (Keine Prüfungen wurden hinzugefügt), ist der Edit-Button nicht anklickbar
         self.navigationItem.rightBarButtonItem.enabled = NO;
     } else
@@ -257,10 +257,18 @@
 
                 [[DataStore defaultStore] deleteObject:[self.examArray objectAtIndex:indexPath.row]];
                 [self updateExamArray];
+                [self setEditButton];
+                if (self.examArray.count == 0) {
+                    //Der Edit-Modus des Table Views wird beendet
+                    [self.tableView setEditing:NO animated:YES];
+                    
+                    //Editbutton erstellen, der während dem Nicht-Editieren angezeigt wird
+                    self.navigationItem.rightBarButtonItem= [MMFactory editIconItemForClass:self];
+                    self.navigationItem.rightBarButtonItem.enabled = NO;
+                }
                 [self.tableView reloadData];
 
                 
-                [self setEditButton];
             }
         }
     }
@@ -270,7 +278,6 @@
 {
     return NO;
 }
-
 
 //Die Reihenfolge der Fächer kann im Edit-Mode geändert werden
 - (void) tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
