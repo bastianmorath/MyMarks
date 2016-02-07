@@ -47,7 +47,16 @@
 {
     [super viewDidLoad];
     //Background setzen
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.view.frame;
+    UIColor *firstColor = [UIColor colorWithRed:44/255.0f green:120/255.0f blue:232/255.0f alpha:1];
+    UIColor *secondColor = [UIColor colorWithRed:157/255.0f green:229/255.0f blue:131/255.0f alpha:1];
+    
+    gradient.colors = [NSArray arrayWithObjects:(id)firstColor.CGColor, (id)secondColor.CGColor, nil];
+    [self.view.layer insertSublayer:gradient atIndex:0];
+    
     //Editbutton erstellen, der angezeigt wird
     [self.navigationItem setRightBarButtonItem:[MMFactory editIconItemForClass:self] animated:YES];
     self.navigationItem.rightBarButtonItem.enabled = NO;
