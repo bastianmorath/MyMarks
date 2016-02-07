@@ -47,7 +47,6 @@
 {
     [super viewDidLoad];
     //Background setzen
-//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"IPhone5_Background.png"]];
     
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = self.view.frame;
@@ -193,7 +192,7 @@
 
             cell.accessoryType = UITableViewCellAccessoryNone;
             label.text = NSLocalizedString(@"Add new exam", nil);
-            cell.backgroundColor =[UIColor colorWithRed:130/255.0f green:200/255.0f blue:150/255.0f alpha:1];
+            cell.backgroundColor =[UIColor colorWithRed:113/255.0f green:200/255.0f blue:156/255.0f alpha:1];
             return cell;
             
         }
