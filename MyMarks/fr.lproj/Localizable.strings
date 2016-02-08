@@ -41,3 +41,6 @@
 "Average (Default)" = "Moyenne (Default)";
 "Average and Pluspoints (Swiss)" = "Moyenne et Plus (Suisse)";
 "Check grading" = "Choisis une estimation!";
+"Average description" = "You just have the average";
+"AverageAndPluspoints description" = "In your view with the subjects, you can switch between showing the average or the Pluspoints by tapping at the top of your view";
+"Grading" = "Estimation";

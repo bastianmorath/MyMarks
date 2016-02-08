@@ -23,7 +23,7 @@
     //Scrollen im TabelView verhindern
     [[self tableView]setBounces:NO];
     
-    self.navigationItem.titleView = [MMFactory navigationViewForString:NSLocalizedString(@"Choose grading", nil)];
+    self.navigationItem.titleView = [MMFactory navigationViewForString:NSLocalizedString(@"Grading", nil)];
     self.gradingArray = [[NSMutableArray alloc]init];
     for (int i = 0; i < kNumberOfObjects; ++i){
         [self.gradingArray addObject:[MMFactory formatTypeToString:i]];
@@ -69,7 +69,14 @@
         cell.subtitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0f];
         
        //  cell.titleLabel.text = @"Description";
-        cell.subtitleLabel.text = NSLocalizedString(@"Check grading", nil);
+        if  ([[[NSUserDefaults standardUserDefaults] objectForKey:@"grading"]isEqualToNumber:@0])
+        {
+            cell.subtitleLabel.text = NSLocalizedString(@"Average description", nil);
+
+        } else {
+            cell.subtitleLabel.text = NSLocalizedString(@"AverageAndPluspoints description", nil);
+        }
+
         [self setColorOfCell:cell andIndexPath:indexPath];
         return cell;
 

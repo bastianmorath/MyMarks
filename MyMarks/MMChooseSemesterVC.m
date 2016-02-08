@@ -240,7 +240,7 @@
                                          message:NSLocalizedString(@"Enter the new name of the semester", nil)
                                         delegate:self
                                cancelButtonTitle:NSLocalizedString(@"Cancle", nil)
-                               otherButtonTitles:@"Done", nil];
+                               otherButtonTitles:NSLocalizedString(@"Done",nil)   , nil];
         [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
         [alert show];
         
@@ -286,7 +286,7 @@
     
     
     [alert setAlertViewStyle: UIAlertViewStylePlainTextInput];
-    [[alert textFieldAtIndex:0] setPlaceholder:@"Name"];
+    [[alert textFieldAtIndex:0] setPlaceholder:NSLocalizedString(@"Name",nil)];
     [alert show];
 }
 

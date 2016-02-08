@@ -324,7 +324,7 @@ const char MyConstantKey;
                                          message:NSLocalizedString(@"Enter the new name and weighting of the Subject", nil)
                                         delegate:self
                                cancelButtonTitle:NSLocalizedString(@"Cancle", nil)
-                               otherButtonTitles:@"Done", nil];
+                               otherButtonTitles:NSLocalizedString(@"Done",nil), nil];
         [alert setAlertViewStyle: UIAlertViewStyleLoginAndPasswordInput];
         [[alert textFieldAtIndex:1] setSecureTextEntry:NO];
         [[alert textFieldAtIndex:0] setPlaceholder:NSLocalizedString(@"Name", nil)];
