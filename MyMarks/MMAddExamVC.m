@@ -221,7 +221,7 @@
     if (indexPath.row == 0)
     {
         self.MarkTextField.backgroundColor = color;
-        self.MarkTextField.placeholder = @"Mark";
+        self.MarkTextField.placeholder = NSLocalizedString(@"Mark",nil);
         [cell.contentView addSubview:self.MarkTextField];
         [self.MarkTextField addConstraints];
     }
@@ -229,7 +229,7 @@
     if (indexPath.row == 1)
     {
         self.WeightingTextField.backgroundColor = color;
-        self.WeightingTextField.placeholder = @"Weighting";
+        self.WeightingTextField.placeholder = NSLocalizedString(@"Weighting",nil);
         //self.WeightingTextField.text = @"1.0";
         [cell.contentView addSubview:self.WeightingTextField];
         [self.WeightingTextField addConstraints];
@@ -238,7 +238,7 @@
     if (indexPath.row == 2)
     {
         self.DateTextField.backgroundColor = color;
-        self.DateTextField.placeholder = @"Date";
+        self.DateTextField.placeholder = NSLocalizedString(@"Date",nil);
         self.DateTextField.text = [MMFactory NSStringFromDate:[NSDate date]];
         [cell.contentView addSubview:self.DateTextField];
         [self.DateTextField addConstraints];
@@ -247,7 +247,7 @@
     if (indexPath.row == 3)
     {
         self.NotesTextField.backgroundColor = color;
-        self.NotesTextField.placeholder = @"Notes";
+        self.NotesTextField.placeholder = NSLocalizedString(@"Notes",nil);
         
         [cell.contentView addSubview:self.NotesTextField];
         [self.NotesTextField addConstraints];
