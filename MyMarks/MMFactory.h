@@ -27,5 +27,4 @@
 +(UIColor *)darkGreenColor;
 +(NSString*)formatTypeToString:(int)formatType;
 
-
 @end

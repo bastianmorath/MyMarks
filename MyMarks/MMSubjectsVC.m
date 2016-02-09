@@ -585,10 +585,11 @@ const char MyConstantKey;
     [[mailer navigationBar] setTintColor:[UIColor whiteColor]];
     [[mailer navigationBar] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:18]}];
     mailer.mailComposeDelegate = self;
-    [mailer setSubject:@"MyMarks"];
+    [mailer setSubject:semester.name];
     [mailer addAttachmentData:[NSData dataWithContentsOfFile:[self dataFilePath] ]
                      mimeType:@"text/csv"
                      fileName:[NSString stringWithFormat:@"%@.csv",semester.name]];
+    
     [self presentViewController:mailer animated:YES completion:nil];
 }
 
