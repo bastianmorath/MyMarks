@@ -585,7 +585,9 @@ const char MyConstantKey;
     
     //Ein Controller für das Mail-Programm wird erstellt und aufgerufen
     MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
-    [mailer.view setTintColor:[UIColor blackColor]];
+    [mailer.view setTintColor:[MMFactory blueColor]];
+    [[mailer navigationBar] setTintColor:[UIColor whiteColor]];
+    [[mailer navigationBar] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:18]}];
     mailer.mailComposeDelegate = self;
     [mailer setSubject:@"MyMarks"];
     [mailer addAttachmentData:[NSData dataWithContentsOfFile:[self dataFilePath] ]
