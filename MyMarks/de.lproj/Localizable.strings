@@ -39,7 +39,14 @@
 "Write a review in the AppStore" = "MyMarks im AppStore bewerten";
 "Update message" = "\n MyMarks ist nun für alle Gerätetypen, inklusive iPad, angepasst!  \n\nBei Kritik und Feedback sende bitte eine Mail an bf.morath@gmail.com, wir lesen jede Bewertung und freuen uns auf jeden Kommentar!";
 "Average (Default)" = "Durchschnitt (Default)";
-"Average and Pluspoints (Swiss)"  = "Durchschnitt und Pluspunkte (Schweiz)";
-"Average description" = "You just have the average";
-"AverageAndPluspoints description" = "In your view with the subjects, you can switch between showing the average or the Pluspoints by tapping at the top of your view";
+"Average and Pluspoints (Swiss)"  = "Durchschnitt und Pluspunkte (CH)";
+"Average description" = "Es wird nur der Durchschnitt auf dem Label angezeigt";
+"AverageAndPluspoints description" ="Es wird entweder der Durchschnitt oder die Pluspunkte angezeigt. Zwischen diesen kann durch ein Tap auf das Anzeige-Feld gewechselt werden.";
 "Grading" = "Bewertungssystem";
+"Mark"="Note";
+"Weighting"="Gewichtung";
+"Date"="Datum";
+"Notes"="Notizen";
+"Enter the new name of the semester"="Gib den neuen Namen des Semesters ein";
+"Change name"="Ändere den Namen";
+"Cancle"="Zurück";

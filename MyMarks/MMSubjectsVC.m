@@ -321,7 +321,7 @@ const char MyConstantKey;
         MMSubject *subject = [self.subjectArray objectAtIndex:indexPath.row];
         UIAlertView *alert;
         alert =[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Change subject", nil)
-                                         message:NSLocalizedString(@"Enter the new name and weighting of the Subject", nil)
+                                         message:NSLocalizedString(@"Enter the new name and weighting of the subject", nil)
                                         delegate:self
                                cancelButtonTitle:NSLocalizedString(@"Cancle", nil)
                                otherButtonTitles:NSLocalizedString(@"Done",nil), nil];
@@ -581,7 +581,9 @@ const char MyConstantKey;
     
     //Ein Controller für das Mail-Programm wird erstellt und aufgerufen
     MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
-    [mailer.view setTintColor:[UIColor whiteColor]];
+    [mailer.view setTintColor:[MMFactory blueColor]];
+    [[mailer navigationBar] setTintColor:[UIColor whiteColor]];
+    [[mailer navigationBar] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:18]}];
     mailer.mailComposeDelegate = self;
     [mailer setSubject:@"MyMarks"];
     [mailer addAttachmentData:[NSData dataWithContentsOfFile:[self dataFilePath] ]

@@ -40,6 +40,13 @@
 "Update message" = "\n MyMarks in now optimized for all iPhones and iPads! Enjoy it! \n\n We read every review and email and will try our best to update the app with your suggestions. We would love to hear your questions and comments; just send us an email at bf.morath@gmail.com";
 "Average (Default)" = "Average (Default)";
 "Average and Pluspoints (Swiss)" = "Average and Pluspoints (Swiss)";
-"Average description" = "You just have the average";
-"AverageAndPluspoints description" = "In your view with the subjects, you can switch between showing the average or the Pluspoints by tapping at the top of your view";
+"Average description" = "You just have the average presented";
+"AverageAndPluspoints description" = "In your view with the subjects, you can switch between showing the average or the pluspoints by tapping at the top of your view (Swiss system)";
 "Grading" = "Grading";
+"Mark"="Mark";
+"Weighting"="Weighting";
+"Date"="Date";
+"Notes"="Notes";
+"Enter the new name of the semester"="Enter the new name of the semester";
+"Change name"="Change name";
+"Cancle"="Cancle";
