@@ -555,8 +555,7 @@ const char MyConstantKey;
     [writeString appendString:@"MyMarks \n \n"];
     
     //Note, gewichtung, Datum und Notizen einer Prüfung werden dem NSMutableString angehängt
-    for (MMSemester *semester in [[DataStore defaultStore]semesterArray])
-    {
+    MMSemester *semester = [[DataStore defaultStore] currentSemester];
         [writeString appendString:[NSString stringWithFormat:@"\n\n%@\n ",semester.name]];
         
         for (int i=0; i<[semester.subject count]; i++)
@@ -572,9 +571,6 @@ const char MyConstantKey;
             }
             [writeString appendString:@"\t\n\n"];
         }
-        
-    }
-    
     
     NSFileHandle *handle;
     //Sagt, wo das File gelesen werden soll
@@ -590,7 +586,7 @@ const char MyConstantKey;
     [mailer setSubject:@"MyMarks"];
     [mailer addAttachmentData:[NSData dataWithContentsOfFile:[self dataFilePath] ]
                      mimeType:@"text/csv"
-                     fileName:@"MyMarks.csv"];
+                     fileName:[NSString stringWithFormat:@"%@.csv",semester.name]];
     [self presentViewController:mailer animated:YES completion:nil];
 }
 
