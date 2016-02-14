@@ -29,7 +29,7 @@
             tapLabel = [[UILabel alloc] initWithFrame:CGRectMake(-50, 12, 200, 50)];
             [tapLabel setTextAlignment:NSTextAlignmentCenter];
             [tapLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
-            [tapLabel setText:@"Tap to switch"];
+            [tapLabel setText:NSLocalizedString(@"Tap to switch", nil)];
             [tapLabel setTextColor:[UIColor whiteColor]];
             [self addSubview:tapLabel];
         } else
