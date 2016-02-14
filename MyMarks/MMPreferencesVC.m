@@ -41,12 +41,6 @@
     
     //Rechtes BarbuttonItem setzen
     [self.navigationItem setRightBarButtonItem:[[MMBarButtonItem alloc]initWithText:NSLocalizedString(@"Done", nil) target:self Position:PTRight] animated:YES];
-    
-    
-
-    
-    //**Google Analytics**//
-//    [MMFactory initGoogleAnalyticsForClass:self];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

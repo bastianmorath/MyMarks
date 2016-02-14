@@ -15,7 +15,6 @@
 +(NSDate *)NSDateFromString:(NSString*)string;
 +(UIView *)navigationViewForString:(NSString *)string;
 +(UIBarButtonItem *)backBarButtonItemForClass:(id)class;
-//+(void)initGoogleAnalyticsForClass:(id)class;
 +(float)heightForIndexPath:(NSIndexPath *)indexPath;
 +(float)heightOfRow;
 +(int)numberOfRows;

@@ -58,9 +58,6 @@
     
     //Done-Button wird deaktiviert
     [self updateDoneBarButton];
-    
-    //**Google Analytics**//
-//    [MMFactory initGoogleAnalyticsForClass:self];
 }
 
 -(void)setupTextFields{

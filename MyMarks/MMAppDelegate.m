@@ -16,21 +16,6 @@ NSString * const Version_1_1_2 = @"1.1.2";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    //**Google Analytics**//
-//    // Optional: automatically send uncaught exceptions to Google Analytics.
-//    [GAI sharedInstance].trackUncaughtExceptions = YES;
-//    
-//    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
-//    [GAI sharedInstance].dispatchInterval = 30;
-//
-//    // Optional: set Logger to VERBOSE for debug information.
-//    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
-//    
-//    // Initialize tracker. Replace with your tracking ID.
-//    [[GAI sharedInstance] trackerWithTrackingId:@"UA-54555153-1"];
-//
-//    [MMFactory initGoogleAnalyticsForClass:self];
-
     
     //Diese Methode wird nur das aller erste Mal im "Lebenszyklus" der App durchlaufen. Es werden vordefinierte Fächer hinzugefügt.
     /*Dispatch once*/
@@ -53,22 +38,6 @@ NSString * const Version_1_1_2 = @"1.1.2";
         
         // Set Grading: Average + Pluspoints as default
         [[NSUserDefaults standardUserDefaults] setObject:@1 forKey:@"grading"];
-
-        
-//        //**Google Analytics**//
-//        
-//        // May return nil if a tracker has not already been initialized with a
-//        // property ID.
-//        id tracker = [[GAI sharedInstance] defaultTracker];
-//      
-//        [tracker setAllowIDFACollection:YES];
-//        // This screen name value will remain set on the tracker and sent with
-//        // hits until it is set to a new value or to nil.
-//        [tracker set:kGAIScreenName
-//               value:@"New User: App Delegate"];
-//        
-//        // New SDK versions
-//        [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     }
 
     

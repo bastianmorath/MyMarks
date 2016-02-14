@@ -51,9 +51,6 @@
         [self showAlertViewToAddSemester];
     }
     
-//    //**Google Analytics**//
-//    [MMFactory initGoogleAnalyticsForClass:self];
-    
     
     //Long Tap Gesture hinzufügen. Wird länger auf eine Cell gedrückt, kann sie editiert werden
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
