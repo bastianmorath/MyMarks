@@ -27,7 +27,7 @@
 
     //NavigationBar Background setzen
     UIView *addStatusBar = [[UIView alloc] init];
-    addStatusBar.frame = CGRectMake(0, 0, 320, 20);
+    addStatusBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 20);
     [addStatusBar setBackgroundColor:[MMFactory blueColor]];
     [self.navigationController.view addSubview:addStatusBar];
     [self.navigationController.navigationBar setBackgroundColor:[MMFactory blueColor]];
