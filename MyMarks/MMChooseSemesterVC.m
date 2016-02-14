@@ -12,7 +12,7 @@
 {
     
     NSIndexPath *currentIndexPathToDelete;
-    const char MyConstantKey;
+    const void* MyConstantKey;
     
 }
 

@@ -89,7 +89,7 @@
         cell.userInteractionEnabled = YES;
         cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f];
         cell.textLabel.text = self.gradingArray[indexPath.row-1];
-        NSNumber *indexPathNumber = [NSNumber numberWithInt:indexPath.row-1];
+        NSNumber *indexPathNumber = [NSNumber numberWithInteger:indexPath.row-1];
         
         if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"grading"]isEqualToNumber:indexPathNumber])
         {
@@ -128,7 +128,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row <= self.gradingArray.count){
-        NSNumber *grading = [NSNumber numberWithInt:indexPath.row-1];
+        NSNumber *grading = [NSNumber numberWithInteger:indexPath.row-1];
         [[NSUserDefaults standardUserDefaults] setObject:grading forKey:@"grading"];
         [self.tableView reloadData];
     }

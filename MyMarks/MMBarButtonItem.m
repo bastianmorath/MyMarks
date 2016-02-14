@@ -10,6 +10,7 @@
 
 @implementation MMBarButtonItem
 
+@synthesize textLabel;
 
 -(instancetype)initWithText:(NSString*)text target:(id)class Position:(enum ATPosition)position
 {
@@ -22,15 +23,13 @@
 
         self.position=position;
 
-
-        self.textLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 13, 80, 15)];
-        self.textLabel.text = text;
-        [self.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
-        self.textLabel.textColor= [UIColor whiteColor];
-        [button addSubview:self.textLabel];
+        textLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 13, 80, 15)];
+        textLabel.text = text;
+        [textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
+        textLabel.textColor= [UIColor whiteColor];
+        [button addSubview:textLabel];
  
         self = [super initWithCustomView:button];
-
 
     }
         return self;

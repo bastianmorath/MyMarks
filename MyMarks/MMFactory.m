@@ -75,9 +75,11 @@ const int NumberOfRowsForIPad = 11;
     label.textColor=[UIColor whiteColor];
     [label setNumberOfLines:1];
     CGSize maximumLabelSize = CGSizeMake(9999,label.frame.size.height);
-    CGSize labelSize = [label.text sizeWithFont:[label font]
-                              constrainedToSize:maximumLabelSize
-                                  lineBreakMode:[label lineBreakMode]];
+    CGRect textRect = [label.text boundingRectWithSize:maximumLabelSize
+                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                      attributes:@{NSFontAttributeName:[label font]}
+                                         context:nil];
+    CGSize labelSize = textRect.size;
     [customTitleView setFrame:CGRectMake(-(labelSize.width/2), 0, labelSize.width, labelSize.height)];
     [label setFrame:CGRectMake(0, 0, labelSize.width, labelSize.height)];
     [customTitleView addSubview:label];

@@ -19,7 +19,7 @@
 
 @implementation MMSubjectsVC
 
-const char MyConstantKey;
+const void* MyConstantKey;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -64,10 +64,6 @@ const char MyConstantKey;
     //Schwarzer Strich am unteren Ende der Navigationbar entfernen
     [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
-
-    //"Zurück-Button"-Titel des Navigation-Controllers ändern
-    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backArrow.png"] style:UIBarButtonItemStylePlain target:self action:@selector(backPressed)];
-    [[self navigationItem] setBackBarButtonItem: newBackButton];
     
     //Background auf eine Grundfarbe setzen, damit zum Beispiel beim Zeilen-Verschieben kein weisser Hintergrund zu sehen ist
     self.view.backgroundColor = [MMFactory blueColor];
@@ -76,10 +72,6 @@ const char MyConstantKey;
     self.navigationViewButton = [[MMNavigationViewButton alloc]initWithTarget:self];;
     self.navigationItem.titleView = self.navigationViewButton;
 
-    //**Google Analytics**//
-//    [MMFactory initGoogleAnalyticsForClass:self];
-    
-    
     //Long Tap Gesture hinzufügen. Wird länger auf eine Cell gedrückt, kann sie editiert werden
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
@@ -92,8 +84,6 @@ const char MyConstantKey;
 #pragma mark - GetterMethoden
 
 //Diese Methode gibt den Array mit den Fächer zurück
-
-
 -(void)updateSubjectArray;
 {
     self.subjectArray =  [[DataStore defaultStore] subjectArray];
@@ -237,8 +227,8 @@ const char MyConstantKey;
 //Diese Methode wird aufgerufen, wenn eine Zelle verschoben wird
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
-    NSUInteger sourceIndex = [sourceIndexPath row];
-    NSUInteger destinationIndex = [destinationIndexPath row];
+    NSInteger sourceIndex = [sourceIndexPath row];
+    NSInteger destinationIndex = [destinationIndexPath row];
     
     
     //Die Verschiebung der Zellen wird auch im Datenspeicher  geändert
@@ -251,7 +241,7 @@ const char MyConstantKey;
     
 }
 
--(void)insertSubjectFromPosition:(int)sourceIndex ToPosition:(int)destinationIndex{
+-(void)insertSubjectFromPosition:(NSInteger)sourceIndex ToPosition:(NSInteger)destinationIndex{
     //Temporärer Array erstellen, um die Veschiebung einfacher zu machen. Am Schluss werden die 'Positions' wieder updated
     NSMutableArray *array = [[NSMutableArray alloc]initWithArray:self.subjectArray];
     

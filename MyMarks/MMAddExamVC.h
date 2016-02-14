@@ -35,8 +35,4 @@
 
 @property (strong, nonatomic)  MMBarButtonItem *doneBarButton;
 
-
-- (IBAction)cancelPressed:(id)sender;
-- (IBAction)donePressed:(id)sender;
-
 @end

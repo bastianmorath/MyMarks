@@ -12,17 +12,17 @@
 
 
 /*ButtonType*/
-typedef enum buttonType {
+enum buttonType {
     BTAverage,
     BTPluspoints,
 };
 
-typedef enum ATPosition{
+enum ATPosition{
     PTLeft,
     PTRight
 };
 
-typedef enum GradingType{
+enum GradingType{
     kAverage,
     kAverageAndPluspoints,
     kNumberOfObjects

@@ -166,7 +166,7 @@ static DataStore *defaultStore;
         subject.weighting = @1;
     }
     //Die Prüfung wird an letzter Position eingefügt
-    subject.position = [NSNumber numberWithInt:[[self subjectArray]count]];
+    subject.position = [NSNumber numberWithInteger:[[self subjectArray]count]];
     
     //Die Prüfung wird dem Semester hinzugefügt
     [semester addSubjectObject:subject];
