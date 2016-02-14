@@ -20,10 +20,10 @@ const int NumberOfRowsForIPad = 11;
 
 
 +(UIBarButtonItem *)appIconItem{
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     UIImage* appImage = [UIImage imageNamed:@"App Icon.png"];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     [imageView setImage:appImage];
-    
+
     UIBarButtonItem *showIcon =[[UIBarButtonItem alloc] initWithCustomView:imageView];
     return showIcon;
 }
