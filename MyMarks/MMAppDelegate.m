@@ -10,10 +10,6 @@
 #
 @implementation MMAppDelegate
 
-NSString * const Version_1_1_1 = @"1.1.1";
-NSString * const Version_1_1_2 = @"1.1.2";
-
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
@@ -25,7 +21,7 @@ NSString * const Version_1_1_2 = @"1.1.2";
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Started"];
         
         // Grading-Type: 0 als default-Value setzen ( Es wird der Durchschnitt angezeigt
-        [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"grading"];
+        [[NSUserDefaults standardUserDefaults] setObject:@1 forKey:@"grading"];
 
         //Wenn der User mehr als 10 mal den Button im MMSubjectVC drückt, wir der entfernt
         [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"tapCounter"];

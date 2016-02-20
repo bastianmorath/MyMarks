@@ -40,7 +40,6 @@ const void* MyConstantKey;
     [self updateSubjectArray];
     [self.navigationViewButton update];
     [self.tableView reloadData];
-
 }
 
 -(void)viewDidLoad
